@@ -1,7 +1,7 @@
 .App {
   text-align: center;
   background-color: #1F1F1F;
-  height: 100vh;
+  height: 100%;
 }
 @media only screen and (max-width: 768px) {
   /* For mobile phones: */
@@ -10,6 +10,6 @@
     display: flex;
     flex-direction: column;
     justify-content: space-between;
-    height: 100vh;
+    height: 100%;
   }
 }
