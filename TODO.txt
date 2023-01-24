@@ -2,13 +2,27 @@
 ________________________________________________
                      TODO
 ________________________________________________
-
+    UI/FRONTEND
+    ¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯
     - Implement camera flip function
     - Implement gallery dialog
     - Replace webcam with captured image on capture
     - Add ability to add text bar to image
-    
-
+    - Improve basic bar design
+    - Add custom icons
+    - Add google sign-in
+    - Complete Notification pane design
+    - Complete Friends Pane design
+    - Complete Settings Pane design
+    - Complete Avatar/Profile pane design
+    -
+    ____________________________________________
+    BACKEND/Firebase
+    ¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯
+    - Setup basic firebase project
+    - setup firestore
+    - setup cloud storage
+    - 
 ________________________________________________
                      BUGS
 ________________________________________________
