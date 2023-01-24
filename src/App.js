@@ -7,7 +7,7 @@ import ArrowForwardIcon from "@mui/icons-material/ArrowForward";
 import FlipCameraAndroidIcon from "@mui/icons-material/FlipCameraAndroid";
 import PhotoLibraryIcon from "@mui/icons-material/PhotoLibrary";
 import "./App.css";
-import { Avatar, Button, ButtonBase } from "@mui/material";
+import { Avatar, Button, ButtonBase, IconButton } from "@mui/material";
 import { useCallback, useEffect, useRef, useState } from "react";
 import Webcam from "react-webcam";
 import WebcamComponent from "./components/WebcamComponent";
@@ -33,7 +33,9 @@ function App() {
     }
     return;
   }
+  const galleryEvent = (e) => {
 
+  }
   useEffect(() => {
     const handleResizeWindow = () => {
       setWidth(window.innerWidth);
@@ -87,16 +89,19 @@ function App() {
           <FlipCameraAndroidIcon sx={{ color:'white', height: "30px", width: "30px" }} />
         </ButtonBase>
         <ButtonBase
+          aria-label="upload picture"
+          component='label'
           sx={{
             position: "absolute",
             top: "105px",
             left: "20px",
             opacity: "54%",
             zIndex: 5,
-          }}
-        >
+          }}>
+          <input hidden accept="image/*" type="file" />
           <PhotoLibraryIcon sx={{ color:'white', height: "30px", width: "30px" }} />
         </ButtonBase>
+        
       </Box>
       <WebcamComponent cameraRef={cameraRef} facingMode={facingMode} />
       <Box
