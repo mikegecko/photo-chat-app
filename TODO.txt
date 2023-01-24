@@ -4,7 +4,7 @@ ________________________________________________
 ________________________________________________
     UI/FRONTEND
     ¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯
-    - Implement camera flip function
+    
     - Implement gallery dialog
     - Replace webcam with captured image on capture
     - Add ability to add text bar to image
@@ -36,3 +36,4 @@ ________________________________________________
 
     ✅  Camera displays on page
     ✅  Can take photos
+    ✅ Implement camera flip function

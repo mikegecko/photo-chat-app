@@ -16,6 +16,7 @@ function App() {
   const [width, setWidth] = useState(window.innerWidth);
   const [height, setHeight] = useState(window.innerWidth);
   const [capture, setCapture] = useState(false);
+  const [facingMode, setFacingMode] = useState('user');
   const breakpoint = 768;
   const cameraRef = useRef(null);
 
@@ -23,6 +24,15 @@ function App() {
     const imgSrc = cameraRef.current.getScreenshot();
     setCapture(imgSrc);
   };
+  const switchCameraEvent = (e) => {
+    if(facingMode === 'user'){
+      setFacingMode('environment');
+    }
+    else if(facingMode === 'environment'){
+      setFacingMode('user');
+    }
+    return;
+  }
 
   useEffect(() => {
     const handleResizeWindow = () => {
@@ -65,29 +75,30 @@ function App() {
       </Box>
       <Box sx={{ display: "flex" }}>
         <ButtonBase
+          onClick={switchCameraEvent}
           sx={{
             position: "absolute",
             top: "105px",
             right: "20px",
-            opacity: "64%",
+            opacity: "54%",
             zIndex: 5,
           }}
         >
-          <FlipCameraAndroidIcon sx={{ height: "30px", width: "30px" }} />
+          <FlipCameraAndroidIcon sx={{ color:'white', height: "30px", width: "30px" }} />
         </ButtonBase>
         <ButtonBase
           sx={{
             position: "absolute",
             top: "105px",
             left: "20px",
-            opacity: "64%",
+            opacity: "54%",
             zIndex: 5,
           }}
         >
-          <PhotoLibraryIcon sx={{ height: "30px", width: "30px" }} />
+          <PhotoLibraryIcon sx={{ color:'white', height: "30px", width: "30px" }} />
         </ButtonBase>
       </Box>
-      <WebcamComponent cameraRef={cameraRef} />
+      <WebcamComponent cameraRef={cameraRef} facingMode={facingMode} />
       <Box
         sx={{
           height: "80px",
