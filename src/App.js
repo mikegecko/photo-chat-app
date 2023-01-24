@@ -34,7 +34,8 @@ function App() {
     return;
   }
   const galleryEvent = (e) => {
-
+    let src = URL.createObjectURL(e.target.files[0])
+    setCapture(src);  
   }
   useEffect(() => {
     const handleResizeWindow = () => {
@@ -52,7 +53,6 @@ function App() {
     return <div className="App"></div>;
   }
   //Mobile View
-  //FIX: Webcam width and height
   return (
     <div className="App">
       <Box
@@ -98,12 +98,12 @@ function App() {
             opacity: "54%",
             zIndex: 5,
           }}>
-          <input hidden accept="image/*" type="file" />
+          <input hidden accept="image/*" type="file" onChange={galleryEvent} />
           <PhotoLibraryIcon sx={{ color:'white', height: "30px", width: "30px" }} />
         </ButtonBase>
         
       </Box>
-      <WebcamComponent cameraRef={cameraRef} facingMode={facingMode} />
+      {capture ? <img src={capture} /> : <WebcamComponent cameraRef={cameraRef} facingMode={facingMode} />}
       <Box
         sx={{
           height: "80px",

@@ -2,10 +2,14 @@
 ________________________________________________
                      TODO
 ________________________________________________
+    Current Tasks
+    ¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯
+    - Hide camera controls when viewing capture
+    - Make 'x' control for clearing capture state
+    
     UI/FRONTEND
     ¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯
-    
-    
+    - 
     - Replace webcam with captured image on capture
     - Add ability to add text bar to image
     - Improve basic bar design
@@ -15,7 +19,7 @@ ________________________________________________
     - Complete Friends Pane design
     - Complete Settings Pane design
     - Complete Avatar/Profile pane design
-    -
+    - 
     ____________________________________________
     BACKEND/Firebase
     ¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯
@@ -28,7 +32,6 @@ ________________________________________________
 ________________________________________________
 
     - Fix webcam size not fitting to mobile size
-
 
 ________________________________________________
               COMPLETED FEATURES
