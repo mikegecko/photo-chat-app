@@ -1,0 +1,24 @@
+✅ ❌ ⚠️ 🔴 🟠 🟡 🟢 ⚫ ⚪ 🔵
+________________________________________________
+                     TODO
+________________________________________________
+
+    - Implement camera flip function
+    - Implement gallery dialog
+    - Replace webcam with captured image on capture
+    - Add ability to add text bar to image
+    
+
+________________________________________________
+                     BUGS
+________________________________________________
+
+    - Fix webcam size not fitting to mobile size
+
+
+________________________________________________
+              COMPLETED FEATURES
+________________________________________________
+
+    ✅  Camera displays on page
+    ✅  Can take photos
