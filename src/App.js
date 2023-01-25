@@ -43,24 +43,25 @@ import {
 import { getMessaging, getToken, onMessage } from 'firebase/messaging';
 import { getPerformance } from 'firebase/performance';
 import Login from "./components/Login";
+import { useSignInWithGoogle } from 'react-firebase-hooks/auth';
 
 // Initialize Firebase
 export const app = initializeApp(firebaseConfig);
+const auth = getAuth(app);
 
 function App() {
   const [width, setWidth] = useState(window.innerWidth);
   const [height, setHeight] = useState(window.innerWidth);
   const [capture, setCapture] = useState(null);
   const [facingMode, setFacingMode] = useState('user');
-  const [loading,setLoading] = useState(false);
   const [hideLogin, setHideLogin] = useState(false);
+  const [signInWithGoogle , user , loading , error] = useSignInWithGoogle(auth);
   const breakpoint = 768;
   const cameraRef = useRef(null);
 
   
   const clearCaptureEvent = (e) => {
     setCapture(null);
-    
   }
   const captureEvent = (e) => {
     const imgSrc = cameraRef.current.getScreenshot();
@@ -80,9 +81,9 @@ function App() {
     setCapture(src);  
   }
   const loginEvent = (e) => {
-    setLoading(true);
-    
+    signInWithGoogle();
   }
+
   useEffect(() => {
     const handleResizeWindow = () => {
       setWidth(window.innerWidth);
@@ -93,9 +94,12 @@ function App() {
       window.removeEventListener("resize", handleResizeWindow);
     };
   }, []);
-  useEffect(()=> {
-    signIn();
-  },[loading])
+  useEffect(() => {
+    console.log(user);
+    if(user){
+      setHideLogin(true);
+    }
+  },[user])
 
   if (width > breakpoint) {
     //Desktop view
@@ -120,7 +124,7 @@ function App() {
             sx={{ color: "white", height: "40px", width: "40px" }}
           />
         </ButtonBase>
-        <Avatar />
+        <Avatar src={user ? user.user.photoURL : null} />
         <ButtonBase>
           <PeopleIcon sx={{ color: "white", height: "40px", width: "40px" }} />
         </ButtonBase>
@@ -185,55 +189,4 @@ function App() {
   );
 }
 
-async function signIn() {
-  // Sign in Firebase using popup auth and Google as the identity provider.
-  var provider = new GoogleAuthProvider();
-  await signInWithPopup(getAuth(), provider);
-}
-function signOutUser() {
-  // Sign out of Firebase.
-  signOut(getAuth());
-}
-function initFirebaseAuth() {
-  // Listen to auth state changes.
-  onAuthStateChanged(getAuth(), authStateObserver);
-}
-function authStateObserver(user) {
-  if (user) { // User is signed in!
-    // Get the signed-in user's profile pic and name.
-    var profilePicUrl = getProfilePicUrl();
-    var userName = getUserName();
-
-    // Set the user's profile pic and name.
-    // userPicElement.style.backgroundImage = 'url(' + addSizeToGoogleProfilePic(profilePicUrl) + ')';
-    // userNameElement.textContent = userName;
-
-    // Show user's profile and sign-out button.
-    // userNameElement.removeAttribute('hidden');
-    // userPicElement.removeAttribute('hidden');
-    // signOutButtonElement.removeAttribute('hidden');
-
-    // Hide sign-in button.
-    // signInButtonElement.setAttribute('hidden', 'true');
-
-    // We save the Firebase Messaging Device token and enable notifications.
-    // saveMessagingDeviceToken();
-  } else { // User is signed out!
-    // Hide user's profile and sign-out button.
-    // userNameElement.setAttribute('hidden', 'true');
-    // userPicElement.setAttribute('hidden', 'true');
-    // signOutButtonElement.setAttribute('hidden', 'true');
-
-    // Show sign-in button.
-    // signInButtonElement.removeAttribute('hidden');
-  }
-}
-// Returns the signed-in user's display name.
-function getUserName() {
-  return getAuth().currentUser.displayName;
-}
- // Returns the signed-in user's profile Pic URL.
- function getProfilePicUrl() {
-  return getAuth().currentUser.photoURL || '/images/profile_placeholder.png';
-}
 export default App;
