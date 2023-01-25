@@ -5,4 +5,6 @@ import { firebaseConfig } from "./components/config";
 // https://firebase.google.com/docs/web/setup#available-libraries
 
 // Initialize Firebase
-const app = initializeApp(firebaseConfig);
+export const app = initializeApp(firebaseConfig);
+
+//project name project-692863425286
