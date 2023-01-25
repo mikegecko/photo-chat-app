@@ -12,6 +12,8 @@ import { useCallback, useEffect, useRef, useState } from "react";
 import Webcam from "react-webcam";
 import WebcamComponent from "./components/WebcamComponent";
 import Capture from "./components/Capture";
+import { initializeApp } from "firebase/app";
+import { firebaseConfig } from "./components/config";
 import {
   getAuth,
   onAuthStateChanged,
@@ -40,18 +42,25 @@ import {
 } from 'firebase/storage';
 import { getMessaging, getToken, onMessage } from 'firebase/messaging';
 import { getPerformance } from 'firebase/performance';
+import Login from "./components/Login";
+
+// Initialize Firebase
+export const app = initializeApp(firebaseConfig);
 
 function App() {
   const [width, setWidth] = useState(window.innerWidth);
   const [height, setHeight] = useState(window.innerWidth);
   const [capture, setCapture] = useState(null);
   const [facingMode, setFacingMode] = useState('user');
+  const [loading,setLoading] = useState(false);
+  const [hideLogin, setHideLogin] = useState(false);
   const breakpoint = 768;
   const cameraRef = useRef(null);
 
   
   const clearCaptureEvent = (e) => {
     setCapture(null);
+    
   }
   const captureEvent = (e) => {
     const imgSrc = cameraRef.current.getScreenshot();
@@ -70,6 +79,10 @@ function App() {
     let src = URL.createObjectURL(e.target.files[0])
     setCapture(src);  
   }
+  const loginEvent = (e) => {
+    setLoading(true);
+    
+  }
   useEffect(() => {
     const handleResizeWindow = () => {
       setWidth(window.innerWidth);
@@ -80,6 +93,9 @@ function App() {
       window.removeEventListener("resize", handleResizeWindow);
     };
   }, []);
+  useEffect(()=> {
+    signIn();
+  },[loading])
 
   if (width > breakpoint) {
     //Desktop view
@@ -88,7 +104,7 @@ function App() {
   //Mobile View
   return (
     <div className="App">
-      
+      <Login loading={loading} hidden={hideLogin} loginHandler={loginEvent} />
       <Box
         sx={{
           height: "80px",
