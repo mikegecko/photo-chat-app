@@ -9,7 +9,6 @@ ________________________________________________
     UI/FRONTEND
     ¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯
     - 
-    - Replace webcam with captured image on capture
     - Add ability to add text bar to image
     - Improve basic bar design
     - Add custom icons
@@ -42,3 +41,4 @@ ________________________________________________
     ✅ Implement gallery dialog
     ✅ Hide camera controls when viewing capture
     ✅ Make 'x' control for clearing capture state
+    ✅ Replace webcam with captured image on capture

@@ -18,7 +18,6 @@ function App() {
   const [height, setHeight] = useState(window.innerWidth);
   const [capture, setCapture] = useState(null);
   const [facingMode, setFacingMode] = useState('user');
-  const [hideControls, setHideControls] = useState();
   const breakpoint = 768;
   const cameraRef = useRef(null);
 
@@ -53,19 +52,6 @@ function App() {
       window.removeEventListener("resize", handleResizeWindow);
     };
   }, []);
-  useEffect(() => {
-    const cameraControlDisplay = (e) => {
-      if(capture){
-        setHideControls('none');
-        console.log('hide');
-      }
-      else{
-        setHideControls('block');
-        console.log('show');
-      }
-    }
-    cameraControlDisplay();
-  }, [capture])
 
   if (width > breakpoint) {
     //Desktop view
