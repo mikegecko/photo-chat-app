@@ -4,8 +4,7 @@ ________________________________________________
 ________________________________________________
     Current Tasks
     ¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯
-    - Setup Google sign-in
-    - Add sign-in overlay
+    
     ________________________________________________
     UI/FRONTEND
     ¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯
@@ -13,7 +12,6 @@ ________________________________________________
     - Add ability to add text bar to image
     - Improve basic bar design
     - Add custom icons
-    - Add google sign-in
     - Complete Notification pane design
     - Complete Friends Pane design
     - Complete Settings Pane design
@@ -46,3 +44,5 @@ ________________________________________________
     ✅  Initialize firestore
     ✅  Initialize cloud storage
     ✅  Setup basic firebase project
+    ✅  Setup Google sign-in
+    ✅  Add sign-in overlay
