@@ -11,15 +11,21 @@ import { Avatar, Button, ButtonBase, IconButton } from "@mui/material";
 import { useCallback, useEffect, useRef, useState } from "react";
 import Webcam from "react-webcam";
 import WebcamComponent from "./components/WebcamComponent";
+import Capture from "./components/Capture";
 
 function App() {
   const [width, setWidth] = useState(window.innerWidth);
   const [height, setHeight] = useState(window.innerWidth);
-  const [capture, setCapture] = useState(false);
+  const [capture, setCapture] = useState(null);
   const [facingMode, setFacingMode] = useState('user');
+  const [hideControls, setHideControls] = useState();
   const breakpoint = 768;
   const cameraRef = useRef(null);
 
+  
+  const clearCaptureEvent = (e) => {
+    setCapture(null);
+  }
   const captureEvent = (e) => {
     const imgSrc = cameraRef.current.getScreenshot();
     setCapture(imgSrc);
@@ -47,6 +53,19 @@ function App() {
       window.removeEventListener("resize", handleResizeWindow);
     };
   }, []);
+  useEffect(() => {
+    const cameraControlDisplay = (e) => {
+      if(capture){
+        setHideControls('none');
+        console.log('hide');
+      }
+      else{
+        setHideControls('block');
+        console.log('show');
+      }
+    }
+    cameraControlDisplay();
+  }, [capture])
 
   if (width > breakpoint) {
     //Desktop view
@@ -75,10 +94,11 @@ function App() {
           <PeopleIcon sx={{ color: "white", height: "40px", width: "40px" }} />
         </ButtonBase>
       </Box>
-      <Box sx={{ display: "flex" }}>
+      <Box sx={{display:'flex'}}>
         <ButtonBase
           onClick={switchCameraEvent}
           sx={{
+            display: capture ? 'none' : 'block',
             position: "absolute",
             top: "105px",
             right: "20px",
@@ -92,18 +112,18 @@ function App() {
           aria-label="upload picture"
           component='label'
           sx={{
-            position: "absolute",
-            top: "105px",
-            left: "20px",
-            opacity: "54%",
-            zIndex: 5,
-          }}>
+          display: capture ? 'none' : 'block',
+          position: "absolute",
+          top: "105px",
+          left: "20px",
+          opacity: "54%",
+          zIndex: 5,}}>
           <input hidden accept="image/*" type="file" onChange={galleryEvent} />
           <PhotoLibraryIcon sx={{ color:'white', height: "30px", width: "30px" }} />
         </ButtonBase>
         
       </Box>
-      {capture ? <img src={capture} /> : <WebcamComponent cameraRef={cameraRef} facingMode={facingMode} />}
+      {capture ? <Capture capture={capture} closeEvent={clearCaptureEvent} /> : <WebcamComponent cameraRef={cameraRef} facingMode={facingMode} />}
       <Box
         sx={{
           height: "80px",
@@ -124,7 +144,7 @@ function App() {
             sx={{ color: "white", height: "70px", width: "70px" }}
           />
         </ButtonBase>
-        <ButtonBase>
+        <ButtonBase >
           <ArrowForwardIcon
             sx={{ color: "white", height: "40px", width: "40px" }}
           />

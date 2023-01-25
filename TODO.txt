@@ -4,13 +4,7 @@ ________________________________________________
 ________________________________________________
     Current Tasks
     ¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯
-    - Hide camera controls when viewing capture
-    - Make 'x' control for clearing capture state
-    - Maybe move camera controls and and webcam into
-        new component to make conditional rendering 
-        easier for capture (use a function in the 
-        parent to set capture state and pass to new component)
-    - 
+
     ________________________________________________
     UI/FRONTEND
     ¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯
@@ -46,3 +40,5 @@ ________________________________________________
     ✅  Can take photos
     ✅ Implement camera flip function
     ✅ Implement gallery dialog
+    ✅ Hide camera controls when viewing capture
+    ✅ Make 'x' control for clearing capture state
