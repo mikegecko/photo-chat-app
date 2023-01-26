@@ -102,9 +102,12 @@ export default function Login({ loading, hidden, loginHandler }) {
           loading={loading}
           sx={{
             position: 'absolute',
-          top:'60%',}}
+            top:'60%',
+            gap:'10px'
+          }}
         >
-          Sign-In with Google™
+          <img width="20px" alt="Google sign-in" src="https://upload.wikimedia.org/wikipedia/commons/thumb/5/53/Google_%22G%22_Logo.svg/512px-Google_%22G%22_Logo.svg.png" />
+          Sign-In with Google
         </LoadingButton>
       </Box>
     </ThemeProvider>
