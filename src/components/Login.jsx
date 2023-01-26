@@ -1,5 +1,6 @@
 import { LoadingButton } from "@mui/lab";
 import { createTheme, ThemeProvider } from "@mui/material";
+import { duration } from "@mui/material/styles/createTransitions";
 import { Box } from "@mui/system";
 import { motion } from "framer-motion";
 
@@ -19,12 +20,16 @@ export default function Login({ loading, hidden, loginHandler }) {
       },
     },
   });
+  const visible = {opacity: 1, y: 0, transition:{duration:0.5}};
+  
   const variantText = {
     hidden: {
-      opacity: 0
+      opacity: 0,
+      y: 10
     },
     visible: {
-      opacity: 1
+      opacity: 1,
+      y: 0,
     }
   };
   if (hidden) {
@@ -33,7 +38,6 @@ export default function Login({ loading, hidden, loginHandler }) {
   return (
     <ThemeProvider theme={theme}>
       <Box
-      
         sx={{
           display: "flex",
           flexDirection: "column",
@@ -48,25 +52,58 @@ export default function Login({ loading, hidden, loginHandler }) {
         }}
       >
           <Box
-            component={motion.div}
-            variants={variantText}
             initial='hidden'
             animate='visible'
-            transition={{ duration: 1 }}
+            variants={{hidden: {opacity: 0, y: -20}, visible}}
+            component={motion.div}
+            transition={{ duration: .5 }}
+            className='title'
             sx={{
+              position: 'absolute',
+              top:'30%',
+              fontFamily: 'Pacifico',
+              letterSpacing: '',
               padding: "3rem",
-              color: "white",
+              color: "transparent",
               fontWeight: "bold",
-              fontSize: 64,
+              fontSize: 72,
+            }}
+          >
+            PicFlo
+          </Box>
+          <Box
+            initial='hidden'
+            animate='visible'
+            variants={{hidden: {opacity: 0, y: -20}, visible}}
+            component={motion.div}
+            transition={{ duration: .5 }}
+            className='title2'
+            sx={{
+              position: 'absolute',
+              top:'30%',
+              fontFamily: 'Pacifico',
+              letterSpacing: '',
+              padding: "3rem",
+              color: "",
+              fontWeight: "bold",
+              fontSize: 72,
             }}
           >
             PicFlo
           </Box>
         <LoadingButton
+          initial='hidden'
+          animate='visible'
+          component={motion.button}
+          variants={variantText}
+          transition={{ duration: .5, delay:0.3 }}
           color="primary"
           onClick={loginHandler}
           variant="outlined"
           loading={loading}
+          sx={{
+            position: 'absolute',
+          top:'60%',}}
         >
           Sign-In with Google™
         </LoadingButton>
