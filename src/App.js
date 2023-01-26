@@ -111,6 +111,7 @@ function App() {
       <Login loading={loading} hidden={hideLogin} loginHandler={loginEvent} />
       <Box
         sx={{
+          minHeight:"80px",
           height: "80px",
           width: "100%",
           bgcolor: "#004D9B",
@@ -161,6 +162,7 @@ function App() {
       {capture ? <Capture capture={capture} closeEvent={clearCaptureEvent} /> : <WebcamComponent cameraRef={cameraRef} facingMode={facingMode} />}
       <Box
         sx={{
+          minHeight:"80px",
           height: "80px",
           width: "100%",
           bgcolor: "#004D9B",

@@ -8,9 +8,9 @@ ________________________________________________
     ________________________________________________
     UI/FRONTEND
     ¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯
-    - 
+    
     - Add ability to add text bar to image
-    - Improve basic bar design
+    - Redesign App UI bars
     - Add custom icons
     - Complete Notification pane design
     - Complete Friends Pane design
@@ -28,7 +28,7 @@ ________________________________________________
                      BUGS
 ________________________________________________
 
-    - Fix webcam size not fitting to mobile size
+    - Fix webcam component size not fitting to mobile size
 
 ________________________________________________
               COMPLETED FEATURES
@@ -46,3 +46,4 @@ ________________________________________________
     ✅  Setup basic firebase project
     ✅  Setup Google sign-in
     ✅  Add sign-in overlay
+    ✅  Redesign Sign-In page

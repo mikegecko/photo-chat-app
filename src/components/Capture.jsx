@@ -1,9 +1,10 @@
 import { ButtonBase } from "@mui/material";
 import CloseIcon from "@mui/icons-material/Close";
+import { Box } from "@mui/system";
 
 export default function Capture({ capture, closeEvent }) {
   return (
-    <div>
+    <Box>
       <ButtonBase
         onClick={closeEvent}
         sx={{
@@ -16,7 +17,7 @@ export default function Capture({ capture, closeEvent }) {
       >
         <CloseIcon sx={{ color: "white", height: "30px", width: "30px" }} />
       </ButtonBase>
-      <img src={capture} alt="taken pic" />
-    </div>
+      <img className="capture" src={capture} alt="taken pic" />
+      </Box>
   );
 }
