@@ -1,6 +1,5 @@
 import { LoadingButton } from "@mui/lab";
 import { createTheme, ThemeProvider } from "@mui/material";
-import { duration } from "@mui/material/styles/createTransitions";
 import { Box } from "@mui/system";
 import { motion } from "framer-motion";
 
