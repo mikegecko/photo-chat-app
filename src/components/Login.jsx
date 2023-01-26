@@ -55,7 +55,7 @@ export default function Login({ loading, hidden, loginHandler }) {
             animate='visible'
             variants={{hidden: {opacity: 0, y: -20}, visible}}
             component={motion.div}
-            transition={{ duration: .5 }}
+            transition={{ duration: .7 }}
             className='title'
             sx={{
               position: 'absolute',
@@ -75,7 +75,7 @@ export default function Login({ loading, hidden, loginHandler }) {
             animate='visible'
             variants={{hidden: {opacity: 0, y: -20}, visible}}
             component={motion.div}
-            transition={{ duration: .5 }}
+            transition={{ duration: .7 }}
             className='title2'
             sx={{
               position: 'absolute',
