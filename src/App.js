@@ -44,6 +44,7 @@ import { getMessaging, getToken, onMessage } from 'firebase/messaging';
 import { getPerformance } from 'firebase/performance';
 import Login from "./components/Login";
 import { useSignInWithGoogle } from 'react-firebase-hooks/auth';
+import Profile from "./components/Profile";
 
 // Initialize Firebase
 export const app = initializeApp(firebaseConfig);
@@ -56,16 +57,40 @@ function App() {
   const [facingMode, setFacingMode] = useState('user');
   const [hideLogin, setHideLogin] = useState(false);
   const [signInWithGoogle , user , loading , error] = useSignInWithGoogle(auth);
+  const [appPage, setAppPage] = useState('camera');
   const breakpoint = 768;
   const cameraRef = useRef(null);
 
-  
+  const pageSelector = () => {
+    
+    switch (appPage) {
+      case 'camera':
+        return(<WebcamComponent cameraRef={cameraRef} facingMode={facingMode} />)
+        break;
+      case 'capture':
+        if(capture){
+          return(<Capture capture={capture} closeEvent={clearCaptureEvent} />)
+        }
+        break;
+      case 'profile':
+        return(<Profile />);
+        break;
+      case 3:
+        
+        break;
+      default:
+        return(<WebcamComponent cameraRef={cameraRef} facingMode={facingMode} />);
+        break;
+    }
+  }
   const clearCaptureEvent = (e) => {
     setCapture(null);
+    setAppPage('camera');
   }
   const captureEvent = (e) => {
     const imgSrc = cameraRef.current.getScreenshot();
     setCapture(imgSrc);
+    setAppPage('capture');
   };
   const switchCameraEvent = (e) => {
     if(facingMode === 'user'){
@@ -78,12 +103,15 @@ function App() {
   }
   const galleryEvent = (e) => {
     let src = URL.createObjectURL(e.target.files[0])
-    setCapture(src);  
+    setCapture(src);
+    setAppPage('capture');  
   }
   const loginEvent = (e) => {
     signInWithGoogle();
   }
-
+  const profileEvent = (e) => {
+    setAppPage('profile');
+  }
   useEffect(() => {
     const handleResizeWindow = () => {
       setWidth(window.innerWidth);
@@ -125,7 +153,9 @@ function App() {
             sx={{ color: "white", height: "40px", width: "40px" }}
           />
         </ButtonBase>
-        <Avatar src={user ? user.user.photoURL : null} />
+        <ButtonBase onClick={profileEvent} >
+          <Avatar sx={{height:'52px', width: '52px'}} src={user ? user.user.photoURL : null} />
+        </ButtonBase>
         <ButtonBase>
           <PeopleIcon sx={{ color: "white", height: "40px", width: "40px" }} />
         </ButtonBase>
@@ -159,7 +189,8 @@ function App() {
         </ButtonBase>
         
       </Box>
-      {capture ? <Capture capture={capture} closeEvent={clearCaptureEvent} /> : <WebcamComponent cameraRef={cameraRef} facingMode={facingMode} />}
+      {pageSelector()}
+      {/* {capture ? <Capture capture={capture} closeEvent={clearCaptureEvent} /> : <WebcamComponent cameraRef={cameraRef} facingMode={facingMode} />} */}
       <Box
         sx={{
           minHeight:"80px",
