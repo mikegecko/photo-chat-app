@@ -45,6 +45,7 @@ import { getPerformance } from 'firebase/performance';
 import Login from "./components/Login";
 import { useSignInWithGoogle } from 'react-firebase-hooks/auth';
 import Profile from "./components/Profile";
+import Settings from "./components/Settings";
 
 // Initialize Firebase
 export const app = initializeApp(firebaseConfig);
@@ -83,7 +84,7 @@ function App() {
 
         break;
       case 'settings':
-
+        return(<Settings />)
         break;
       default:
         return(<WebcamComponent cameraRef={cameraRef} facingMode={facingMode} />);
@@ -126,6 +127,10 @@ function App() {
   }
   const profileEvent = (e) => {
     setAppPage('profile');
+    setCameraControls(false);
+  }
+  const settingsEvent = (e) => {
+    setAppPage('settings');
     setCameraControls(false);
   }
   useEffect(() => {
@@ -229,7 +234,7 @@ function App() {
           justifyContent: "space-around",
         }}
       >
-        <ButtonBase>
+        <ButtonBase onClick={settingsEvent}>
           <SettingsIcon
             sx={{ color: "white", height: "40px", width: "40px" }}
           />
