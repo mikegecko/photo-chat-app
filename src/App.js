@@ -75,7 +75,7 @@ function App() {
         }
         break;
       case 'profile':
-        return(<Profile />);
+        return(<Profile user={user} />);
         break;
       case 'friends':
         
