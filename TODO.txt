@@ -8,7 +8,7 @@ ________________________________________________
     ________________________________________________
     UI/FRONTEND
     ¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯
-    
+    - Add water wave transition between pages
     - Add ability to add text bar to image
     - Redesign App UI bars
     - Add custom icons
@@ -16,7 +16,7 @@ ________________________________________________
     - Complete Friends Pane design
     - Complete Settings Pane design
     - Complete Avatar/Profile pane design
-    - 
+    
     ____________________________________________
     BACKEND/Firebase
     ¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯

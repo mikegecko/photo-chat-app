@@ -58,6 +58,7 @@ function App() {
   const [hideLogin, setHideLogin] = useState(false);
   const [signInWithGoogle , user , loading , error] = useSignInWithGoogle(auth);
   const [appPage, setAppPage] = useState('camera');
+  const [cameraControls, setCameraControls] = useState(true);
   const breakpoint = 768;
   const cameraRef = useRef(null);
 
@@ -65,7 +66,7 @@ function App() {
     
     switch (appPage) {
       case 'camera':
-        return(<WebcamComponent cameraRef={cameraRef} facingMode={facingMode} />)
+        return(<WebcamComponent cameraRef={cameraRef} facingMode={facingMode} switchCameraEvent={switchCameraEvent} galleryEvent={galleryEvent} />)
         break;
       case 'capture':
         if(capture){
@@ -75,8 +76,14 @@ function App() {
       case 'profile':
         return(<Profile />);
         break;
-      case 3:
+      case 'friends':
         
+        break;
+      case 'notifications':
+
+        break;
+      case 'settings':
+
         break;
       default:
         return(<WebcamComponent cameraRef={cameraRef} facingMode={facingMode} />);
@@ -86,11 +93,18 @@ function App() {
   const clearCaptureEvent = (e) => {
     setCapture(null);
     setAppPage('camera');
+    setCameraControls(true);
   }
   const captureEvent = (e) => {
-    const imgSrc = cameraRef.current.getScreenshot();
-    setCapture(imgSrc);
-    setAppPage('capture');
+    if(appPage !== 'camera'){
+      clearCaptureEvent();
+    }
+    else{
+      const imgSrc = cameraRef.current.getScreenshot();
+      setCapture(imgSrc);
+      setAppPage('capture');
+      setCameraControls(false);
+    }
   };
   const switchCameraEvent = (e) => {
     if(facingMode === 'user'){
@@ -104,13 +118,15 @@ function App() {
   const galleryEvent = (e) => {
     let src = URL.createObjectURL(e.target.files[0])
     setCapture(src);
-    setAppPage('capture');  
+    setAppPage('capture');
+    setCameraControls(false);
   }
   const loginEvent = (e) => {
     signInWithGoogle();
   }
   const profileEvent = (e) => {
     setAppPage('profile');
+    setCameraControls(false);
   }
   useEffect(() => {
     const handleResizeWindow = () => {
@@ -146,6 +162,7 @@ function App() {
           display: "flex",
           alignItems: "center",
           justifyContent: "space-around",
+          zIndex: 2,
         }}
       >
         <ButtonBase>
@@ -160,11 +177,11 @@ function App() {
           <PeopleIcon sx={{ color: "white", height: "40px", width: "40px" }} />
         </ButtonBase>
       </Box>
-      <Box sx={{display:'flex'}}>
+      <Box>
         <ButtonBase
           onClick={switchCameraEvent}
           sx={{
-            display: capture ? 'none' : 'block',
+            display: cameraControls ? 'block' : 'none',
             position: "absolute",
             top: "105px",
             right: "20px",
@@ -172,22 +189,32 @@ function App() {
             zIndex: 5,
           }}
         >
-          <FlipCameraAndroidIcon sx={{ color:'white', height: "30px", width: "30px" }} />
+          <FlipCameraAndroidIcon
+            sx={{ color: "white", height: "30px", width: "30px" }}
+          />
         </ButtonBase>
         <ButtonBase
           aria-label="upload picture"
-          component='label'
+          component="label"
           sx={{
-          display: capture ? 'none' : 'block',
-          position: "absolute",
-          top: "105px",
-          left: "20px",
-          opacity: "54%",
-          zIndex: 5,}}>
-          <input hidden accept="image/*" type="file" onChange={galleryEvent} />
-          <PhotoLibraryIcon sx={{ color:'white', height: "30px", width: "30px" }} />
+            display: cameraControls ? 'block' : 'none',
+            position: "absolute",
+            top: "105px",
+            left: "20px",
+            opacity: "54%",
+            zIndex: 5,
+          }}
+        >
+          <input
+            hidden
+            accept="image/*"
+            type="file"
+            onChange={galleryEvent}
+          />
+          <PhotoLibraryIcon
+            sx={{ color: "white", height: "30px", width: "30px" }}
+          />
         </ButtonBase>
-        
       </Box>
       {pageSelector()}
       {/* {capture ? <Capture capture={capture} closeEvent={clearCaptureEvent} /> : <WebcamComponent cameraRef={cameraRef} facingMode={facingMode} />} */}
