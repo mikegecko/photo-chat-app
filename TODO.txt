@@ -4,7 +4,9 @@ ________________________________________________
 ________________________________________________
     Current Tasks
     ¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯
-    
+    🔴 figure out how to send images and text between users
+    🟡 figure out what the difference between settings and profile will be
+    🟠 work on design for profile/settings/friends pages
     ________________________________________________
     UI/FRONTEND
     ¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯
@@ -23,12 +25,12 @@ ________________________________________________
     
     - setup firestore structure
     - setup cloud storage structure
-    - 
+    
 ________________________________________________
                      BUGS
 ________________________________________________
 
-    - Fix webcam component size not fitting to mobile size
+    ⚠️ Fix webcam component size not fitting to mobile size
 
 ________________________________________________
               COMPLETED FEATURES
