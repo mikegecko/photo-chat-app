@@ -46,6 +46,7 @@ import Login from "./components/Login";
 import { useSignInWithGoogle } from 'react-firebase-hooks/auth';
 import Profile from "./components/Profile";
 import Settings from "./components/Settings";
+import Friends from "./components/Friends";
 
 // Initialize Firebase
 export const app = initializeApp(firebaseConfig);
@@ -78,7 +79,7 @@ function App() {
         return(<Profile user={user} />);
         break;
       case 'friends':
-        
+        return(<Friends />)
         break;
       case 'notifications':
 
