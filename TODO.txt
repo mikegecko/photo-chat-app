@@ -7,6 +7,8 @@ ________________________________________________
     🔴 figure out how to send images and text between users
     🟡 figure out what the difference between settings and profile will be
     🟠 work on design for profile/settings/friends pages
+    - Edit wave mask in sign-in page to go between about 33% and 66% of the text
+    - Style active/inactive elements
     ________________________________________________
     UI/FRONTEND
     ¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯
