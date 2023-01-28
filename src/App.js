@@ -69,7 +69,6 @@ function App() {
     switch (appPage) {
       case 'camera':
         return(<WebcamComponent cameraRef={cameraRef} facingMode={facingMode} switchCameraEvent={switchCameraEvent} galleryEvent={galleryEvent} />)
-        break;
       case 'capture':
         if(capture){
           return(<Capture capture={capture} closeEvent={clearCaptureEvent} />)
@@ -77,21 +76,28 @@ function App() {
         break;
       case 'profile':
         return(<Profile user={user} />);
-        break;
       case 'friends':
         return(<Friends />)
-        break;
       case 'notifications':
 
         break;
       case 'settings':
         return(<Settings />)
-        break;
       default:
         return(<WebcamComponent cameraRef={cameraRef} facingMode={facingMode} />);
-        break;
     }
   }
+  const iconStyle = (iconName) => {
+    const activeStyle = { color: "white", height: "40px", width: "40px" , opacity: '100%'};
+    const inactiveStyle = { color: "white", height: "40px", width: "40px" , opacity: '65%'};
+    if(iconName === appPage){
+      return(activeStyle);
+    }
+    else{
+      return(inactiveStyle);
+    }
+  }
+  
   const clearCaptureEvent = (e) => {
     setCapture(null);
     setAppPage('camera');
@@ -134,6 +140,7 @@ function App() {
     setAppPage('settings');
     setCameraControls(false);
   }
+  
   useEffect(() => {
     const handleResizeWindow = () => {
       setWidth(window.innerWidth);
@@ -173,14 +180,15 @@ function App() {
       >
         <ButtonBase>
           <NotificationsIcon
-            sx={{ color: "white", height: "40px", width: "40px" }}
+            key='notifications'
+            sx={iconStyle('notifications')}
           />
         </ButtonBase>
         <ButtonBase onClick={profileEvent} >
           <Avatar sx={{height:'52px', width: '52px'}} src={user ? user.user.photoURL : null} />
         </ButtonBase>
         <ButtonBase>
-          <PeopleIcon sx={{ color: "white", height: "40px", width: "40px" }} />
+          <PeopleIcon sx={iconStyle('friends')} />
         </ButtonBase>
       </Box>
       <Box>
@@ -237,7 +245,7 @@ function App() {
       >
         <ButtonBase onClick={settingsEvent}>
           <SettingsIcon
-            sx={{ color: "white", height: "40px", width: "40px" }}
+            sx={iconStyle('settings')}
           />
         </ButtonBase>
         <ButtonBase onClick={captureEvent}>
