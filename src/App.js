@@ -140,7 +140,9 @@ function App() {
     setAppPage('settings');
     setCameraControls(false);
   }
-  
+  const friendsEvent = (e) => {
+    setAppPage('friends');
+  }
   useEffect(() => {
     const handleResizeWindow = () => {
       setWidth(window.innerWidth);
@@ -187,7 +189,7 @@ function App() {
         <ButtonBase onClick={profileEvent} >
           <Avatar sx={{height:'52px', width: '52px'}} src={user ? user.user.photoURL : null} />
         </ButtonBase>
-        <ButtonBase>
+        <ButtonBase onClick={friendsEvent}>
           <PeopleIcon sx={iconStyle('friends')} />
         </ButtonBase>
       </Box>
