@@ -20,6 +20,8 @@ ________________________________________________
     - Complete Friends Pane design
     - Complete Settings Pane design
     - Complete Avatar/Profile pane design
+    - Error message for failed sign-in
+    - Error message for no camera
     
     ____________________________________________
     BACKEND/Firebase
