@@ -40,6 +40,12 @@ export default function Profile(props){
                     </ListItemButton>
                 </ListItem>
                 <Divider variant="fullWidth" component="li" />
+                <ListItem disablePadding secondaryAction={<ListItemText primary={props.user.user.uid}/>} >
+                    <ListItemButton>
+                        <ListItemText primary="UID" />
+                    </ListItemButton>
+                </ListItem>
+                <Divider variant="fullWidth" component="li" />
             </List>
         </Box>
     )
