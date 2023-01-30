@@ -75,7 +75,7 @@ function App() {
         }
         break;
       case 'profile':
-        return(<Profile user={user} />);
+        return(<Profile user={user} logoutEvent={logoutEvent} />);
       case 'friends':
         return(<Friends />)
       case 'notifications':
@@ -132,6 +132,11 @@ function App() {
   const loginEvent = (e) => {
     signInWithGoogle();
   }
+  const logoutEvent = (e) => {
+    console.log('Logged out');
+    signOut(auth);
+    setHideLogin(false);
+  }
   const profileEvent = (e) => {
     setAppPage('profile');
     setCameraControls(false);
@@ -157,6 +162,9 @@ function App() {
     console.log(user);
     if(user){
       setHideLogin(true);
+    }
+    else{
+      setHideLogin(false);
     }
   },[user])
 
@@ -187,7 +195,7 @@ function App() {
           />
         </ButtonBase>
         <ButtonBase onClick={profileEvent} >
-          <Avatar sx={{height:'52px', width: '52px'}} src={user ? user.user.photoURL : null} />
+          <Avatar sx={{height:'52px', width: '52px'}} src={user ? user.user.photoURL : null} imgProps={{referrerPolicy:'no-referrer'}}  />
         </ButtonBase>
         <ButtonBase onClick={friendsEvent}>
           <PeopleIcon sx={iconStyle('friends')} />
