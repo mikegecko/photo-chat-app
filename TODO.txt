@@ -26,8 +26,14 @@ ________________________________________________
     ____________________________________________
     BACKEND/Firebase
     ¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯
-    
-    - setup firestore structure
+    ✅ firestore new user function
+    ✅ firestore query user from uid function
+    - firestore update user function
+    - firestore friends functions
+    - firestore settings functions
+    - firestore message_chains structure
+    - firestore message_chains functions
+    ✅ setup firestore structure
     - setup cloud storage structure
     
 ________________________________________________
