@@ -5,7 +5,8 @@ import ListItemButton from '@mui/material/ListItemButton';
 import Divider from '@mui/material/Divider';
 import Typography from '@mui/material/Typography';
 import { Box } from "@mui/system";
-
+import { ListItemIcon } from '@mui/material';
+import LogoutIcon from '@mui/icons-material/Logout';
 
 export default function Profile(props){
 
@@ -43,6 +44,12 @@ export default function Profile(props){
                 <ListItem disablePadding secondaryAction={<ListItemText primary={props.user.user.uid}/>} >
                     <ListItemButton>
                         <ListItemText primary="UID" />
+                    </ListItemButton>
+                </ListItem>
+                <Divider variant="fullWidth" component="li" />
+                <ListItem disablePadding secondaryAction={<LogoutIcon />} >
+                    <ListItemButton onClick={props.logoutEvent}>
+                        <ListItemText primary="Logout" />
                     </ListItemButton>
                 </ListItem>
                 <Divider variant="fullWidth" component="li" />
