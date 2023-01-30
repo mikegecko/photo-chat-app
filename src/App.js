@@ -181,7 +181,6 @@ function App() {
     };
   }, []);
   useEffect(() => {
-    console.log(user);
     // Add new user to firebase if data doesnt exist
     async function createUserDataDB() {
       const docRef = await addDoc(collection(db, "users"), {
@@ -189,6 +188,9 @@ function App() {
         uid: user.user.uid,
         friends: {},
         friendRequests: {},
+        settings:{},
+        joined: serverTimestamp(),
+
       });
       return docRef;
     }
@@ -196,9 +198,9 @@ function App() {
     async function getUserDataDB() {
       const q = query(usersRef, where("uid", "==", user.user.uid));
       const querySnapshot = await getDocs(q);
+      //This could cause bugs if there is more than one result for query
       querySnapshot.forEach((doc) => {
         if (doc.exists()) {
-          console.log(doc.data());
           setUserData(doc.data());
         } else {
           console.log("Could not retrieve userData");
@@ -209,8 +211,9 @@ function App() {
     if (user) {
       // Get firebase userData
       getUserDataDB();
+      // Create new user if data query is still undefined
       if (userData === undefined) {
-        console.log(createUserDataDB());
+        createUserDataDB();
       }
       setHideLogin(true);
       console.log(userData);
