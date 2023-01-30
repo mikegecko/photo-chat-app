@@ -21,7 +21,7 @@ export default function Profile(props){
         - delete account
         - maybe some debug stuff?
     
-    
+        !!!! ADD LOADING SYSTEM FOR ALL ITEMS
     
     */
     return(
@@ -41,9 +41,15 @@ export default function Profile(props){
                     </ListItemButton>
                 </ListItem>
                 <Divider variant="fullWidth" component="li" />
-                <ListItem disablePadding secondaryAction={<ListItemText primary={props.user.user.uid}/>} >
+                <ListItem disablePadding secondaryAction={<ListItemText primary={props.userData.data().uid}/>} >
                     <ListItemButton>
                         <ListItemText primary="UID" />
+                    </ListItemButton>
+                </ListItem>
+                <Divider variant="fullWidth" component="li" />
+                <ListItem disablePadding secondaryAction={<ListItemText primary={props.userData.id}/>} >
+                    <ListItemButton>
+                        <ListItemText primary="UserData" />
                     </ListItemButton>
                 </ListItem>
                 <Divider variant="fullWidth" component="li" />
@@ -53,7 +59,7 @@ export default function Profile(props){
                     </ListItemButton>
                 </ListItem>
                 <Divider variant="fullWidth" component="li" />
-                {console.log(props.userData)}
+                
             </List>
         </Box>
     )

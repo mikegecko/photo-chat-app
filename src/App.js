@@ -156,6 +156,7 @@ function App() {
   };
   const logoutEvent = (e) => {
     console.log("Logged out");
+    setAppPage('camera');
     signOut(auth);
     setHideLogin(false);
   };
@@ -181,8 +182,8 @@ function App() {
     };
   }, []);
   useEffect(() => {
-    // Add new user to firebase if data doesnt exist
-    async function createUserDataDB() {
+    
+    async function createUser () {
       const docRef = await addDoc(collection(db, "users"), {
         name: user.user.displayName,
         uid: user.user.uid,
@@ -194,27 +195,32 @@ function App() {
       });
       return docRef;
     }
-    //Gets user data from existing user in db
-    async function getUserDataDB() {
+    async function getUser () {
       const q = query(usersRef, where("uid", "==", user.user.uid));
       const querySnapshot = await getDocs(q);
+      let i;
       //This could cause bugs if there is more than one result for query
       querySnapshot.forEach((doc) => {
         if (doc.exists()) {
-          setUserData(doc.data());
+          i = doc;
+          console.log(doc.id);
         } else {
           console.log("Could not retrieve userData");
         }
       });
+      return(i);
+    }
+    async function getAndCreateUser () {
+      const userT = await getUser();
+      setUserData(userT);
+      if(!userT){
+        const userY = await createUser();
+        setUserData(userY);
+      }
     }
 
     if (user) {
-      // Get firebase userData
-      getUserDataDB();
-      // Create new user if data query is still undefined
-      if (userData === undefined) {
-        createUserDataDB();
-      }
+      getAndCreateUser();
       setHideLogin(true);
       console.log(userData);
     } else {
