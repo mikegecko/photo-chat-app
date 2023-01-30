@@ -20,7 +20,7 @@ import {
   GoogleAuthProvider,
   signInWithPopup,
   signOut,
-} from 'firebase/auth';
+} from "firebase/auth";
 import {
   getFirestore,
   collection,
@@ -33,17 +33,20 @@ import {
   updateDoc,
   doc,
   serverTimestamp,
-} from 'firebase/firestore';
+  where,
+  getDoc,
+  getDocs,
+} from "firebase/firestore";
 import {
   getStorage,
   ref,
   uploadBytesResumable,
   getDownloadURL,
-} from 'firebase/storage';
-import { getMessaging, getToken, onMessage } from 'firebase/messaging';
-import { getPerformance } from 'firebase/performance';
+} from "firebase/storage";
+import { getMessaging, getToken, onMessage } from "firebase/messaging";
+import { getPerformance } from "firebase/performance";
 import Login from "./components/Login";
-import { useSignInWithGoogle } from 'react-firebase-hooks/auth';
+import { useSignInWithGoogle } from "react-firebase-hooks/auth";
 import Profile from "./components/Profile";
 import Settings from "./components/Settings";
 import Friends from "./components/Friends";
@@ -51,103 +54,122 @@ import Friends from "./components/Friends";
 // Initialize Firebase
 export const app = initializeApp(firebaseConfig);
 const auth = getAuth(app);
+const db = getFirestore(app);
+const usersRef = collection(db, "users");
 
 function App() {
   const [width, setWidth] = useState(window.innerWidth);
   const [height, setHeight] = useState(window.innerWidth);
   const [capture, setCapture] = useState(null);
-  const [facingMode, setFacingMode] = useState('user');
+  const [facingMode, setFacingMode] = useState("user");
   const [hideLogin, setHideLogin] = useState(false);
-  const [signInWithGoogle , user , loading , error] = useSignInWithGoogle(auth);
-  const [appPage, setAppPage] = useState('camera');
+  const [signInWithGoogle, user, loading, error] = useSignInWithGoogle(auth);
+  const [appPage, setAppPage] = useState("camera");
   const [cameraControls, setCameraControls] = useState(true);
+  const [userData, setUserData] = useState();
   const breakpoint = 768;
   const cameraRef = useRef(null);
 
   const pageSelector = () => {
-    
     switch (appPage) {
-      case 'camera':
-        return(<WebcamComponent cameraRef={cameraRef} facingMode={facingMode} switchCameraEvent={switchCameraEvent} galleryEvent={galleryEvent} />)
-      case 'capture':
-        if(capture){
-          return(<Capture capture={capture} closeEvent={clearCaptureEvent} />)
+      case "camera":
+        return (
+          <WebcamComponent
+            cameraRef={cameraRef}
+            facingMode={facingMode}
+            switchCameraEvent={switchCameraEvent}
+            galleryEvent={galleryEvent}
+          />
+        );
+      case "capture":
+        if (capture) {
+          return <Capture capture={capture} closeEvent={clearCaptureEvent} />;
         }
         break;
-      case 'profile':
-        return(<Profile user={user} logoutEvent={logoutEvent} />);
-      case 'friends':
-        return(<Friends />)
-      case 'notifications':
-
+      case "profile":
+        return (
+          <Profile user={user} logoutEvent={logoutEvent} userData={userData} />
+        );
+      case "friends":
+        return <Friends />;
+      case "notifications":
         break;
-      case 'settings':
-        return(<Settings />)
+      case "settings":
+        return <Settings />;
       default:
-        return(<WebcamComponent cameraRef={cameraRef} facingMode={facingMode} />);
+        return (
+          <WebcamComponent cameraRef={cameraRef} facingMode={facingMode} />
+        );
     }
-  }
+  };
   const iconStyle = (iconName) => {
-    const activeStyle = { color: "white", height: "40px", width: "40px" , opacity: '100%'};
-    const inactiveStyle = { color: "white", height: "40px", width: "40px" , opacity: '65%'};
-    if(iconName === appPage){
-      return(activeStyle);
+    const activeStyle = {
+      color: "white",
+      height: "40px",
+      width: "40px",
+      opacity: "100%",
+    };
+    const inactiveStyle = {
+      color: "white",
+      height: "40px",
+      width: "40px",
+      opacity: "65%",
+    };
+    if (iconName === appPage) {
+      return activeStyle;
+    } else {
+      return inactiveStyle;
     }
-    else{
-      return(inactiveStyle);
-    }
-  }
-  
+  };
+
   const clearCaptureEvent = (e) => {
     setCapture(null);
-    setAppPage('camera');
+    setAppPage("camera");
     setCameraControls(true);
-  }
+  };
   const captureEvent = (e) => {
-    if(appPage !== 'camera'){
+    if (appPage !== "camera") {
       clearCaptureEvent();
-    }
-    else{
+    } else {
       const imgSrc = cameraRef.current.getScreenshot();
       setCapture(imgSrc);
-      setAppPage('capture');
+      setAppPage("capture");
       setCameraControls(false);
     }
   };
   const switchCameraEvent = (e) => {
-    if(facingMode === 'user'){
-      setFacingMode('environment');
-    }
-    else if(facingMode === 'environment'){
-      setFacingMode('user');
+    if (facingMode === "user") {
+      setFacingMode("environment");
+    } else if (facingMode === "environment") {
+      setFacingMode("user");
     }
     return;
-  }
+  };
   const galleryEvent = (e) => {
-    let src = URL.createObjectURL(e.target.files[0])
+    let src = URL.createObjectURL(e.target.files[0]);
     setCapture(src);
-    setAppPage('capture');
+    setAppPage("capture");
     setCameraControls(false);
-  }
+  };
   const loginEvent = (e) => {
     signInWithGoogle();
-  }
+  };
   const logoutEvent = (e) => {
-    console.log('Logged out');
+    console.log("Logged out");
     signOut(auth);
     setHideLogin(false);
-  }
+  };
   const profileEvent = (e) => {
-    setAppPage('profile');
+    setAppPage("profile");
     setCameraControls(false);
-  }
+  };
   const settingsEvent = (e) => {
-    setAppPage('settings');
+    setAppPage("settings");
     setCameraControls(false);
-  }
+  };
   const friendsEvent = (e) => {
-    setAppPage('friends');
-  }
+    setAppPage("friends");
+  };
   useEffect(() => {
     const handleResizeWindow = () => {
       setWidth(window.innerWidth);
@@ -160,13 +182,42 @@ function App() {
   }, []);
   useEffect(() => {
     console.log(user);
-    if(user){
-      setHideLogin(true);
+    // Add new user to firebase if data doesnt exist
+    async function createUserDataDB() {
+      const docRef = await addDoc(collection(db, "users"), {
+        name: user.user.displayName,
+        uid: user.user.uid,
+        friends: {},
+        friendRequests: {},
+      });
+      return docRef;
     }
-    else{
+    //Gets user data from existing user in db
+    async function getUserDataDB() {
+      const q = query(usersRef, where("uid", "==", user.user.uid));
+      const querySnapshot = await getDocs(q);
+      querySnapshot.forEach((doc) => {
+        if (doc.exists()) {
+          console.log(doc.data());
+          setUserData(doc.data());
+        } else {
+          console.log("Could not retrieve userData");
+        }
+      });
+    }
+
+    if (user) {
+      // Get firebase userData
+      getUserDataDB();
+      if (userData === undefined) {
+        console.log(createUserDataDB());
+      }
+      setHideLogin(true);
+      console.log(userData);
+    } else {
       setHideLogin(false);
     }
-  },[user])
+  }, [user]);
 
   if (width > breakpoint) {
     //Desktop view
@@ -178,7 +229,7 @@ function App() {
       <Login loading={loading} hidden={hideLogin} loginHandler={loginEvent} />
       <Box
         sx={{
-          minHeight:"80px",
+          minHeight: "80px",
           height: "80px",
           width: "100%",
           bgcolor: "#004D9B",
@@ -190,22 +241,26 @@ function App() {
       >
         <ButtonBase>
           <NotificationsIcon
-            key='notifications'
-            sx={iconStyle('notifications')}
+            key="notifications"
+            sx={iconStyle("notifications")}
           />
         </ButtonBase>
-        <ButtonBase onClick={profileEvent} >
-          <Avatar sx={{height:'52px', width: '52px'}} src={user ? user.user.photoURL : null} imgProps={{referrerPolicy:'no-referrer'}}  />
+        <ButtonBase onClick={profileEvent}>
+          <Avatar
+            sx={{ height: "52px", width: "52px" }}
+            src={user ? user.user.photoURL : null}
+            imgProps={{ referrerPolicy: "no-referrer" }}
+          />
         </ButtonBase>
         <ButtonBase onClick={friendsEvent}>
-          <PeopleIcon sx={iconStyle('friends')} />
+          <PeopleIcon sx={iconStyle("friends")} />
         </ButtonBase>
       </Box>
       <Box>
         <ButtonBase
           onClick={switchCameraEvent}
           sx={{
-            display: cameraControls ? 'block' : 'none',
+            display: cameraControls ? "block" : "none",
             position: "absolute",
             top: "105px",
             right: "20px",
@@ -221,7 +276,7 @@ function App() {
           aria-label="upload picture"
           component="label"
           sx={{
-            display: cameraControls ? 'block' : 'none',
+            display: cameraControls ? "block" : "none",
             position: "absolute",
             top: "105px",
             left: "20px",
@@ -229,12 +284,7 @@ function App() {
             zIndex: 5,
           }}
         >
-          <input
-            hidden
-            accept="image/*"
-            type="file"
-            onChange={galleryEvent}
-          />
+          <input hidden accept="image/*" type="file" onChange={galleryEvent} />
           <PhotoLibraryIcon
             sx={{ color: "white", height: "30px", width: "30px" }}
           />
@@ -244,7 +294,7 @@ function App() {
       {/* {capture ? <Capture capture={capture} closeEvent={clearCaptureEvent} /> : <WebcamComponent cameraRef={cameraRef} facingMode={facingMode} />} */}
       <Box
         sx={{
-          minHeight:"80px",
+          minHeight: "80px",
           height: "80px",
           width: "100%",
           bgcolor: "#004D9B",
@@ -254,16 +304,14 @@ function App() {
         }}
       >
         <ButtonBase onClick={settingsEvent}>
-          <SettingsIcon
-            sx={iconStyle('settings')}
-          />
+          <SettingsIcon sx={iconStyle("settings")} />
         </ButtonBase>
         <ButtonBase onClick={captureEvent}>
           <PanoramaFishEyeIcon
             sx={{ color: "white", height: "70px", width: "70px" }}
           />
         </ButtonBase>
-        <ButtonBase >
+        <ButtonBase>
           <ArrowForwardIcon
             sx={{ color: "white", height: "40px", width: "40px" }}
           />

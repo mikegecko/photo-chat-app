@@ -35,7 +35,8 @@ ________________________________________________
 ________________________________________________
 
     ⚠️ Fix webcam component size not fitting to mobile size
-
+    ⚠️ Signing out and back in brings you to the same page you were previously on
+    ✅ Fix 403 error on desktop
 ________________________________________________
               COMPLETED FEATURES
 ________________________________________________
@@ -53,3 +54,4 @@ ________________________________________________
     ✅  Setup Google sign-in
     ✅  Add sign-in overlay
     ✅  Redesign Sign-In page
+    ✅  Add sign-out button 

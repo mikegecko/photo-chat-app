@@ -53,6 +53,7 @@ export default function Profile(props){
                     </ListItemButton>
                 </ListItem>
                 <Divider variant="fullWidth" component="li" />
+                {console.log(props.userData)}
             </List>
         </Box>
     )
