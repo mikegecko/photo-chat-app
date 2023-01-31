@@ -50,6 +50,7 @@ import { useSignInWithGoogle } from "react-firebase-hooks/auth";
 import Profile from "./components/Profile";
 import Settings from "./components/Settings";
 import Friends from "./components/Friends";
+import Notifications from "./components/Notifications";
 
 // Initialize Firebase
 export const app = initializeApp(firebaseConfig);
@@ -93,6 +94,7 @@ function App() {
       case "friends":
         return <Friends />;
       case "notifications":
+        return(<Notifications />)
         break;
       case "settings":
         return <Settings />;
