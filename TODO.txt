@@ -4,6 +4,8 @@ ________________________________________________
 ________________________________________________
     Current Tasks
     ¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯
+    - figure out how to handle friend friendRequests in baackend(accepted/unaccepted)
+    - figure out how to handle message_chains in backend (creation/deletetion)
     🔴 figure out how to send images and text between users
     🟡 figure out what the difference between settings and profile will be
     🟠 work on design for profile/settings/friends pages
