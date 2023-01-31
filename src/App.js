@@ -95,7 +95,6 @@ function App() {
         return <Friends />;
       case "notifications":
         return(<Notifications />)
-        break;
       case "settings":
         return <Settings />;
       default:
@@ -172,7 +171,12 @@ function App() {
   };
   const friendsEvent = (e) => {
     setAppPage("friends");
+    setCameraControls(false);
   };
+  const notificationEvent = (e) => {
+    setAppPage('notifications');
+    setCameraControls(false);
+  }
   useEffect(() => {
     const handleResizeWindow = () => {
       setWidth(window.innerWidth);
@@ -250,7 +254,7 @@ function App() {
           zIndex: 2,
         }}
       >
-        <ButtonBase>
+        <ButtonBase onClick={notificationEvent}>
           <NotificationsIcon
             key="notifications"
             sx={iconStyle("notifications")}
@@ -302,7 +306,6 @@ function App() {
         </ButtonBase>
       </Box>
       {pageSelector()}
-      {/* {capture ? <Capture capture={capture} closeEvent={clearCaptureEvent} /> : <WebcamComponent cameraRef={cameraRef} facingMode={facingMode} />} */}
       <Box
         sx={{
           minHeight: "80px",
