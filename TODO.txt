@@ -4,7 +4,6 @@ ________________________________________________
 ________________________________________________
     Current Tasks
     ¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯
-    - design chat box in chat component
     - figure out how to handle friend friendRequests in baackend(accepted/unaccepted)
     - figure out how to handle message_chains in backend (creation/deletetion)
     🔴 figure out how to send images and text between users
@@ -15,6 +14,10 @@ ________________________________________________
     ________________________________________________
     UI/FRONTEND
     ¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯
+    - design chat box in chat component
+    - loading screen for sending messages or going between pages
+    - add drag up to refresh in chat/friends/etc.
+    - Add swipe animation between friend and chat pages
     - Add water wave transition between pages
     - Add ability to add text bar to image
     - Redesign App UI bars
