@@ -92,7 +92,9 @@ function App() {
           <Profile user={user} logoutEvent={logoutEvent} userData={userData} />
         );
       case "friends":
-        return <Friends />;
+        return <Friends userData={userData} />;
+      case "friends-sending":
+        return <Friends isSending={true} capture={capture} userData={userData} />;
       case "notifications":
         return(<Notifications />)
       case "settings":
@@ -122,7 +124,32 @@ function App() {
       return inactiveStyle;
     }
   };
-
+  const arrowStyle = () => {
+    const activeStyle = {
+      color: "white",
+      height: "40px",
+      width: "40px",
+      opacity: "100%",
+    };
+    const inactiveStyle = {
+      color: "white",
+      height: "40px",
+      width: "40px",
+      opacity: "65%",
+    };
+    if(appPage === 'capture' || appPage === 'friends-sending'){
+      return(activeStyle);
+    }
+    else{
+      return(inactiveStyle);
+    }
+  }
+  const arrowControl = () => {
+    if(appPage === 'capture' || appPage === 'friends-sending'){
+      return(false);
+    }
+    else{return(true)}
+  }
   const clearCaptureEvent = (e) => {
     setCapture(null);
     setAppPage("camera");
@@ -177,6 +204,10 @@ function App() {
     setAppPage('notifications');
     setCameraControls(false);
   }
+  const sendEvent = (e) => {
+    setAppPage('friends-sending');
+    setCameraControls(false);
+  }
   useEffect(() => {
     const handleResizeWindow = () => {
       setWidth(window.innerWidth);
@@ -228,11 +259,16 @@ function App() {
     if (user) {
       getAndCreateUser();
       setHideLogin(true);
-      console.log(userData);
+      
     } else {
       setHideLogin(false);
     }
   }, [user]);
+  useEffect(() => {
+    if(userData){
+      console.log(userData.data());
+    }
+  },[userData])
 
   if (width > breakpoint) {
     //Desktop view
@@ -325,9 +361,9 @@ function App() {
             sx={{ color: "white", height: "70px", width: "70px" }}
           />
         </ButtonBase>
-        <ButtonBase>
+        <ButtonBase disabled={arrowControl()} onClick={sendEvent}>
           <ArrowForwardIcon
-            sx={{ color: "white", height: "40px", width: "40px" }}
+            sx={arrowStyle()}
           />
         </ButtonBase>
       </Box>
