@@ -50,7 +50,7 @@ export default function Friends(props) {
           }}
         >
           <Typography variant="h4" sx={{ paddingTop: "10px" }}>
-            Chat
+            Friends
           </Typography>
           <List sx={{ width: "100%", color: "white", fontFamily: "Roboto" }}>
             <Divider variant="fullWidth" component="li" />
@@ -98,8 +98,8 @@ export default function Friends(props) {
             color: "white",
           }}
         >
-          <Typography variant="h4" sx={{ paddingTop: "10px" }}>
-            Chat
+          <Typography variant="h4" sx={{ paddingTop: "10px"}}>
+            Friends
           </Typography>
           <List sx={{ width: "100%", color: "white", fontFamily: "Roboto" }}>
             <Divider variant="fullWidth" component="li" />
@@ -115,7 +115,7 @@ export default function Friends(props) {
                       </Badge>
                     }
                   >
-                    <ListItemButton>
+                    <ListItemButton onClick={() => props.friendSelectEvent(el)}>
                       <ListItemText primary={el.name} />
                     </ListItemButton>
                   </ListItem>
