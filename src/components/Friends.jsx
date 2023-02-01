@@ -1,5 +1,5 @@
 import {
-    Checkbox,
+  Checkbox,
   createTheme,
   Divider,
   List,
@@ -16,12 +16,11 @@ import Badge from "@mui/material/Badge";
 import { useState } from "react";
 
 export default function Friends(props) {
-    const [checked, setChecked] = useState(false);
+  const [checked, setChecked] = useState(false);
 
-
-    const handleToggle = (e) => {
-        setChecked(!checked);
-    }
+  const handleToggle = (e) => {
+    setChecked(!checked);
+  };
 
   const theme = createTheme({
     status: {
@@ -39,81 +38,85 @@ export default function Friends(props) {
       },
     },
   });
-  if(props.isSending){
-    return(
-        <ThemeProvider theme={theme}>
-      <Box
-        sx={{
-          display: "flex",
-          height: "100%",
-          flexDirection: "column",
-          color: "white",
-        }}
-      >
-        <Typography variant="h4" sx={{ paddingTop: "10px" }}>
-          Chat
-        </Typography>
-        <List sx={{ width: "100%", color: "white", fontFamily: "Roboto" }}>
-          <Divider variant="fullWidth" component="li" />
-          <ListItem
-            disablePadding
-            secondaryAction={
-              <Badge color="primary" badgeContent={0} showZero>
-                <MailIcon />
-              </Badge>
-            }
-          >
-            <ListItemButton onClick={handleToggle}>
-            <ListItemIcon>
-                <Checkbox
-                    sx={{color:'white'}}
-                  edge="start"
-                  checked={checked}
-                  tabIndex={-1}
-                  disableRipple
-                />
-              </ListItemIcon>
-              <ListItemText primary="Friend_1" />
-            </ListItemButton>
-          </ListItem>
-          <Divider variant="fullWidth" component="li" />
-        </List>
-      </Box>
-    </ThemeProvider>
-    )
-  }
-  else{
+  if (props.isSending) {
     return (
-        <ThemeProvider theme={theme}>
-          <Box
-            sx={{
-              display: "flex",
-              height: "100%",
-              flexDirection: "column",
-              color: "white",
-            }}
-          >
-            <Typography variant="h4" sx={{ paddingTop: "10px" }}>
-              Chat
-            </Typography>
-            <List sx={{ width: "100%", color: "white", fontFamily: "Roboto" }}>
-              <Divider variant="fullWidth" component="li" />
-              <ListItem
-                disablePadding
-                secondaryAction={
-                  <Badge color="primary" badgeContent={0} showZero>
-                    <MailIcon />
-                  </Badge>
-                }
-              >
-                <ListItemButton>
-                  <ListItemText primary="Friend_1" />
-                </ListItemButton>
-              </ListItem>
-              <Divider variant="fullWidth" component="li" />
-            </List>
-          </Box>
-        </ThemeProvider>
-      );
+      <ThemeProvider theme={theme}>
+        <Box
+          sx={{
+            display: "flex",
+            height: "100%",
+            flexDirection: "column",
+            color: "white",
+          }}
+        >
+          <Typography variant="h4" sx={{ paddingTop: "10px" }}>
+            Chat
+          </Typography>
+          <List sx={{ width: "100%", color: "white", fontFamily: "Roboto" }}>
+            <Divider variant="fullWidth" component="li" />
+            {props.userData.data().friends.map((el, index) => {
+              return (
+                <>
+                  <ListItem
+                    key={el.id}
+                    disablePadding
+                    secondaryAction={
+                      <Badge color="primary" badgeContent={0} showZero>
+                        <MailIcon />
+                      </Badge>
+                    }
+                  >
+                    <ListItemButton>
+                      <ListItemText primary={el.name} />
+                    </ListItemButton>
+                  </ListItem>
+                  <Divider variant="fullWidth" component="li" />
+                </>
+              );
+            })}
+          </List>
+        </Box>
+      </ThemeProvider>
+    );
+  } else {
+    return (
+      <ThemeProvider theme={theme}>
+        <Box
+          sx={{
+            display: "flex",
+            height: "100%",
+            flexDirection: "column",
+            color: "white",
+          }}
+        >
+          <Typography variant="h4" sx={{ paddingTop: "10px" }}>
+            Chat
+          </Typography>
+          <List sx={{ width: "100%", color: "white", fontFamily: "Roboto" }}>
+            <Divider variant="fullWidth" component="li" />
+            {props.userData.data().friends.map((el, index) => {
+              return (
+                <>
+                  <ListItem
+                    key={el.id}
+                    disablePadding
+                    secondaryAction={
+                      <Badge color="primary" badgeContent={0} showZero>
+                        <MailIcon />
+                      </Badge>
+                    }
+                  >
+                    <ListItemButton>
+                      <ListItemText primary={el.name} />
+                    </ListItemButton>
+                  </ListItem>
+                  <Divider variant="fullWidth" component="li" />
+                </>
+              );
+            })}
+          </List>
+        </Box>
+      </ThemeProvider>
+    );
   }
 }
