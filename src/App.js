@@ -51,6 +51,7 @@ import Profile from "./components/Profile";
 import Settings from "./components/Settings";
 import Friends from "./components/Friends";
 import Notifications from "./components/Notifications";
+import Chat from "./components/Chat";
 
 // Initialize Firebase
 export const app = initializeApp(firebaseConfig);
@@ -68,6 +69,7 @@ function App() {
   const [appPage, setAppPage] = useState("camera");
   const [cameraControls, setCameraControls] = useState(true);
   const [userData, setUserData] = useState();
+  const [friend, setFriend] = useState();
   const breakpoint = 768;
   const cameraRef = useRef(null);
 
@@ -92,9 +94,11 @@ function App() {
           <Profile user={user} logoutEvent={logoutEvent} userData={userData} />
         );
       case "friends":
-        return <Friends userData={userData} />;
+        return <Friends userData={userData} friendSelectEvent={friendSelectEvent} />;
       case "friends-sending":
         return <Friends isSending={true} capture={capture} userData={userData} />;
+      case "chat":
+        return <Chat friend={friend} />
       case "notifications":
         return(<Notifications />)
       case "settings":
@@ -200,6 +204,11 @@ function App() {
     setAppPage("friends");
     setCameraControls(false);
   };
+  const friendSelectEvent = (friendObj) => {
+    setFriend(friendObj);
+    setAppPage('chat');
+    setCameraControls(false);
+  }
   const notificationEvent = (e) => {
     setAppPage('notifications');
     setCameraControls(false);
