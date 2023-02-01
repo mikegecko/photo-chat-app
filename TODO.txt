@@ -4,6 +4,7 @@ ________________________________________________
 ________________________________________________
     Current Tasks
     ¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯
+    - design chat box in chat component
     - figure out how to handle friend friendRequests in baackend(accepted/unaccepted)
     - figure out how to handle message_chains in backend (creation/deletetion)
     🔴 figure out how to send images and text between users
@@ -42,8 +43,9 @@ ________________________________________________
                      BUGS
 ________________________________________________
 
+    ⚠️ Uploading an image then closing the image or changing pages and trying to upload the same image again doesn't work
     ⚠️ Fix webcam component size not fitting to mobile size
-    ⚠️ Signing out and back in brings you to the same page you were previously on
+    ✅ Signing out and back in brings you to the same page you were previously on
     ✅ Fix 403 error on desktop
 ________________________________________________
               COMPLETED FEATURES
