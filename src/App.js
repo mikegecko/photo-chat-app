@@ -55,9 +55,10 @@ import Chat from "./components/Chat";
 
 // Initialize Firebase
 export const app = initializeApp(firebaseConfig);
-const auth = getAuth(app);
-const db = getFirestore(app);
-const usersRef = collection(db, "users");
+export const auth = getAuth(app);
+export const db = getFirestore(app);
+export const usersRef = collection(db, "users");
+export const messageChainsRef = collection(db, "message_chains");
 
 function App() {
   const [width, setWidth] = useState(window.innerWidth);
@@ -230,7 +231,7 @@ function App() {
   useEffect(() => {
     
     async function createUser () {
-      const docRef = await addDoc(collection(db, "users"), {
+      const docRef = await addDoc(usersRef, {
         name: user.user.displayName,
         uid: user.user.uid,
         friends: {},
