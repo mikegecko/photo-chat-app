@@ -103,7 +103,7 @@ export default function Friends(props) {
           </Typography>
           <List sx={{ width: "100%", color: "white", fontFamily: "Roboto" }}>
             <Divider variant="fullWidth" component="li" />
-            {props.userData.data().friends.map((el, index) => {
+            {!props.userData.data().friends[0] ? "No Friends :(" : props.userData.data().friends.map((el, index) => {
               return (
                 <>
                   <ListItem
