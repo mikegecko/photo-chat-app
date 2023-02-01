@@ -1,6 +1,7 @@
 import { Divider, Typography } from "@mui/material";
+import { create } from "@mui/material/styles/createTransitions";
 import { Box } from "@mui/system";
-import { collection, doc, getDocs, query, where } from "firebase/firestore";
+import { addDoc, collection, doc, getDocs, query, serverTimestamp, where } from "firebase/firestore";
 import { useEffect, useState } from "react";
 import { db, messageChainsRef } from "../App";
 
@@ -8,12 +9,19 @@ export default function Chat(props) {
     const [chain, setChain] = useState();
     const [messages,setMessages] = useState([]);
     const [loading, setLoading] = useState(true);
-
+    const [messageChainID, setMessageChainID] = useState(null);
+    const messageCollectionRef = collection(db, "message_chains", messageChainID, "messages" );
+    
   useEffect(() => {
+    // Creation methods broken AF probably need to rewrite this whole compoenent...maybe move async stuff into main component?
     setLoading(true);
     async function createMessageChain() {
-
-
+        const docRef = await addDoc(messageChainsRef, {
+            timestamp:serverTimestamp(),
+            users:[props.userData.id, props.firend.id],
+          });
+          return docRef;
+          // This docRef.id needs to be added to message_chain in firestore for both users
     }
     async function getMessageChain() {
       const q = query(
@@ -38,11 +46,12 @@ export default function Chat(props) {
         setChain(chain);
         if(!chain){
             const createChain = await createMessageChain();
+            setMessageChainID(createChain.id);
+            // Somehow get this id to update message_chain prop and update document in DB
             setChain(createChain);
         }
     }
     async function getMessageCollection(){
-        const messageCollectionRef = collection(db, "message_chains", props.friend.message_chain, "messages" );
         const querySnapshot = await getDocs(messageCollectionRef);
         const temp = [];
         querySnapshot.forEach(message => {
@@ -55,7 +64,12 @@ export default function Chat(props) {
         return temp;
     }
     async function createMessageCollection() {
-
+        const docRef = await addDoc(messageCollectionRef, {
+            content:'New Convo'
+          });
+        const temp = [];
+        temp.push(docRef.data());
+          return(temp);
     }
     async function getAndCreateMessageCollection(){
         const messageArray = await getMessageCollection();
