@@ -66,7 +66,16 @@ export default function Friends(props) {
                       </Badge>
                     }
                   >
-                    <ListItemButton>
+                    <ListItemButton onClick={handleToggle}>
+                      <ListItemIcon>
+                        <Checkbox
+                          sx={{ color: "white" }}
+                          edge="start"
+                          checked={checked}
+                          tabIndex={-1}
+                          disableRipple
+                        />
+                      </ListItemIcon>
                       <ListItemText primary={el.name} />
                     </ListItemButton>
                   </ListItem>
