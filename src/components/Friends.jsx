@@ -12,6 +12,7 @@ import {
 } from "@mui/material";
 import { Box } from "@mui/system";
 import MailIcon from "@mui/icons-material/Mail";
+import PersonAddIcon from '@mui/icons-material/PersonAdd';
 import Badge from "@mui/material/Badge";
 import { useState } from "react";
 
@@ -84,6 +85,13 @@ export default function Friends(props) {
           </Typography>
           <List disablePadding sx={{ width: "100%", fontFamily: "Roboto" }}>
             <Divider variant="fullWidth" component="li" />
+            <ListItem disablePadding secondaryAction={<PersonAddIcon />}>
+              <ListItemButton>
+                <ListItemText primary="Add Friend" />
+              </ListItemButton>
+            </ListItem>
+            <Divider variant="fullWidth" component="li" />
+
             {!props.userData.data().friends[0] ? "No Friends :(" : props.userData.data().friends.map((el, index) => {
               return (
                 <>
