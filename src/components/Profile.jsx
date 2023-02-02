@@ -41,8 +41,7 @@ export default function Profile(props) {
           Account
         </Typography>
         <Divider variant="fullWidth" />
-        <List subheader={<ListSubheader sx={{textAlign: 'left'}}>Account Info</ListSubheader>}>
-        <Divider variant="fullWidth" component="li" />
+        <List disablePadding >
           <ListItem disablePadding secondaryAction={<LogoutIcon />}>
             <ListItemButton onClick={props.logoutEvent}>
               <ListItemText primary="Logout" />

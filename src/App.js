@@ -52,6 +52,7 @@ import Settings from "./components/Settings";
 import Friends from "./components/Friends";
 import Notifications from "./components/Notifications";
 import Chat from "./components/Chat";
+import { motion } from "framer-motion";
 
 // Initialize Firebase
 export const app = initializeApp(firebaseConfig);
@@ -75,6 +76,7 @@ function App() {
   const cameraRef = useRef(null);
 
   const pageSelector = () => {
+    //decouple appPage from this
     switch (appPage) {
       case "camera":
         return (
@@ -132,6 +134,20 @@ function App() {
       return inactiveStyle;
     }
   };
+  const iconScale = (iconName) => {
+    const active = {
+      scale: 1.17
+    }
+    const inactive = {
+      scale: 1
+    }
+    if(iconName === appPage){
+      return active;
+    }
+    else{
+      return inactive;
+    }
+  }
   const arrowStyle = () => {
     const activeStyle = {
       color: "white",
@@ -303,20 +319,34 @@ function App() {
           zIndex: 2,
         }}
       >
-        <ButtonBase onClick={notificationEvent}>
+        <ButtonBase onClick={notificationEvent}
+        initial={{ scale: 0 }}
+        animate={iconScale('notifications')}
+        component={motion.div}
+        transition={{ type: "spring", stiffness: 260, damping: 20 }}>
           <NotificationsIcon
             key="notifications"
             sx={iconStyle("notifications")}
           />
         </ButtonBase>
-        <ButtonBase onClick={profileEvent}>
+        <ButtonBase onClick={profileEvent}
+        initial={{ scale: 0 }}
+        animate={iconScale('profile')}
+        component={motion.div}
+        transition={{ type: "spring", stiffness: 260, damping: 20 }}>
           <Avatar
             sx={{ height: "52px", width: "52px" }}
             src={user ? user.user.photoURL : null}
             imgProps={{ referrerPolicy: "no-referrer" }}
           />
         </ButtonBase>
-        <ButtonBase onClick={friendsEvent}>
+        <ButtonBase onClick={friendsEvent}
+          initial={{ scale: 0 }}
+          animate={iconScale('friends')}
+          component={motion.div}
+          transition={{ type: "spring", stiffness: 260, damping: 20 }}
+
+          >
           <PeopleIcon sx={iconStyle("friends")} />
         </ButtonBase>
       </Box>
@@ -366,7 +396,11 @@ function App() {
           justifyContent: "space-around",
         }}
       >
-        <ButtonBase onClick={settingsEvent}>
+        <ButtonBase onClick={settingsEvent}
+        initial={{ scale: 0 }}
+        animate={iconScale('settings')}
+        component={motion.div}
+        transition={{ type: "spring", stiffness: 260, damping: 20 }}>
           <SettingsIcon sx={iconStyle("settings")} />
         </ButtonBase>
         <ButtonBase onClick={captureEvent}>
