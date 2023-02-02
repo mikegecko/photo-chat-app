@@ -118,6 +118,9 @@ function App() {
         );
     }
   };
+  const setStateOfUserData = () => {
+
+  }
   const setStateOfSettings = (key, value) => {
     const newSettings = {...settings};
     newSettings[key] = value;
@@ -256,8 +259,8 @@ function App() {
       window.removeEventListener("resize", handleResizeWindow);
     };
   }, []);
+  // Firestore functions for userData
   useEffect(() => {
-    
     async function createUser () {
       const docRef = await addDoc(usersRef, {
         name: user.user.displayName,
@@ -288,9 +291,11 @@ function App() {
     async function getAndCreateUser () {
       const userT = await getUser();
       setUserData(userT);
+      // If user does not exist userT is undefined
       if(!userT){
-        const userY = await createUser();
-        setUserData(userY);
+        await createUser();
+        const userJ = await getUser();
+        setUserData(userJ);
       }
     }
 
@@ -302,12 +307,13 @@ function App() {
       setHideLogin(false);
     }
   }, [user]);
+  //Debugging state
   useEffect(() => {
     if(userData){
-      console.log(userData.data());
+      console.log(userData);
     }
   },[userData])
-
+  //Theme control
   useEffect(() => {
     if(settings.brightnessMode){
       setTheme(themeDark);
