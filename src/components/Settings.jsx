@@ -14,36 +14,26 @@ import {
 import { Box } from "@mui/system";
 import LightModeIcon from "@mui/icons-material/LightMode";
 import DarkModeIcon from "@mui/icons-material/DarkMode";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { motion } from "framer-motion";
 import { theme } from "../theme/theme";
 
 export default function Settings(props) {
-  const [checked, setChecked] = useState(["brightnessMode"]);
 
-
-  const handleToggle = (value) => {
-    const currentIndex = checked.indexOf(value);
-    const newChecked = [...checked];
-
-    if (currentIndex === -1) {
-      newChecked.push(value);
-    } else {
-      newChecked.splice(currentIndex, 1);
-    }
-
-    setChecked(newChecked);
-  };
   const visible = { rotate: 180, scale: 1 };
   const hidden = { scale: 0 };
 
+  const handleThemeEvent = (e) => {
+    e.stopPropagation();
+    props.setStateOfSettings('brightnessMode', !props.settings.brightnessMode)
+  }
   const brightnessIconSelect = () => {
     return (
       <>
         <Box
           sx={{ position: "absolute" }}
           initial={{ scale: 0 }}
-          animate={checked.indexOf("brightnessMode") ? hidden : visible}
+          animate={props.settings.brightnessMode ? hidden : visible}
           component={motion.div}
           transition={{ type: "spring", stiffness: 260, damping: 20 }}
         >
@@ -51,7 +41,7 @@ export default function Settings(props) {
         </Box>
         <Box
           initial={{ scale: 0 }}
-          animate={checked.indexOf("brightnessMode") ? visible : hidden}
+          animate={props.settings.brightnessMode ? visible : hidden}
           component={motion.div}
           transition={{ type: "spring", stiffness: 260, damping: 20 }}
         >
@@ -120,15 +110,15 @@ export default function Settings(props) {
       <List subheader={<ListSubheader sx={{textAlign: 'left'}} >Settings</ListSubheader>}>
       <Divider variant="fullWidth" component="li" />
         <ListItem disablePadding>
-          <ListItemButton onClick={() => handleToggle("brightnessMode")}>
+          <ListItemButton onClick={handleThemeEvent}>
             <ListItemIcon sx={{ color: "white" }}>
               {brightnessIconSelect()}
             </ListItemIcon>
             <ListItemText primary="Toggle Dark/Light Mode" />
             <Switch
               edge="end"
-              onChange={() => handleToggle("brightnessMode")}
-              checked={checked.indexOf("brightnessMode") !== -1}
+              onChange={handleThemeEvent}
+              checked={!props.settings.brightnessMode}
             />
           </ListItemButton>
         </ListItem>

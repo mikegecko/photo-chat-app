@@ -72,6 +72,7 @@ function App() {
   const [cameraControls, setCameraControls] = useState(true);
   const [userData, setUserData] = useState();
   const [friend, setFriend] = useState();
+  const [settings, setSettings] = useState({brightnessMode:getPreferredColorScheme(), });
   const breakpoint = 768;
   const cameraRef = useRef(null);
 
@@ -108,13 +109,19 @@ function App() {
       case "notifications":
         return(<Notifications />)
       case "settings":
-        return <Settings  user={user} userData={userData} />;
+        return <Settings  user={user} userData={userData} setStateOfSettings={setStateOfSettings} settings={settings} />;
       default:
         return (
           <WebcamComponent cameraRef={cameraRef} facingMode={facingMode} />
         );
     }
   };
+  const setStateOfSettings = (key, value) => {
+    const newSettings = {...settings};
+    newSettings[key] = value;
+    setSettings(newSettings);
+    //console.log(settings);
+  }
   const iconStyle = (iconName) => {
     const activeStyle = {
       color: "white",
@@ -417,5 +424,14 @@ function App() {
     </div>
   );
 }
-
+function getPreferredColorScheme() {
+  if (window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches) {
+    // dark mode
+    return(true)
+  }
+else{
+  //light mode
+  return(false)
+}
+}
 export default App;

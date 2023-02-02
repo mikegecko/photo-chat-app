@@ -14,6 +14,7 @@ export default function Chat(props) {
     
   useEffect(() => {
     // Creation methods broken AF probably need to rewrite this whole compoenent...maybe move async stuff into main component?
+    // 
     setLoading(true);
     async function createMessageChain() {
         const docRef = await addDoc(messageChainsRef, {
