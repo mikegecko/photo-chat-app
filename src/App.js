@@ -71,6 +71,7 @@ function App() {
   const [signInWithGoogle, user, loading, error] = useSignInWithGoogle(auth);
   const [appPage, setAppPage] = useState("camera");
   const [cameraControls, setCameraControls] = useState(true);
+  const [userID, setUserID] = useState();
   const [userData, setUserData] = useState();
   const [friend, setFriend] = useState();
   const [settings, setSettings] = useState({brightnessMode:getPreferredColorScheme(), });
@@ -111,15 +112,17 @@ function App() {
       case "notifications":
         return(<Notifications theme={theme} />)
       case "settings":
-        return <Settings  user={user} userData={userData} setStateOfSettings={setStateOfSettings} settings={settings} theme={theme} />;
+        return <Settings userID={userID} user={user} userData={userData} setStateOfSettings={setStateOfSettings} settings={settings} theme={theme} />;
       default:
         return (
           <WebcamComponent cameraRef={cameraRef} facingMode={facingMode} />
         );
     }
   };
-  const setStateOfUserData = () => {
-
+  const setStateOfUserData = (key,value) => {
+    const newUserData = {...userData}
+    newUserData.data()[key] = value;
+    console.log(newUserData);
   }
   const setStateOfSettings = (key, value) => {
     const newSettings = {...settings};
@@ -290,12 +293,14 @@ function App() {
     }
     async function getAndCreateUser () {
       const userT = await getUser();
-      setUserData(userT);
+      setUserID(userT.id)
+      setUserData(userT.data());
       // If user does not exist userT is undefined
       if(!userT){
         await createUser();
         const userJ = await getUser();
-        setUserData(userJ);
+        setUserID(userJ.id);
+        setUserData(userJ.data());
       }
     }
 
