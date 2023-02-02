@@ -106,7 +106,7 @@ function App() {
       case "notifications":
         return(<Notifications />)
       case "settings":
-        return <Settings />;
+        return <Settings  user={user} userData={userData} />;
       default:
         return (
           <WebcamComponent cameraRef={cameraRef} facingMode={facingMode} />

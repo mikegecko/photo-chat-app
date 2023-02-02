@@ -28,30 +28,7 @@ export default function Profile(props){
         <Box sx={{display:'flex',height:'100%', flexDirection:'column', color:'white' }}>
             <Typography variant='h4' sx={{paddingTop:'10px'}}>Account</Typography>
             <List sx={{width:'100%', color: 'white', fontFamily:'Roboto'}}>
-                <Divider variant="fullWidth" component="li" />
-                <ListItem disablePadding secondaryAction={<ListItemText primary={props.user.user.displayName}/>} >
-                    <ListItemButton>
-                        <ListItemText primary="Name" />
-                    </ListItemButton>
-                </ListItem>
-                <Divider variant="fullWidth" component="li" />
-                <ListItem disablePadding secondaryAction={<ListItemText primary={props.user.user.email}/>} >
-                    <ListItemButton>
-                        <ListItemText primary="Email" />
-                    </ListItemButton>
-                </ListItem>
-                <Divider variant="fullWidth" component="li" />
-                <ListItem disablePadding secondaryAction={<ListItemText primary={props.userData.data().uid}/>} >
-                    <ListItemButton>
-                        <ListItemText primary="UID" />
-                    </ListItemButton>
-                </ListItem>
-                <Divider variant="fullWidth" component="li" />
-                <ListItem disablePadding secondaryAction={<ListItemText primary={props.userData.id}/>} >
-                    <ListItemButton>
-                        <ListItemText primary="UserData" />
-                    </ListItemButton>
-                </ListItem>
+                
                 <Divider variant="fullWidth" component="li" />
                 <ListItem disablePadding secondaryAction={<LogoutIcon />} >
                     <ListItemButton onClick={props.logoutEvent}>
