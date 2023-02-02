@@ -4,16 +4,16 @@ ________________________________________________
 ________________________________________________
     Current Tasks
     ¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯
-    - Fix visual bug where divider on friends page is different from others
-    - Add create light mode theme
+    - Fix broken Chat component
     🔴 write function to update user and friend in DB when creating new message chains 
     - figure out how to handle friend friendRequests in baackend(accepted/unaccepted)
     - figure out how to handle message_chains in backend (creation/deletetion)
     🔴 figure out how to send images and text between users
     🟡 figure out what the difference between settings and profile will be
+            [Profile: logout, friendCode / QR code, ]
+            [Settings: light/dark mode, account info, delete account, ]
     🟠 work on design for profile/settings/friends pages
     - Edit wave mask in sign-in page to go between about 33% and 66% of the text
-    - Style active/inactive elements
     ________________________________________________
     UI/FRONTEND
     ¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯
@@ -71,3 +71,4 @@ ________________________________________________
     ✅  Add sign-in overlay
     ✅  Redesign Sign-In page
     ✅  Add sign-out button 
+    ✅  Create light mode theme
