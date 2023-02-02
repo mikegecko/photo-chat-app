@@ -38,7 +38,7 @@ export default function Friends(props) {
           </Typography>
           <List sx={{ width: "100%", fontFamily: "Roboto" }}>
             <Divider variant="fullWidth" component="li" />
-            {props.userData.data().friends.map((el, index) => {
+            {props.userData.friends.map((el, index) => {
               return (
                 <>
                   <ListItem
@@ -92,7 +92,7 @@ export default function Friends(props) {
             </ListItem>
             <Divider variant="fullWidth" component="li" />
 
-            {!props.userData.data().friends[0] ? <ListItem ><ListItemText primary="No Friends ☹️" /></ListItem> : props.userData.data().friends.map((el, index) => {
+            {!props.userData.friends[0] ? <ListItem ><ListItemText primary="No Friends ☹️" /></ListItem> : props.userData.friends.map((el, index) => {
               return (
                 <>
                   <ListItem

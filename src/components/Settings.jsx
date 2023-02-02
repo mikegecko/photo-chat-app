@@ -90,7 +90,7 @@ export default function Settings(props) {
         <Divider variant="fullWidth" component="li" />
         <ListItem
           disablePadding
-          secondaryAction={<ListItemText primary={props.userData.data().uid} />}
+          secondaryAction={<ListItemText primary={props.userData.uid} />}
         >
           <ListItemButton>
             <ListItemText primary="UID" />
@@ -99,7 +99,7 @@ export default function Settings(props) {
         <Divider variant="fullWidth" component="li" />
         <ListItem
           disablePadding
-          secondaryAction={<ListItemText primary={props.userData.id} />}
+          secondaryAction={<ListItemText primary={props.userID} />}
         >
           <ListItemButton>
             <ListItemText primary="UserData" />
