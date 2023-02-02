@@ -92,7 +92,7 @@ export default function Friends(props) {
             </ListItem>
             <Divider variant="fullWidth" component="li" />
 
-            {!props.userData.data().friends[0] ? "No Friends :(" : props.userData.data().friends.map((el, index) => {
+            {!props.userData.data().friends[0] ? <ListItem ><ListItemText primary="No Friends ☹️" /></ListItem> : props.userData.data().friends.map((el, index) => {
               return (
                 <>
                   <ListItem
