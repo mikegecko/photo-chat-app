@@ -99,7 +99,10 @@ function App() {
       case "friends-sending":
         return <Friends isSending={true} capture={capture} userData={userData} />;
       case "chat":
-        return <Chat friend={friend} userData={userData} />
+        
+        //This done broke af --FIX LATER--
+        //return <Chat friend={friend} userData={userData} />
+        break;
       case "notifications":
         return(<Notifications />)
       case "settings":
