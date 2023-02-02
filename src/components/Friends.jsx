@@ -14,7 +14,6 @@ import { Box } from "@mui/system";
 import MailIcon from "@mui/icons-material/Mail";
 import Badge from "@mui/material/Badge";
 import { useState } from "react";
-import { theme } from "../theme/theme";
 
 export default function Friends(props) {
   const [checked, setChecked] = useState(false);
@@ -25,7 +24,7 @@ export default function Friends(props) {
 
   if (props.isSending) {
     return (
-      <ThemeProvider theme={theme}>
+      <ThemeProvider theme={props.theme}>
         <Box
           sx={{
             display: "flex",
@@ -74,19 +73,18 @@ export default function Friends(props) {
     );
   } else {
     return (
-      <ThemeProvider theme={theme}>
+      <ThemeProvider theme={props.theme}>
         <Box
           sx={{
             display: "flex",
             height: "100%",
             flexDirection: "column",
-            color: "white",
           }}
         >
-          <Typography variant="h4" sx={{ paddingTop: "10px"}}>
+          <Typography variant="h4" sx={{ paddingTop: "10px", paddingBottom: "10px"}}>
             Friends
           </Typography>
-          <List sx={{ width: "100%", color: "white", fontFamily: "Roboto" }}>
+          <List disablePadding sx={{ width: "100%", fontFamily: "Roboto" }}>
             <Divider variant="fullWidth" component="li" />
             {!props.userData.data().friends[0] ? "No Friends :(" : props.userData.data().friends.map((el, index) => {
               return (

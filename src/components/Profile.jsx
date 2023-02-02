@@ -7,7 +7,6 @@ import Typography from "@mui/material/Typography";
 import { Box } from "@mui/system";
 import { ListItemIcon, ListSubheader, ThemeProvider } from "@mui/material";
 import LogoutIcon from "@mui/icons-material/Logout";
-import { theme } from "../theme/theme";
 
 export default function Profile(props) {
   /*
@@ -25,13 +24,12 @@ export default function Profile(props) {
     
     */
   return (
-    <ThemeProvider theme={theme}>
+    <ThemeProvider theme={props.theme}>
       <Box
         sx={{
           display: "flex",
           height: "100%",
           flexDirection: "column",
-          color: "white",
         }}
       >
         <Typography

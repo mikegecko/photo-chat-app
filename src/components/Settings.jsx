@@ -16,7 +16,6 @@ import LightModeIcon from "@mui/icons-material/LightMode";
 import DarkModeIcon from "@mui/icons-material/DarkMode";
 import { useEffect, useState } from "react";
 import { motion } from "framer-motion";
-import { theme } from "../theme/theme";
 
 export default function Settings(props) {
 
@@ -37,7 +36,7 @@ export default function Settings(props) {
           component={motion.div}
           transition={{ type: "spring", stiffness: 260, damping: 20 }}
         >
-          <DarkModeIcon />
+          <DarkModeIcon sx={{color:"black"}} />
         </Box>
         <Box
           initial={{ scale: 0 }}
@@ -52,14 +51,15 @@ export default function Settings(props) {
   };
 
   return (
-    <ThemeProvider theme={theme}>
+    <ThemeProvider theme={props.theme}>
     <Box
+
       sx={{
         display: "flex",
         height: "100%",
         flexDirection: "column",
-        color: "white",
       }}
+      
     >
       <Typography variant="h4" sx={{ paddingTop: "10px", paddingBottom: "10px" }}>
         Settings
@@ -118,7 +118,7 @@ export default function Settings(props) {
             <Switch
               edge="end"
               onChange={handleThemeEvent}
-              checked={!props.settings.brightnessMode}
+              checked={props.settings.brightnessMode}
             />
           </ListItemButton>
         </ListItem>
