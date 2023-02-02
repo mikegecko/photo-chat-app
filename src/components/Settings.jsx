@@ -3,6 +3,7 @@ import { Box } from "@mui/system";
 import LightModeIcon from '@mui/icons-material/LightMode';
 import DarkModeIcon from '@mui/icons-material/DarkMode';
 import { useState } from "react";
+import { motion } from "framer-motion";
 
 
 export default function Settings(props){
@@ -20,13 +21,30 @@ export default function Settings(props){
 
         setChecked(newChecked);
     }
+    const visible = {rotate: 180, scale: 1};
+    const hidden = {scale:0};
+
     const brightnessIconSelect = () => {
-        if(checked.indexOf('brightnessMode') !== -1){
-            return(<DarkModeIcon />)
-        }
-        else{
-            return(<LightModeIcon />)
-        }
+        
+            return(<>
+            <Box 
+                sx={{position: "absolute"}}
+                initial={{scale:0}}
+                animate={checked.indexOf('brightnessMode') ? hidden : visible}
+                component={motion.div}
+                transition={{type: "spring", stiffness: 260, damping: 20}}>
+                    <DarkModeIcon />
+                </Box>
+                <Box
+                initial={{scale:0}}
+                animate={checked.indexOf('brightnessMode') ? visible : hidden}
+                component={motion.div}
+                transition={{type: "spring", stiffness: 260, damping: 20}}>
+                    <LightModeIcon/>
+                </Box>
+                </>)
+        
+        
     }
 
     return(
