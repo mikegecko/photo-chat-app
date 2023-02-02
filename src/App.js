@@ -7,7 +7,7 @@ import ArrowForwardIcon from "@mui/icons-material/ArrowForward";
 import FlipCameraAndroidIcon from "@mui/icons-material/FlipCameraAndroid";
 import PhotoLibraryIcon from "@mui/icons-material/PhotoLibrary";
 import "./App.css";
-import { Avatar, Button, ButtonBase, IconButton } from "@mui/material";
+import { Avatar, Button, ButtonBase, CssBaseline, IconButton, ThemeProvider } from "@mui/material";
 import { useCallback, useEffect, useRef, useState } from "react";
 import Webcam from "react-webcam";
 import WebcamComponent from "./components/WebcamComponent";
@@ -53,6 +53,7 @@ import Friends from "./components/Friends";
 import Notifications from "./components/Notifications";
 import Chat from "./components/Chat";
 import { motion } from "framer-motion";
+import { themeDark, themeLight } from "./theme/theme";
 
 // Initialize Firebase
 export const app = initializeApp(firebaseConfig);
@@ -73,9 +74,10 @@ function App() {
   const [userData, setUserData] = useState();
   const [friend, setFriend] = useState();
   const [settings, setSettings] = useState({brightnessMode:getPreferredColorScheme(), });
+  const [theme, setTheme] = useState(getPreferredColorScheme() ? themeLight : themeDark);
   const breakpoint = 768;
   const cameraRef = useRef(null);
-
+  
   const pageSelector = () => {
     //decouple appPage from this
     switch (appPage) {
@@ -95,21 +97,21 @@ function App() {
         break;
       case "profile":
         return (
-          <Profile user={user} logoutEvent={logoutEvent} userData={userData} />
+          <Profile user={user} logoutEvent={logoutEvent} userData={userData} theme={theme} />
         );
       case "friends":
-        return <Friends userData={userData} friendSelectEvent={friendSelectEvent} />;
+        return <Friends userData={userData} friendSelectEvent={friendSelectEvent} theme={theme} />;
       case "friends-sending":
-        return <Friends isSending={true} capture={capture} userData={userData} />;
+        return <Friends isSending={true} capture={capture} userData={userData} theme={theme} />;
       case "chat":
         
         //This done broke af --FIX LATER--
         //return <Chat friend={friend} userData={userData} />
         break;
       case "notifications":
-        return(<Notifications />)
+        return(<Notifications theme={theme} />)
       case "settings":
-        return <Settings  user={user} userData={userData} setStateOfSettings={setStateOfSettings} settings={settings} />;
+        return <Settings  user={user} userData={userData} setStateOfSettings={setStateOfSettings} settings={settings} theme={theme} />;
       default:
         return (
           <WebcamComponent cameraRef={cameraRef} facingMode={facingMode} />
@@ -306,6 +308,14 @@ function App() {
     }
   },[userData])
 
+  useEffect(() => {
+    if(settings.brightnessMode){
+      setTheme(themeDark);
+    }
+    else{
+      setTheme(themeLight);
+    }
+  }, [settings])
   if (width > breakpoint) {
     //Desktop view
     return <div className="App"></div>;
@@ -314,7 +324,10 @@ function App() {
   return (
     <div className="App">
       <Login loading={loading} hidden={hideLogin} loginHandler={loginEvent} />
+      <ThemeProvider theme={theme}>
+      <CssBaseline />
       <Box
+      
         sx={{
           minHeight: "80px",
           height: "80px",
@@ -421,6 +434,7 @@ function App() {
           />
         </ButtonBase>
       </Box>
+      </ThemeProvider>
     </div>
   );
 }
