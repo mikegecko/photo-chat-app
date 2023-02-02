@@ -30,13 +30,12 @@ export default function Friends(props) {
             display: "flex",
             height: "100%",
             flexDirection: "column",
-            color: "white",
           }}
         >
           <Typography variant="h4" sx={{ paddingTop: "10px", paddingBottom: "10px" }}>
             Friends
           </Typography>
-          <List sx={{ width: "100%", color: "white", fontFamily: "Roboto" }}>
+          <List sx={{ width: "100%", fontFamily: "Roboto" }}>
             <Divider variant="fullWidth" component="li" />
             {props.userData.data().friends.map((el, index) => {
               return (
@@ -53,7 +52,6 @@ export default function Friends(props) {
                     <ListItemButton onClick={handleToggle}>
                       <ListItemIcon>
                         <Checkbox
-                          sx={{ color: "white" }}
                           edge="start"
                           checked={checked}
                           tabIndex={-1}
