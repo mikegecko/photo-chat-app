@@ -4,7 +4,7 @@ ________________________________________________
 ________________________________________________
     Current Tasks
     ¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯
-    - Add create light mode theme
+    - Add create light mode themeg
     🔴 write function to update user and friend in DB when creating new message chains 
     - figure out how to handle friend friendRequests in baackend(accepted/unaccepted)
     - figure out how to handle message_chains in backend (creation/deletetion)
