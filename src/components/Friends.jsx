@@ -14,6 +14,7 @@ import { Box } from "@mui/system";
 import MailIcon from "@mui/icons-material/Mail";
 import Badge from "@mui/material/Badge";
 import { useState } from "react";
+import { theme } from "../theme/theme";
 
 export default function Friends(props) {
   const [checked, setChecked] = useState(false);
@@ -22,22 +23,6 @@ export default function Friends(props) {
     setChecked(!checked);
   };
 
-  const theme = createTheme({
-    status: {
-      danger: "#e53e3e",
-    },
-    palette: {
-      primary: {
-        main: "#3e9dfc",
-      },
-      secondary: {
-        main: "#1f1f1f",
-      },
-      neutral: {
-        main: "#64748B",
-      },
-    },
-  });
   if (props.isSending) {
     return (
       <ThemeProvider theme={theme}>

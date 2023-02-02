@@ -1,16 +1,16 @@
-import List from '@mui/material/List';
-import ListItem from '@mui/material/ListItem';
-import ListItemText from '@mui/material/ListItemText';
-import ListItemButton from '@mui/material/ListItemButton';
-import Divider from '@mui/material/Divider';
-import Typography from '@mui/material/Typography';
+import List from "@mui/material/List";
+import ListItem from "@mui/material/ListItem";
+import ListItemText from "@mui/material/ListItemText";
+import ListItemButton from "@mui/material/ListItemButton";
+import Divider from "@mui/material/Divider";
+import Typography from "@mui/material/Typography";
 import { Box } from "@mui/system";
-import { ListItemIcon } from '@mui/material';
-import LogoutIcon from '@mui/icons-material/Logout';
+import { ListItemIcon, ListSubheader, ThemeProvider } from "@mui/material";
+import LogoutIcon from "@mui/icons-material/Logout";
+import { theme } from "../theme/theme";
 
-export default function Profile(props){
-
-    /*
+export default function Profile(props) {
+  /*
         Mabe combine this with settings and find new use for profile click like a qr code/ uuid for adding friends
         What to display on this page:
         - Display name
@@ -24,20 +24,33 @@ export default function Profile(props){
         !!!! ADD LOADING SYSTEM FOR ALL ITEMS
     
     */
-    return(
-        <Box sx={{display:'flex',height:'100%', flexDirection:'column', color:'white' }}>
-            <Typography variant='h4' sx={{paddingTop:'10px'}}>Account</Typography>
-            <List sx={{width:'100%', color: 'white', fontFamily:'Roboto'}}>
-                
-                <Divider variant="fullWidth" component="li" />
-                <ListItem disablePadding secondaryAction={<LogoutIcon />} >
-                    <ListItemButton onClick={props.logoutEvent}>
-                        <ListItemText primary="Logout" />
-                    </ListItemButton>
-                </ListItem>
-                <Divider variant="fullWidth" component="li" />
-                
-            </List>
-        </Box>
-    )
+  return (
+    <ThemeProvider theme={theme}>
+      <Box
+        sx={{
+          display: "flex",
+          height: "100%",
+          flexDirection: "column",
+          color: "white",
+        }}
+      >
+        <Typography
+          variant="h4"
+          sx={{ paddingTop: "10px", paddingBottom: "10px" }}
+        >
+          Account
+        </Typography>
+        <Divider variant="fullWidth" />
+        <List subheader={<ListSubheader sx={{textAlign: 'left'}}>Account Info</ListSubheader>}>
+        <Divider variant="fullWidth" component="li" />
+          <ListItem disablePadding secondaryAction={<LogoutIcon />}>
+            <ListItemButton onClick={props.logoutEvent}>
+              <ListItemText primary="Logout" />
+            </ListItemButton>
+          </ListItem>
+          <Divider variant="fullWidth" component="li" />
+        </List>
+      </Box>
+    </ThemeProvider>
+  );
 }

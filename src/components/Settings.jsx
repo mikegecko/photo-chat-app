@@ -71,11 +71,11 @@ export default function Settings(props) {
         color: "white",
       }}
     >
-      <Typography variant="h4" sx={{ paddingTop: "10px" }}>
+      <Typography variant="h4" sx={{ paddingTop: "10px", paddingBottom: "10px" }}>
         Settings
       </Typography>
       <Divider variant="fullWidth" />
-      <List disablePadding subheader={<ListSubheader >Account Info</ListSubheader>}>
+      <List disablePadding subheader={<ListSubheader sx={{textAlign: 'left'}}>Account Info</ListSubheader>}>
       <Divider variant="fullWidth" component="li" />
         <ListItem
           disablePadding
@@ -117,7 +117,7 @@ export default function Settings(props) {
         </ListItem>
         <Divider variant="fullWidth" component="li" />
       </List>
-      <List subheader={<ListSubheader >Settings</ListSubheader>}>
+      <List subheader={<ListSubheader sx={{textAlign: 'left'}} >Settings</ListSubheader>}>
       <Divider variant="fullWidth" component="li" />
         <ListItem disablePadding>
           <ListItemButton onClick={() => handleToggle("brightnessMode")}>
