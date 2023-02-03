@@ -1,10 +1,13 @@
 ✅ ❌ ⚠️ 🔴 🟠 🟡 🟢 ⚫ ⚪ 🔵
 ________________________________________________
                      TODO
+    🔴 - URGENT
+    🟠 - Medium Priority
+    🟡 - Low Priority
 ________________________________________________
     Current Tasks
     ¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯
-    - Fix broken Chat component
+    🔴 Fix broken Chat component
     🔴 write function to update user and friend in DB when creating new message chains 
     - figure out how to handle friend friendRequests in baackend(accepted/unaccepted)
     - figure out how to handle message_chains in backend (creation/deletetion)
@@ -13,10 +16,13 @@ ________________________________________________
             [Profile: logout, friendCode / QR code, ]
             [Settings: light/dark mode, account info, delete account, ]
     🟠 work on design for profile/settings/friends pages
-    - Edit wave mask in sign-in page to go between about 33% and 66% of the text
+    🟡 Add functions to add friend button
+
     ________________________________________________
     UI/FRONTEND
     ¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯
+    - Edit wave mask in sign-in page to go between about 33% and 66% of the text
+    - Use mui snackbar's for showing errors and success messages
     - design chat box in chat component
     - loading screen for sending messages or going between pages
     - add drag up to refresh in chat/friends/etc.
