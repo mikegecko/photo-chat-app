@@ -107,7 +107,7 @@ function App() {
       case "chat":
         
         //This done broke af --FIX LATER--
-        //return <Chat friend={friend} userData={userData} />
+        //return <Chat friend={friend} userData={userData} userID={userID} />
         break;
       case "notifications":
         return(<Notifications theme={theme} />)
@@ -119,10 +119,23 @@ function App() {
         );
     }
   };
+  const debugHandler = (e) => {
+    setStateOfUserData('friends', {name: 'Somename', id:"2fg2ef3", })
+  }
   const setStateOfUserData = (key,value) => {
-    const newUserData = {...userData}
-    newUserData.data()[key] = value;
-    console.log(newUserData);
+    if(!userData){
+      return;
+    }
+    else{
+      const newUserData = {...userData, friends:[...userData.friends] }
+      if(key === 'friends'){
+        newUserData[key].push(value);
+      }
+      else{
+        newUserData[key] = value;
+      }
+      setUserData(newUserData);
+    }
   }
   const setStateOfSettings = (key, value) => {
     const newSettings = {...settings};
@@ -268,7 +281,7 @@ function App() {
       const docRef = await addDoc(usersRef, {
         name: user.user.displayName,
         uid: user.user.uid,
-        friends: {},
+        friends: [],
         friendRequests: {},
         settings:{},
         joined: serverTimestamp(),
@@ -293,14 +306,16 @@ function App() {
     }
     async function getAndCreateUser () {
       const userT = await getUser();
-      setUserID(userT.id)
-      setUserData(userT.data());
       // If user does not exist userT is undefined
       if(!userT){
         await createUser();
         const userJ = await getUser();
         setUserID(userJ.id);
         setUserData(userJ.data());
+      }
+      else{
+        setUserID(userT.id);
+        setUserData(userT.data());
       }
     }
 
@@ -416,6 +431,7 @@ function App() {
         </ButtonBase>
       </Box>
       {pageSelector()}
+      <Button variant="outlined" color="primary" onClick={debugHandler}>Click me</Button>
       <Box
         sx={{
           minHeight: "80px",
