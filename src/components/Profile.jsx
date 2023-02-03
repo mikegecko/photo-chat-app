@@ -7,22 +7,11 @@ import Typography from "@mui/material/Typography";
 import { Box } from "@mui/system";
 import { ListItemIcon, ListSubheader, ThemeProvider } from "@mui/material";
 import LogoutIcon from "@mui/icons-material/Logout";
+import ArrowForwardIosIcon from '@mui/icons-material/ArrowForwardIos';
 
 export default function Profile(props) {
-  /*
-        Mabe combine this with settings and find new use for profile click like a qr code/ uuid for adding friends
-        What to display on this page:
-        - Display name
-        - email
-        - account age
-        - dark/light mode toggle
-        - friend code
-        - delete account
-        - maybe some debug stuff?
-    
-        !!!! ADD LOADING SYSTEM FOR ALL ITEMS
-    
-    */
+  
+
   return (
     <ThemeProvider theme={props.theme}>
       <Box
@@ -40,7 +29,19 @@ export default function Profile(props) {
         </Typography>
         <Divider variant="fullWidth" />
         <List disablePadding >
-          <ListItem disablePadding secondaryAction={<LogoutIcon />}>
+        <ListItem disablePadding secondaryAction={props.userID} >
+            <ListItemButton >
+              <ListItemText primary="Friend Code" />
+            </ListItemButton>
+          </ListItem>
+          <Divider variant="fullWidth" />
+          <ListItem disablePadding secondaryAction={<ArrowForwardIosIcon sx={{display:'flex'}} />} >
+            <ListItemButton >
+              <ListItemText primary="QR Friend Code" />
+            </ListItemButton>
+          </ListItem>
+          <Divider variant="fullWidth" />
+          <ListItem disablePadding secondaryAction={<LogoutIcon sx={{display:'flex'}} />}>
             <ListItemButton onClick={props.logoutEvent}>
               <ListItemText primary="Logout" />
             </ListItemButton>

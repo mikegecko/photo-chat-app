@@ -40,12 +40,12 @@ export default function Friends(props) {
             <Divider variant="fullWidth" component="li" />
             {props.userData.friends.map((el, index) => {
               return (
-                <>
+                <div key={el.id}>
                   <ListItem
                     key={el.id}
                     disablePadding
                     secondaryAction={
-                      <Badge color="primary" badgeContent={0} showZero>
+                      <Badge color="primary" badgeContent={0} showZero> 
                         <MailIcon />
                       </Badge>
                     }
@@ -63,7 +63,7 @@ export default function Friends(props) {
                     </ListItemButton>
                   </ListItem>
                   <Divider variant="fullWidth" component="li" />
-                </>
+                </div>
               );
             })}
           </List>
@@ -85,7 +85,7 @@ export default function Friends(props) {
           </Typography>
           <List disablePadding sx={{ width: "100%", fontFamily: "Roboto" }}>
             <Divider variant="fullWidth" component="li" />
-            <ListItem disablePadding secondaryAction={<PersonAddIcon />}>
+            <ListItem disablePadding secondaryAction={<PersonAddIcon sx={{display:'flex'}} />}>
               <ListItemButton>
                 <ListItemText primary="Add Friend" />
               </ListItemButton>
@@ -94,12 +94,12 @@ export default function Friends(props) {
 
             {!props.userData.friends[0] ? <ListItem ><ListItemText primary="No Friends ☹️" /></ListItem> : props.userData.friends.map((el, index) => {
               return (
-                <>
+                <div key={el.id}>
                   <ListItem
                     key={el.id}
                     disablePadding
                     secondaryAction={
-                      <Badge color="primary" badgeContent={0} showZero>
+                      <Badge color="primary" badgeContent={0} showZero >
                         <MailIcon />
                       </Badge>
                     }
@@ -109,7 +109,7 @@ export default function Friends(props) {
                     </ListItemButton>
                   </ListItem>
                   <Divider variant="fullWidth" component="li" />
-                </>
+                </div>
               );
             })}
           </List>

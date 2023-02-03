@@ -30,7 +30,8 @@ export default function Settings(props) {
     return (
       <>
         <Box
-          sx={{ position: "absolute" }}
+        
+          sx={{ position: "absolute", padding: '0px', display: 'flex' }}
           initial={{ scale: 0 }}
           animate={props.settings.brightnessMode ? hidden : visible}
           component={motion.div}
@@ -39,6 +40,7 @@ export default function Settings(props) {
           <DarkModeIcon sx={{color:"black"}} />
         </Box>
         <Box
+          sx={{padding: '0px', display: 'flex' }}
           initial={{ scale: 0 }}
           animate={props.settings.brightnessMode ? visible : hidden}
           component={motion.div}
@@ -116,6 +118,7 @@ export default function Settings(props) {
             </ListItemIcon>
             <ListItemText primary="Toggle Dark/Light Mode" />
             <Switch
+              
               edge="end"
               onChange={handleThemeEvent}
               checked={props.settings.brightnessMode}

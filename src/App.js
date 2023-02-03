@@ -98,7 +98,7 @@ function App() {
         break;
       case "profile":
         return (
-          <Profile user={user} logoutEvent={logoutEvent} userData={userData} theme={theme} />
+          <Profile user={user} logoutEvent={logoutEvent} userData={userData} userID={userID} theme={theme} />
         );
       case "friends":
         return <Friends userData={userData} friendSelectEvent={friendSelectEvent} theme={theme} />;
@@ -432,7 +432,7 @@ function App() {
         </ButtonBase>
       </Box>
       {pageSelector()}
-      <Button variant="outlined" color="primary" onClick={debugHandler}>Click me</Button>
+      {/* <Button variant="outlined" color="primary" onClick={debugHandler}>Click me</Button> */}
       <Box
         sx={{
           minHeight: "80px",
