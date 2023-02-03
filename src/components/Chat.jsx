@@ -23,6 +23,7 @@ export default function Chat(props) {
           });
           return docRef;
           // This docRef.id needs to be added to message_chain in firestore for both users
+          // For current user -> call setStateOfUserData() to update
     }
     async function getMessageChain() {
       const q = query(
@@ -44,12 +45,14 @@ export default function Chat(props) {
     }
     async function getAndCreateMessageChain(){
         const chain = await getMessageChain();
-        setChain(chain);
         if(!chain){
             const createChain = await createMessageChain();
             setMessageChainID(createChain.id);
             // Somehow get this id to update message_chain prop and update document in DB
             setChain(createChain);
+        }
+        else{
+          setChain(chain);
         }
     }
     async function getMessageCollection(){
@@ -82,7 +85,7 @@ export default function Chat(props) {
         }
     }
     getAndCreateMessageChain();
-    getAndCreateMessageCollection();
+    //getAndCreateMessageCollection();
     setLoading(false);
   }, []);
 
