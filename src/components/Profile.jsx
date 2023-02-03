@@ -36,7 +36,7 @@ export default function Profile(props) {
           </ListItem>
           <Divider variant="fullWidth" />
           <ListItem disablePadding secondaryAction={<ArrowForwardIosIcon sx={{display:'flex'}} />} >
-            <ListItemButton >
+            <ListItemButton onClick={props.qrcodeEvent} >
               <ListItemText primary="QR Friend Code" />
             </ListItemButton>
           </ListItem>
