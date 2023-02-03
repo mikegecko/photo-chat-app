@@ -54,6 +54,7 @@ import Notifications from "./components/Notifications";
 import Chat from "./components/Chat";
 import { motion } from "framer-motion";
 import { themeDark, themeLight } from "./theme/theme";
+import QRcode from "./components/QRcode";
 
 // Initialize Firebase
 export const app = initializeApp(firebaseConfig);
@@ -98,7 +99,7 @@ function App() {
         break;
       case "profile":
         return (
-          <Profile user={user} logoutEvent={logoutEvent} userData={userData} userID={userID} theme={theme} />
+          <Profile user={user} logoutEvent={logoutEvent} userData={userData} userID={userID} theme={theme} qrcodeEvent={qrcodeEvent} />
         );
       case "friends":
         return <Friends userData={userData} friendSelectEvent={friendSelectEvent} theme={theme} />;
@@ -113,6 +114,8 @@ function App() {
         return(<Notifications theme={theme} />)
       case "settings":
         return <Settings userID={userID} user={user} userData={userData} setStateOfSettings={setStateOfSettings} settings={settings} theme={theme} />;
+      case "qrcode":
+        return <QRcode userID={userID} width={width} />
       default:
         return (
           <WebcamComponent cameraRef={cameraRef} facingMode={facingMode} />
@@ -202,6 +205,11 @@ function App() {
       return(false);
     }
     else{return(true)}
+  }
+  const qrcodeEvent = () => {
+    setCapture(null);
+    setAppPage('qrcode');
+    setCameraControls(false);
   }
   const clearCaptureEvent = (e) => {
     setCapture(null);
