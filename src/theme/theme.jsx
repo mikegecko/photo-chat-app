@@ -203,8 +203,8 @@ export const themeDark = createTheme({
       contrastText: '#FFFFFF'
     },
     text: {
-      primary: 'white',
-      secondary: 'white',
+      primary: '#FFFFFF',
+      secondary: '#FFFFFF',
       disabled: 'rgba(55, 65, 81, 0.48)'
     }
   },
