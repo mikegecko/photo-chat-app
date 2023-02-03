@@ -13,6 +13,8 @@
     "@testing-library/user-event": "^13.5.0",
     "firebase": "^9.16.0",
     "framer-motion": "^8.5.2",
+    "qr-scanner": "^1.4.2",
+    "qrcodejs": "^1.0.0",
     "react": "^18.2.0",
     "react-dom": "^18.2.0",
     "react-firebase-hooks": "^5.1.1",
