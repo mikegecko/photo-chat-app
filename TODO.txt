@@ -17,6 +17,7 @@ ________________________________________________
             [Settings: light/dark mode, account info, delete account, ]
     🟠 work on design for profile/settings/friends pages
     🟡 Add functions to add friend button
+    - Add QR code scanner for adding friends ( first hook up friend requests and friends in backend)
 
     ________________________________________________
     UI/FRONTEND
@@ -55,6 +56,7 @@ ________________________________________________
                      BUGS
 ________________________________________________
 
+    ⚠️ Desktop mobile view - QR code rounded corners show gradient lines
     ⚠️ Uploading an image then closing the image or changing pages and trying to upload the same image again doesn't work
     ⚠️ Fix webcam component size not fitting to mobile size
     ✅ Signing out and back in brings you to the same page you were previously on
@@ -78,3 +80,4 @@ ________________________________________________
     ✅  Redesign Sign-In page
     ✅  Add sign-out button 
     ✅  Create light mode theme
+    ✅  Add QR code for adding friends
