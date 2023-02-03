@@ -119,6 +119,7 @@ function App() {
         );
     }
   };
+  //Debug handler for temp button
   const debugHandler = (e) => {
     setStateOfUserData('friends', {name: 'Somename', id:"2fg2ef3", })
   }
