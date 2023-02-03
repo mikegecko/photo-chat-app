@@ -5,6 +5,31 @@
   height: 100%;
   
 }
+.box{
+  --b: 2px;   /* thickness of the border */
+  --c: repeating-linear-gradient(45deg,red,blue);   /* color of the border */
+  --w: 40px;  /* width of border */
+  --r: 20px;  /* radius */
+  
+
+  padding: var(--b); /* space for the border */
+  position:relative;
+}
+.box::before{
+  content: "";
+  position: absolute;
+  inset: 0;
+  background: var(--c,red);
+  padding: var(--b);
+  border-radius: var(--r);
+  -webkit-mask:
+    linear-gradient(  0deg,#000 calc(2*var(--b)),#1f1f1f 0) 50% var(--b)/calc(100% - 2*var(--w)) 100% repeat-y,
+    linear-gradient(-90deg,#000 calc(2*var(--b)),#1f1f1f 0) var(--b) 50%/100% calc(100% - 2*var(--w)) repeat-x,
+    linear-gradient(#1f1f1f 0 0) content-box,
+    linear-gradient(#1f1f1f 0 0);
+  -webkit-mask-composite: destination-out;
+          mask-composite: exclude;
+}
 @media only screen and (max-width: 768px) {
   /* For mobile phones: */
   .App {
