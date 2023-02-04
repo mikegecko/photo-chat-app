@@ -19,6 +19,7 @@ export default function Chat(props) {
   const [loading, setLoading] = useState(true);
   const [messageChainID, setMessageChainID] = useState(null);
   let mountRef = useRef(true);
+  let idMountRef = useRef(true);
   //let messageCollectionRef = collection(db,"message_chains", messageChainID, "messages"); //messageChainID cannot be null
 
   useEffect(() => {
@@ -101,43 +102,53 @@ export default function Chat(props) {
     async function getMessageCollection() {
       const querySnapshot = await getDocs(collection(db,`message_chains/${messageChainID}/messages`));
       console.log('Collecting Messages');
-      const temp = [];
+      const messageArray = [];
       querySnapshot.forEach((message) => {
         if (message.exists()) {
-          temp.push(message.data());
+          messageArray.push(message.data());
         } else {
           console.log("Could not retrieve message");
         }
       });
-      return temp;
+      return messageArray;
     }
     async function createMessageCollection() {
+      // Make this first message more unique and add data - this first message will be hidden from the convo and serve as a data manager for the convo
       const docRef = await addDoc(collection(db,`message_chains/${messageChainID}/messages`), {
         content: "New Convo",
         timestamp: serverTimestamp(),
       });
       console.log('Creating New Messages');
-      const temp = [];
-      temp.push(docRef);
-      return temp;
+      console.log(docRef.id);
+      return docRef;
     }
     async function getAndCreateMessageCollection() {
       console.log('Started Message Collection...');
       const messageArray = await getMessageCollection();
       if (!messageArray[0]) {
         const createMessage = await createMessageCollection();
-        setMessages([...createMessage]);
+        //setMessages([...createMessage]);
+        const addMessage = await getMessageCollection();
+        setMessages([...addMessage]);
       }
       else{
         setMessages([...messageArray]);
       }
-      console.log(messageArray);
     }
-    getAndCreateMessageCollection();
+    if(idMountRef.current){
+      //idMountRef.current = false;
+      if(messageChainID){
+        getAndCreateMessageCollection();
+      }
+    }
     return () => {
       //Cleanup
     }
   }, [messageChainID])
+
+  useEffect(() => {
+    console.log(messages)
+  }, [messages])
 
   return (
     <ThemeProvider theme={props.theme}>
