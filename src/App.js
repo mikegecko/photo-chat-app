@@ -108,7 +108,7 @@ function App() {
       case "chat":
         
         //This done broke af --FIX LATER--
-        //return <Chat friend={friend} userData={userData} userID={userID} />
+        return <Chat friend={friend} userData={userData} userID={userID} theme={theme} setStateOfUserData={setStateOfUserData} />
         break;
       case "notifications":
         return(<Notifications theme={theme} />)
@@ -126,19 +126,12 @@ function App() {
   const debugHandler = (e) => {
     setStateOfUserData('friends', {name: 'Somename', id:"2fg2ef3", })
   }
-  const setStateOfUserData = (key,value) => {
+  const setStateOfUserData = (userDataObj) => {
     if(!userData){
       return;
     }
     else{
-      const newUserData = {...userData, friends:[...userData.friends] }
-      if(key === 'friends'){
-        newUserData[key].push(value);
-      }
-      else{
-        newUserData[key] = value;
-      }
-      setUserData(newUserData);
+      setUserData(userDataObj);
     }
   }
   const setStateOfSettings = (key, value) => {
@@ -261,8 +254,8 @@ function App() {
     setAppPage("friends");
     setCameraControls(false);
   };
-  const friendSelectEvent = (friendObj) => {
-    setFriend(friendObj);
+  const friendSelectEvent = (friendIndex) => {
+    setFriend(friendIndex);
     setAppPage('chat');
     setCameraControls(false);
   }
