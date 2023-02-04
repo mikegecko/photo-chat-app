@@ -1,8 +1,8 @@
-import { Divider, Typography } from "@mui/material";
+import { Divider, ThemeProvider, Typography } from "@mui/material";
 import { create } from "@mui/material/styles/createTransitions";
 import { Box } from "@mui/system";
 import { addDoc, collection, doc, getDocs, query, serverTimestamp, where } from "firebase/firestore";
-import { useEffect, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import { db, messageChainsRef } from "../App";
 
 export default function Chat(props) {
@@ -10,40 +10,61 @@ export default function Chat(props) {
     const [messages,setMessages] = useState([]);
     const [loading, setLoading] = useState(true);
     const [messageChainID, setMessageChainID] = useState(null);
-    const messageCollectionRef = collection(db, "message_chains", messageChainID, "messages" );
+    let mountRef = useRef(true);
+    let messageCollectionRef = collection(db, "message_chains", messageChainID ? messageChainID : 'loading', "messages" ); //messageChainID cannot be null
     
   useEffect(() => {
     // Creation methods broken AF probably need to rewrite this whole compoenent...maybe move async stuff into main component?
-    // 
+    // !!! useRef workaround is ill-advised, look into other solutions
     setLoading(true);
     async function createMessageChain() {
-        const docRef = await addDoc(messageChainsRef, {
-            timestamp:serverTimestamp(),
-            users:[props.userData.id, props.firend.id],
-          });
-          return docRef;
-          // This docRef.id needs to be added to message_chain in firestore for both users
-          // For current user -> call setStateOfUserData() to update
+      try{
+        const docRef = await addDoc(collection(db, "message_chains"), {
+          timestamp:serverTimestamp(),
+          users:[props.userID, props.userData.friends[props.friend].id],
+        });
+        // This docRef.id needs to be added to message_chain in firestore for both users
+        // Currently only updates userData state -> useEffect((),[userData]) -> firestore update function?
+        const newUserData = {...props.userData, friends:[...props.userData.friends]};
+        newUserData.friends[props.friend].message_chain = docRef.id;
+        props.setStateOfUserData(newUserData);
+        console.log(docRef.id);
+        return docRef;
+      }
+      catch (error){
+        console.error(error)
+      }
+        
     }
     async function getMessageChain() {
-      const q = query(
-        messageChainsRef,
-        where("__name__", "==", props.friend.message_chain)
-      );
-      const querySnapshot = await getDocs(q);
-      let i;
-      //This could cause bugs if there is more than one result for query
-      querySnapshot.forEach((doc) => {
-        if (doc.exists()) {
-          i = doc;
-          console.log(doc.id);
-        } else {
-          console.log("Could not retrieve message_chain");
-        }
-      });
-      return i;
+      try{
+        const q = query(
+          messageChainsRef,
+          where("__name__", "==", props.userData.friends[props.friend].message_chain)
+        ); 
+        console.log("Queried")
+        const querySnapshot = await getDocs(q);
+        let i;
+        //This could cause bugs if there is more than one result for query
+        querySnapshot.forEach((doc) => {
+          if (doc.exists()) {
+            i = doc;
+            console.log(doc.id);
+          } else {
+            console.log("Could not retrieve message_chain");
+          }
+        });
+        return i;
+      }
+      catch (error) {
+        console.error(error);
+      }
     }
+  
     async function getAndCreateMessageChain(){
+      if(mountRef.current){
+        mountRef.current = false;
+      
         const chain = await getMessageChain();
         if(!chain){
             const createChain = await createMessageChain();
@@ -54,7 +75,10 @@ export default function Chat(props) {
         else{
           setChain(chain);
         }
-    }
+      }
+      }
+    
+
     async function getMessageCollection(){
         const querySnapshot = await getDocs(messageCollectionRef);
         const temp = [];
@@ -84,12 +108,17 @@ export default function Chat(props) {
             setMessages([...createMessage]);
         }
     }
+
     getAndCreateMessageChain();
     //getAndCreateMessageCollection();
     setLoading(false);
+    return () => {
+      //Cleanup useEffect
+    }
   }, []);
 
   return (
+    <ThemeProvider theme={props.theme}>
     <Box
       sx={{
         display: "flex",
@@ -105,11 +134,12 @@ export default function Chat(props) {
         Chat
       </Typography>
       <Divider variant="fullWidth" />
-      {loading ? <Box>Loading</Box> : messages.map((el,index) => {
+      {/* {loading ? <Box>Loading</Box> : messages.map((el,index) => {
         return(
             <Box key={index}>{el.content}</Box>    
         )
-      })}
+      })} */}
     </Box>
+    </ThemeProvider>
   );
 }
