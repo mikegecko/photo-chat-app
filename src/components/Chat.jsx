@@ -19,12 +19,7 @@ export default function Chat(props) {
   const [loading, setLoading] = useState(true);
   const [messageChainID, setMessageChainID] = useState(null);
   let mountRef = useRef(true);
-  let messageCollectionRef = collection(
-    db,
-    "message_chains",
-    messageChainID ? messageChainID : "loading",
-    "messages"
-  ); //messageChainID cannot be null
+  //let messageCollectionRef = collection(db,"message_chains", messageChainID, "messages"); //messageChainID cannot be null
 
   useEffect(() => {
     // Creation methods broken AF probably need to rewrite this whole compoenent...maybe move async stuff into main component?
@@ -44,7 +39,6 @@ export default function Chat(props) {
         };
         newUserData.friends[props.friend].message_chain = docRef.id;
         props.setStateOfUserData(newUserData);
-        console.log(docRef.id);
         return docRef;
       } catch (error) {
         console.error(error);
@@ -79,9 +73,6 @@ export default function Chat(props) {
     }
 
     async function getAndCreateMessageChain() {
-      if (mountRef.current) {
-        mountRef.current = false;
-
         const chain = await getMessageChain();
         if (!chain) {
           const createChain = await createMessageChain();
@@ -91,11 +82,25 @@ export default function Chat(props) {
         } else {
           setChain(chain);
         }
-      }
     }
 
+    
+    if (mountRef.current) {
+      mountRef.current = false;
+      getAndCreateMessageChain();
+      //getAndCreateMessageCollection();
+    }
+    setLoading(false);
+    return () => {
+      //Cleanup useEffect
+    };
+  }, []);
+  // messageChainID issues with being undefined so I moved it here...maybe there's a better solution
+  useEffect(() => {
+    console.log(messageChainID);
     async function getMessageCollection() {
-      const querySnapshot = await getDocs(messageCollectionRef);
+      const querySnapshot = await getDocs(collection(db,`message_chains/${messageChainID}/messages`));
+      console.log('Collecting Messages');
       const temp = [];
       querySnapshot.forEach((message) => {
         if (message.exists()) {
@@ -107,30 +112,32 @@ export default function Chat(props) {
       return temp;
     }
     async function createMessageCollection() {
-      const docRef = await addDoc(messageCollectionRef, {
+      const docRef = await addDoc(collection(db,`message_chains/${messageChainID}/messages`), {
         content: "New Convo",
+        timestamp: serverTimestamp(),
       });
+      console.log('Creating New Messages');
       const temp = [];
-      temp.push(docRef.data());
+      temp.push(docRef);
       return temp;
     }
     async function getAndCreateMessageCollection() {
+      console.log('Started Message Collection...');
       const messageArray = await getMessageCollection();
-      console.log(messageArray);
-      setMessages([...messageArray]);
-      if (!messageArray) {
+      if (!messageArray[0]) {
         const createMessage = await createMessageCollection();
         setMessages([...createMessage]);
       }
+      else{
+        setMessages([...messageArray]);
+      }
+      console.log(messageArray);
     }
-
-    getAndCreateMessageChain();
-    //getAndCreateMessageCollection();
-    setLoading(false);
+    getAndCreateMessageCollection();
     return () => {
-      //Cleanup useEffect
-    };
-  }, []);
+      //Cleanup
+    }
+  }, [messageChainID])
 
   return (
     <ThemeProvider theme={props.theme}>
