@@ -21,9 +21,17 @@ export default function Chat(props) {
   let mountRef = useRef(true);
   let idMountRef = useRef(true);
 
+  // !!! FUTURE ME !!!
+  // WRITE THE FOLLOWING FUNCTIONS
+  /*
+     - update DB for user with messageChainID -> userData.friends.message_chain: 'idvalue'
+     - update DB for friend with '' '' ''
+     - function for sending messages to DB eg. addMessage() then maybe grab new messages? do more research into how to handle this without making too many requests
+     - functions for deleting convos
+
+  */
 
   useEffect(() => {
-    // Creation methods broken AF probably need to rewrite this whole compoenent...maybe move async stuff into main component?
     // !!! useRef workaround is ill-advised, look into other solutions
     setLoading(true);
     async function createMessageChain() {
