@@ -7,7 +7,10 @@ ________________________________________________
 ________________________________________________
     Current Tasks
     ¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯
-    🔴 Fix broken Chat component
+    - implement input design for sending messages in chat
+    - imlement display for chat messages
+    - implement function for sending messages to chat - updating client and DB
+    - implement function for updating DB for user and friend with message_chain ID so each user can grab / send to message collection
     🔴 write function to update user and friend in DB when creating new message chains 
     - figure out how to handle friend friendRequests in baackend(accepted/unaccepted)
     - figure out how to handle message_chains in backend (creation/deletetion)
@@ -47,8 +50,9 @@ ________________________________________________
     - firestore update user function
     - firestore friends functions
     - firestore settings functions
-    - firestore message_chains structure
-    - firestore message_chains functions
+    - firestore messages structure & functions
+    ✅ firestore message_chains structure
+    ✅ firestore message_chains functions
     ✅ setup firestore structure
     - setup cloud storage structure
     
@@ -64,7 +68,7 @@ ________________________________________________
 ________________________________________________
               COMPLETED FEATURES
 ________________________________________________
-
+    ✅  Fix broken Chat component
     ✅  Camera displays on page
     ✅  Can take photos
     ✅  Implement camera flip function

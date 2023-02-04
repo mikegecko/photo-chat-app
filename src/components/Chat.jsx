@@ -20,7 +20,7 @@ export default function Chat(props) {
   const [messageChainID, setMessageChainID] = useState(null);
   let mountRef = useRef(true);
   let idMountRef = useRef(true);
-  //let messageCollectionRef = collection(db,"message_chains", messageChainID, "messages"); //messageChainID cannot be null
+
 
   useEffect(() => {
     // Creation methods broken AF probably need to rewrite this whole compoenent...maybe move async stuff into main component?
