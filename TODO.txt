@@ -55,6 +55,9 @@ ________________________________________________
 ________________________________________________
                      BUGS
 ________________________________________________
+
+    ⚠️ Fix controlled/uncontrolled component error in chat
+    ⚠️ Can send empty messages
     ⚠️ Fix loading progress implementation (currently uses settimeout)
     ⚠️ Chat input text not centered on mobile
     ⚠️ Desktop mobile view - QR code rounded corners show gradient lines
