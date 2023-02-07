@@ -350,7 +350,7 @@ function App() {
   }
   //Mobile View
   return (
-    <div className="App">
+    <Box className="App" >
       <Login loading={loading} hidden={hideLogin} loginHandler={loginEvent} />
       <ThemeProvider theme={theme}>
       <CssBaseline />
@@ -464,7 +464,7 @@ function App() {
         </ButtonBase>
       </Box>
       </ThemeProvider>
-    </div>
+    </Box>
   );
 }
 function getPreferredColorScheme() {
