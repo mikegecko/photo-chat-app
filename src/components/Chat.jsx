@@ -1,4 +1,4 @@
-import { Divider, ThemeProvider, Typography } from "@mui/material";
+import { CircularProgress, Divider, ThemeProvider, Typography } from "@mui/material";
 import { create } from "@mui/material/styles/createTransitions";
 import { Box } from "@mui/system";
 import {
@@ -28,7 +28,7 @@ export default function Chat(props) {
      - update DB for friend with '' '' ''
      - function for sending messages to DB eg. addMessage() then maybe grab new messages? do more research into how to handle this without making too many requests
      - functions for deleting convos
-
+     - figure out why leaving and coming back to this component breaks it
   */
 
   useEffect(() => {
@@ -89,6 +89,7 @@ export default function Chat(props) {
           // Somehow get this id to update message_chain prop and update document in DB
           setChain(createChain);
         } else {
+          setMessageChainID(props.userData.friends[props.friend].message_chain)
           setChain(chain);
         }
     }
@@ -96,12 +97,15 @@ export default function Chat(props) {
     
     if (mountRef.current) {
       mountRef.current = false;
+      console.log(messageChainID)
       getAndCreateMessageChain();
       //getAndCreateMessageCollection();
     }
     setLoading(false);
     return () => {
       //Cleanup useEffect
+      console.log('Cleanup Chat');
+      mountRef.current = true;
     };
   }, []);
   // messageChainID issues with being undefined so I moved it here...maybe there's a better solution
@@ -144,13 +148,16 @@ export default function Chat(props) {
       }
     }
     if(idMountRef.current){
+      //With the below commented out we get our messages
       //idMountRef.current = false;
       if(messageChainID){
         getAndCreateMessageCollection();
       }
     }
+    
     return () => {
       //Cleanup
+      
     }
   }, [messageChainID])
 
@@ -175,11 +182,12 @@ export default function Chat(props) {
           Chat
         </Typography>
         <Divider variant="fullWidth" />
-        {/* {loading ? <Box>Loading</Box> : messages.map((el,index) => {
+        {loading ? <Box sx={{display:'flex', justifyContent:'center', alignItems: 'center', padding: '1rem'}}><CircularProgress /></Box> : messages.map((el,index) => {
         return(
             <Box key={index}>{el.content}</Box>    
+            
         )
-      })} */}
+      })}
       </Box>
     </ThemeProvider>
   );
