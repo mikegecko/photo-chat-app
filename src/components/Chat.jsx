@@ -13,21 +13,18 @@ import {
 import { useEffect, useRef, useState } from "react";
 import { db, messageChainsRef } from "../App";
 import SendIcon from '@mui/icons-material/Send';
+import StyledMessage from "./StyledMessage";
 
 export default function Chat(props) {
   const [chain, setChain] = useState();
   const [messages, setMessages] = useState([]);
   const [loading, setLoading] = useState(true);
   const [messageChainID, setMessageChainID] = useState(null);
+  const [messageToSend, setMessageToSend] = useState(null);
+  const [tempMessage, setTempMessage] = useState(null);
   let mountRef = useRef(true);
   let idMountRef = useRef(true);
-
-  const senderStyle = {
-
-  }
-  const receiverStyle = {
-
-  }
+  
 
   // !!! FUTURE ME !!!
   // WRITE THE FOLLOWING FUNCTIONS
@@ -38,6 +35,14 @@ export default function Chat(props) {
      - functions for deleting convos
      - figure out why leaving and coming back to this component breaks it
   */
+
+  const handleSendEvent = (e) => {
+    setTempMessage("");
+    setMessageToSend(tempMessage);
+  }
+  const handleInputChangeEvent = (e) => {
+    setTempMessage(e.target.value);
+  }
 
   useEffect(() => {
     // !!! useRef workaround is ill-advised, look into other solutions
@@ -140,6 +145,7 @@ export default function Chat(props) {
       // Make this first message more unique and add data - this first message will be hidden from the convo and serve as a data manager for the convo
       const docRef = await addDoc(collection(db,`message_chains/${messageChainID}/messages`), {
         content: "New Convo",
+        sender: props.userID,
         timestamp: serverTimestamp(),
       });
       console.log('Creating New Messages');
@@ -171,10 +177,60 @@ export default function Chat(props) {
       
     }
   }, [messageChainID])
+  // This useEffect handles sending messages to DB
+  useEffect(() => {
+    async function getMessageCollection() {
+      const querySnapshot = await getDocs(collection(db,`message_chains/${messageChainID}/messages`));
+      console.log('Collecting Messages');
+      const messageArray = [];
+      querySnapshot.forEach((message) => {
+        if (message.exists()) {
+          messageArray.push(message.data());
+        } else {
+          console.log("Could not retrieve message");
+        }
+      });
+      return messageArray;
+    }
+    async function sendMessage (messageText) {
+      try{
+        const docRef = await addDoc(collection(db,`message_chains/${messageChainID}/messages`), {
+          content: messageText,
+          sender: props.userID,
+          timestamp: serverTimestamp(),
+        });
+        console.log('Sending message');
+        console.log(docRef.id);
+        return docRef;
+      }
+      catch (error) {
+        console.error(error)
+      }
+    }
+    async function messageWrapFunc () {
+      await sendMessage(messageToSend);
+      //Collect new messages
+      const messageArray = await getMessageCollection();
+      setMessages([...messageArray]);
+    }
+    if(messageToSend !== null){
+      messageWrapFunc();
+    }
+    return() => {
+      if(messageToSend == null){
+        return;
+      }
+      else{
+        setMessageToSend(null);
+      }
+    }
+  }, [messageToSend])
 
   useEffect(() => {
     console.log(messages)
   }, [messages])
+
+
 
   return (
     <ThemeProvider theme={props.theme}>
@@ -195,15 +251,15 @@ export default function Chat(props) {
         <Divider variant="fullWidth" />
         {loading ? <Box sx={{display:'flex', justifyContent:'center', alignItems: 'center', padding: '1rem'}}><CircularProgress /></Box> : messages.map((el,index) => {
         return(
-            <Box key={index}>{el.content}</Box>    
-            
+            // <Box key={index}>{el.content}</Box>    
+            <StyledMessage message={el} id={index} />
         )
       })}
       
       </Box>
       <Box sx={{bgcolor:'#0060c1' , padding: '8px', display:'flex', flexDirection: 'row', gap: '8px'}}>
-        <InputBase  sx={{bgcolor:props.theme.palette.background.default, borderRadius: '.5rem', paddingLeft: '8px', height: '2.7rem', width: '100%', display: 'flex', alignItems: 'center'}} placeholder="Send Message..." variant="outlined" size="small"/>
-        <Button variant="contained" color="success">
+        <InputBase value={tempMessage} sx={{bgcolor:props.theme.palette.background.default, borderRadius: '.5rem', paddingLeft: '8px', height: '2.7rem', width: '100%', display: 'flex', alignItems: 'center'}} placeholder="Send Message..." variant="outlined" size="small" onChange={handleInputChangeEvent}/>
+        <Button variant="contained" color="success" onClick={handleSendEvent}>
           <SendIcon />
         </Button>
         
