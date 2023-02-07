@@ -7,28 +7,25 @@ ________________________________________________
 ________________________________________________
     Current Tasks
     ¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯
-    - implement input design for sending messages in chat
-    - imlement display for chat messages
-    - implement function for sending messages to chat - updating client and DB
-    - implement function for updating DB for user and friend with message_chain ID so each user can grab / send to message collection
+    
+    🔴 implement function for updating DB for user and friend with message_chain ID so each user can grab / send to message collection
     🔴 write function to update user and friend in DB when creating new message chains 
-    - figure out how to handle friend friendRequests in baackend(accepted/unaccepted)
-    - figure out how to handle message_chains in backend (creation/deletetion)
-    🔴 figure out how to send images and text between users
+    🔴 figure out how to handle friend friendRequests in baackend(accepted/unaccepted)
+    🟠 figure out how to send images and text between users
     🟡 figure out what the difference between settings and profile will be
             [Profile: logout, friendCode / QR code, ]
             [Settings: light/dark mode, account info, delete account, ]
     🟠 work on design for profile/settings/friends pages
     🟡 Add functions to add friend button
-    - Add QR code scanner for adding friends ( first hook up friend requests and friends in backend)
+    🟡 Add QR code scanner for adding friends ( first hook up friend requests and friends in backend)
 
     ________________________________________________
     UI/FRONTEND
     ¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯
+    - make friend codes more friendly
     - custom loading icons
     - Edit wave mask in sign-in page to go between about 33% and 66% of the text
     - Use mui snackbar's for showing errors and success messages
-    - design chat box in chat component
     - loading screen for sending messages or going between pages
     - add drag up to refresh in chat/friends/etc.
     - Add swipe animation between friend and chat pages
@@ -46,28 +43,23 @@ ________________________________________________
     ____________________________________________
     BACKEND/Firebase
     ¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯
-    ✅ firestore new user function
-    ✅ firestore query user from uid function
     - firestore update user function
     - firestore friends functions
     - firestore settings functions
-    - firestore messages structure & functions
-    ✅ firestore message_chains structure
-    ✅ firestore message_chains functions
-    ✅ setup firestore structure
     - setup cloud storage structure
     
 ________________________________________________
                      BUGS
 ________________________________________________
-
+    ⚠️ Fix loading progress implementation (currently uses settimeout)
+    ⚠️ Chat input text not centered on mobile
     ⚠️ Desktop mobile view - QR code rounded corners show gradient lines
     ⚠️ Uploading an image then closing the image or changing pages and trying to upload the same image again doesn't work
     ⚠️ Fix webcam component size not fitting to mobile size
     ✅ Signing out and back in brings you to the same page you were previously on
     ✅ Fix 403 error on desktop
 ________________________________________________
-              COMPLETED FEATURES
+              COMPLETED FEATURES/TASKS
 ________________________________________________
     ✅  Fix broken Chat component
     ✅  Camera displays on page
@@ -86,3 +78,13 @@ ________________________________________________
     ✅  Add sign-out button 
     ✅  Create light mode theme
     ✅  Add QR code for adding friends
+    ✅  implement input design for sending messages in chat
+    ✅  imlement display for chat messages
+    ✅  implement function for sending messages to chat - updating client and DB
+    ✅  figure out how to handle message_chains in backend (creation/deletetion)
+    ✅  firestore messages structure & functions
+    ✅  firestore message_chains structure
+    ✅  firestore message_chains functions
+    ✅  setup firestore structure
+    ✅  firestore new user function
+    ✅  firestore query user from uid function
