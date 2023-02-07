@@ -7,6 +7,8 @@ ________________________________________________
 ________________________________________________
     Current Tasks
     ¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯
+    - Add timestamp on messages to show when it was sent
+    - Sort messages by timestamp to fix ordering issues
     - Fix chat scrolling issues
     🔴 implement function for updating DB for user and friend with message_chain ID so each user can grab / send to message collection
     🔴 write function to update user and friend in DB when creating new message chains 

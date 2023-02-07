@@ -252,7 +252,7 @@ export default function Chat(props) {
         {loading ? <Box sx={{display:'flex', justifyContent:'center', alignItems: 'center', padding: '1rem'}}><CircularProgress /></Box> : messages.map((el,index) => {
         return(
             // <Box key={index}>{el.content}</Box>    
-            <StyledMessage userID={props.userID} message={el} id={index} />
+            <StyledMessage key={index} userID={props.userID} message={el} id={index} />
         )
       })}
       
