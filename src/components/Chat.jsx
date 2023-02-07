@@ -145,7 +145,7 @@ export default function Chat(props) {
       // Make this first message more unique and add data - this first message will be hidden from the convo and serve as a data manager for the convo
       const docRef = await addDoc(collection(db,`message_chains/${messageChainID}/messages`), {
         content: "New Convo",
-        sender: props.userID,
+        sender: 'test',
         timestamp: serverTimestamp(),
       });
       console.log('Creating New Messages');
@@ -252,7 +252,7 @@ export default function Chat(props) {
         {loading ? <Box sx={{display:'flex', justifyContent:'center', alignItems: 'center', padding: '1rem'}}><CircularProgress /></Box> : messages.map((el,index) => {
         return(
             // <Box key={index}>{el.content}</Box>    
-            <StyledMessage message={el} id={index} />
+            <StyledMessage userID={props.userID} message={el} id={index} />
         )
       })}
       
