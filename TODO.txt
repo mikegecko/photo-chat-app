@@ -25,6 +25,7 @@ ________________________________________________
     ________________________________________________
     UI/FRONTEND
     ¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯
+    - custom loading icons
     - Edit wave mask in sign-in page to go between about 33% and 66% of the text
     - Use mui snackbar's for showing errors and success messages
     - design chat box in chat component
