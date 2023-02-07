@@ -7,7 +7,7 @@ ________________________________________________
 ________________________________________________
     Current Tasks
     ¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯
-    
+    - Fix chat scrolling issues
     🔴 implement function for updating DB for user and friend with message_chain ID so each user can grab / send to message collection
     🔴 write function to update user and friend in DB when creating new message chains 
     🔴 figure out how to handle friend friendRequests in baackend(accepted/unaccepted)
@@ -22,6 +22,8 @@ ________________________________________________
     ________________________________________________
     UI/FRONTEND
     ¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯
+    - decide how to implement notifications from messages -> i might have to remove notifications...i dont know how to queue all messages for viewed flag without a serious hit to performance
+    - figure out how to display timed photos in chat
     - make friend codes more friendly
     - custom loading icons
     - Edit wave mask in sign-in page to go between about 33% and 66% of the text
