@@ -1,4 +1,4 @@
-import { CircularProgress, Divider, ThemeProvider, Typography } from "@mui/material";
+import { Button, ButtonBase, CircularProgress, Divider, Input, InputBase, TextField, ThemeProvider, Typography } from "@mui/material";
 import { create } from "@mui/material/styles/createTransitions";
 import { Box } from "@mui/system";
 import {
@@ -12,6 +12,7 @@ import {
 } from "firebase/firestore";
 import { useEffect, useRef, useState } from "react";
 import { db, messageChainsRef } from "../App";
+import SendIcon from '@mui/icons-material/Send';
 
 export default function Chat(props) {
   const [chain, setChain] = useState();
@@ -20,6 +21,13 @@ export default function Chat(props) {
   const [messageChainID, setMessageChainID] = useState(null);
   let mountRef = useRef(true);
   let idMountRef = useRef(true);
+
+  const senderStyle = {
+
+  }
+  const receiverStyle = {
+
+  }
 
   // !!! FUTURE ME !!!
   // WRITE THE FOLLOWING FUNCTIONS
@@ -63,8 +71,8 @@ export default function Chat(props) {
             props.userData.friends[props.friend].message_chain
           )
         );
-        console.log("Queried");
         const querySnapshot = await getDocs(q);
+        console.log("Queried");
         let i;
         //This could cause bugs if there is more than one result for query
         querySnapshot.forEach((doc) => {
@@ -101,16 +109,20 @@ export default function Chat(props) {
       getAndCreateMessageChain();
       //getAndCreateMessageCollection();
     }
-    setLoading(false);
+    
+    const timer = setTimeout(() => {
+      setLoading(false);
+    }, 500);
     return () => {
       //Cleanup useEffect
       console.log('Cleanup Chat');
-      mountRef.current = true;
+      clearTimeout(timer);
+      //mountRef.current = true;
     };
   }, []);
   // messageChainID issues with being undefined so I moved it here...maybe there's a better solution
   useEffect(() => {
-    console.log(messageChainID);
+    //console.log(messageChainID);
     async function getMessageCollection() {
       const querySnapshot = await getDocs(collection(db,`message_chains/${messageChainID}/messages`));
       console.log('Collecting Messages');
@@ -154,7 +166,6 @@ export default function Chat(props) {
         getAndCreateMessageCollection();
       }
     }
-    
     return () => {
       //Cleanup
       
@@ -188,6 +199,14 @@ export default function Chat(props) {
             
         )
       })}
+      
+      </Box>
+      <Box sx={{bgcolor:'#0060c1' , padding: '8px', display:'flex', flexDirection: 'row', gap: '8px'}}>
+        <InputBase  sx={{bgcolor:props.theme.palette.background.default, borderRadius: '.5rem', paddingLeft: '8px', height: '2.7rem', width: '100%', display: 'flex', alignItems: 'center'}} placeholder="Send Message..." variant="outlined" size="small"/>
+        <Button variant="contained" color="success">
+          <SendIcon />
+        </Button>
+        
       </Box>
     </ThemeProvider>
   );
