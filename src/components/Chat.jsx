@@ -244,25 +244,26 @@ export default function Chat(props) {
 
   return (
     <ThemeProvider theme={props.theme}>
-      <Box
-        sx={{
-          display: "flex",
-          height: "100%",
-          flexDirection: "column",
-          color: "white",
-        }}
-      >
-        <Typography
+      <Typography
           variant="h4"
           sx={{ paddingTop: "10px", paddingBottom: "8px" }}
         >
           Chat
         </Typography>
         <Divider variant="fullWidth" />
+      <Box
+        sx={{
+          display: "flex",
+          height: "100%",
+          maxHeight: "100%",
+          flexDirection: "column",
+          overflowY:"scroll",
+        }}
+      >
         {loading ? <Box sx={{display:'flex', justifyContent:'center', alignItems: 'center', padding: '1rem'}}><CircularProgress /></Box> : messages.sort(compareTimestamp).map((el,index) => {
         return(
             // <Box key={index}>{el.content}</Box>    
-            <StyledMessage key={index} userID={props.userID} message={el} id={index} />
+            <StyledMessage theme={props.theme} key={index} userID={props.userID} message={el} id={index} />
         )
       })}
       
@@ -272,7 +273,6 @@ export default function Chat(props) {
         <Button variant="contained" color="success" onClick={handleSendEvent}>
           <SendIcon />
         </Button>
-        
       </Box>
     </ThemeProvider>
   );
