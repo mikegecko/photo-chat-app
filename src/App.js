@@ -328,7 +328,42 @@ function App() {
   }, [user]);
   //Debugging state
   useEffect(() => {
+
+    async function updateUserData () {
+      const userRef = doc(db, "users", userID);
+      await setDoc( userRef, userData, {merge: true});
+    }
+    async function getUser () {
+      const q = query(usersRef, where("uid", "==", user.user.uid));
+      const querySnapshot = await getDocs(q);
+      let i;
+      //This could cause bugs if there is more than one result for query
+      querySnapshot.forEach((doc) => {
+        if (doc.exists()) {
+          i = doc;
+          console.log(doc.id);
+        } else {
+          console.log("Could not retrieve userData");
+        }
+      });
+      return(i);
+    }
+    async function updateFriendData () {
+      
+    }
+    async function updateRefreshUserData () {
+      await updateUserData();
+      const user = getUser();
+      if(!user){
+        console.log("Error refreshing userData");
+      }
+      else{
+        //This will infinitely loop
+        //setUserData(user.data());
+      }
+    }
     if(userData){
+      updateRefreshUserData();
       console.log(userData);
     }
   },[userData])
