@@ -36,6 +36,16 @@ export default function Chat(props) {
      - figure out why leaving and coming back to this component breaks it
   */
 
+ // Sorts messages based on timestamp
+ const compareTimestamp = (a,b) => {
+  if(a.timestamp < b.timestamp){
+    return -1;
+  }
+  if(a.timestamp > b.timestamp){
+    return 1;
+  }
+  return 0;
+ }
   const handleSendEvent = (e) => {
     setTempMessage("");
     setMessageToSend(tempMessage);
@@ -249,7 +259,7 @@ export default function Chat(props) {
           Chat
         </Typography>
         <Divider variant="fullWidth" />
-        {loading ? <Box sx={{display:'flex', justifyContent:'center', alignItems: 'center', padding: '1rem'}}><CircularProgress /></Box> : messages.map((el,index) => {
+        {loading ? <Box sx={{display:'flex', justifyContent:'center', alignItems: 'center', padding: '1rem'}}><CircularProgress /></Box> : messages.sort(compareTimestamp).map((el,index) => {
         return(
             // <Box key={index}>{el.content}</Box>    
             <StyledMessage key={index} userID={props.userID} message={el} id={index} />
@@ -258,7 +268,7 @@ export default function Chat(props) {
       
       </Box>
       <Box sx={{bgcolor:'#0060c1' , padding: '8px', display:'flex', flexDirection: 'row', gap: '8px'}}>
-        <InputBase value={tempMessage} sx={{bgcolor:props.theme.palette.background.default, borderRadius: '.5rem', paddingLeft: '8px', height: '2.7rem', width: '100%', display: 'flex', alignItems: 'center'}} placeholder="Send Message..." variant="outlined" size="small" onChange={handleInputChangeEvent}/>
+        <InputBase value={tempMessage} sx={{bgcolor:props.theme.palette.background.default, borderRadius: '.5rem', paddingLeft: '8px', height: '2.7rem', width: '100%', display: 'flex', alignItems: 'center'}} placeholder="Send Message..." variant="outlined" size="small" onChange={handleInputChangeEvent} onKeyDown={(e) => {if(e.key === 'Enter'){handleSendEvent()}}}/>
         <Button variant="contained" color="success" onClick={handleSendEvent}>
           <SendIcon />
         </Button>
