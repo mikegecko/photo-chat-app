@@ -1,6 +1,5 @@
 import {
   Checkbox,
-  createTheme,
   Divider,
   List,
   ListItem,

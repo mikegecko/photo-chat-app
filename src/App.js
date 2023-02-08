@@ -106,10 +106,7 @@ function App() {
       case "friends-sending":
         return <Friends isSending={true} capture={capture} userData={userData} theme={theme} />;
       case "chat":
-        
-        //This done broke af --FIX LATER--
         return <Chat friend={friend} userData={userData} userID={userID} theme={theme} setStateOfUserData={setStateOfUserData} />
-        break;
       case "notifications":
         return(<Notifications theme={theme} />)
       case "settings":
