@@ -7,9 +7,10 @@ ________________________________________________
 ________________________________________________
     Current Tasks
     ¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯
-    - Add timestamp on messages to show when it was sent
-    - Sort messages by timestamp to fix ordering issues
-    - Fix chat scrolling issues
+    🟡 Fix theme for chat messages
+    🟡 Add timestamp on messages to show when it was sent
+     - Scroll to bottom of chat when sending a message or recieving one
+     - when openeing chat set scroll position to bottom
     🔴 implement function for updating DB for user and friend with message_chain ID so each user can grab / send to message collection
     🔴 write function to update user and friend in DB when creating new message chains 
     🔴 figure out how to handle friend friendRequests in baackend(accepted/unaccepted)
@@ -56,6 +57,7 @@ ________________________________________________
                      BUGS
 ________________________________________________
 
+    ✅ Fix chat scrolling issues
     ⚠️ Fix controlled/uncontrolled component error in chat
     ⚠️ Can send empty messages
     ⚠️ Fix loading progress implementation (currently uses settimeout)
@@ -65,6 +67,7 @@ ________________________________________________
     ⚠️ Fix webcam component size not fitting to mobile size
     ✅ Signing out and back in brings you to the same page you were previously on
     ✅ Fix 403 error on desktop
+    ✅ Sort messages by timestamp to fix ordering issues
 ________________________________________________
               COMPLETED FEATURES/TASKS
 ________________________________________________
