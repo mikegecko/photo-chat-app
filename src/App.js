@@ -274,7 +274,7 @@ function App() {
       window.removeEventListener("resize", handleResizeWindow);
     };
   }, []);
-  // Firestore functions for userData
+  // Firestore functions for userData runs when user gets updated from google auth
   useEffect(() => {
     async function createUser () {
       const docRef = await addDoc(usersRef, {
@@ -326,13 +326,14 @@ function App() {
       setHideLogin(false);
     }
   }, [user]);
-  //Debugging state
+  //Runs when userData changes ex. new message chain, 
   useEffect(() => {
-
+    //This function sets the document to the userData state
     async function updateUserData () {
       const userRef = doc(db, "users", userID);
       await setDoc( userRef, userData, {merge: true});
     }
+
     async function getUser () {
       const q = query(usersRef, where("uid", "==", user.user.uid));
       const querySnapshot = await getDocs(q);
