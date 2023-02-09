@@ -4,6 +4,11 @@ import { theme } from "../theme/theme";
 
 export default function Notifications(props) {
   //This is all placeholder
+  // This will hold the following
+  /*
+    - Any incoming friend requests
+    -
+  */
   return (
     <ThemeProvider theme={props.theme}>
       <Box
