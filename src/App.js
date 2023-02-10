@@ -102,7 +102,7 @@ function App() {
           <Profile user={user} logoutEvent={logoutEvent} userData={userData} userID={userID} theme={theme} qrcodeEvent={qrcodeEvent} />
         );
       case "friends":
-        return <Friends userData={userData} friendSelectEvent={friendSelectEvent} theme={theme} />;
+        return <Friends userData={userData} userID={userID} friendSelectEvent={friendSelectEvent} theme={theme} />;
       case "friends-sending":
         return <Friends isSending={true} capture={capture} userData={userData} theme={theme} />;
       case "chat":
@@ -281,7 +281,7 @@ function App() {
         name: user.user.displayName,
         uid: user.user.uid,
         friends: [],
-        friendRequests: {},
+        friendRequests: [],
         settings:{},
         joined: serverTimestamp(),
 
