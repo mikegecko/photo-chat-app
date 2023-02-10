@@ -21,25 +21,22 @@ import { Box } from "@mui/system";
 import MailIcon from "@mui/icons-material/Mail";
 import PersonAddIcon from '@mui/icons-material/PersonAdd';
 import Badge from "@mui/material/Badge";
-import { useState } from "react";
+import { useEffect, useState } from "react";
+import { doc, getDocs, query, serverTimestamp, setDoc, where } from "firebase/firestore";
+import { db, usersRef } from "../App";
 
 export default function Friends(props) {
   const [checked, setChecked] = useState(false);
   const [addFriendDialog, setAddFriendDialog] = useState(false);
   const [friendCode, setFriendCode] = useState(null);
+  const [loading, setLoading] = useState(false);
+  const [request, setRequest] = useState(false);
 
   const handleToggle = (e) => {
     setChecked(!checked);
   };
 
   const handleAddFriendEvent = (e) => {
-    //Send a friend request to another user
-    /*
-      1. Open dialog for entering friend code or scanning qr code
-      2. On submit check if valid friend code 
-        - add error if fail
-      3. change friend DB to include a new friend request
-    */
    setAddFriendDialog(true);
   }
 
@@ -47,8 +44,58 @@ export default function Friends(props) {
     setFriendCode(e.target.value);
   }
   const sendFriendRequest = () => {
-    console.log(friendCode);
+    setRequest(true);
   }
+
+  useEffect(() => {
+    setLoading(true);
+
+    async function checkFriendCode () {
+      try {
+        const q = query(usersRef, where("__name__", "==", friendCode));
+        const querySnapshot = await getDocs(q);
+        let i;
+        //This could cause bugs if there is more than one result for query
+        querySnapshot.forEach((doc) => {
+          if (doc.exists()) {
+            i = doc;
+            console.log(doc.id);
+          } else {
+            console.log("Could not retrieve user");
+          }
+        });
+        return i;
+      } catch (error) {
+        console.error(error);
+      }
+    }
+    async function sendFriendRequest (friendDoc) {
+      const userRef = doc(db, "users", friendDoc.id);
+      await setDoc( userRef, {friendRequests: [ {accepted: false, id: props.userID, name: props.userData.name} ]}, {merge: true});
+    }
+    async function checkAndSendFriendRequest () {
+      const friend = await checkFriendCode();
+      if(!friend){
+        console.log("Invalid Friend Code");
+      }
+      else{
+        console.log(friend.data());
+        await sendFriendRequest(friend);
+      }
+    }
+
+    if(request){
+      checkAndSendFriendRequest();
+      //setRequest(false);
+    }
+
+    return () => {
+      setLoading(false)
+      setRequest(false)
+    }
+  },[request])
+
+
   if (props.isSending) {
     return (
       <ThemeProvider theme={props.theme}>
