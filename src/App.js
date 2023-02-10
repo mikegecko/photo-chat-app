@@ -108,7 +108,7 @@ function App() {
       case "chat":
         return <Chat friend={friend} userData={userData} userID={userID} theme={theme} setStateOfUserData={setStateOfUserData} />
       case "notifications":
-        return(<Notifications theme={theme} />)
+        return(<Notifications userData={userData} theme={theme} />)
       case "settings":
         return <Settings userID={userID} user={user} userData={userData} setStateOfSettings={setStateOfSettings} settings={settings} theme={theme} />;
       case "qrcode":
