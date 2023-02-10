@@ -47,6 +47,14 @@ export default function Friends(props) {
     setRequest(true);
   }
 
+  const checkExistingFriendRequests = (friendDoc) => {
+    const fr = friendDoc.data();
+    if(fr.friends.some(e => e.id === props.userID)){
+      return true;
+    }
+    return false;
+  }
+
   useEffect(() => {
     setLoading(true);
 
@@ -71,7 +79,12 @@ export default function Friends(props) {
     }
     async function sendFriendRequest (friendDoc) {
       const userRef = doc(db, "users", friendDoc.id);
-      await setDoc( userRef, {friendRequests: [ {accepted: false, id: props.userID, name: props.userData.name} ]}, {merge: true});
+      if(!checkExistingFriendRequests(friendDoc)){
+        await setDoc( userRef, {friends: [ ...friendDoc.data().friends, {accepted: false, id: props.userID, name: props.userData.name} ]}, {merge: true});
+      }
+      else{
+        console.log("You already sent this person a friend request");
+      }
     }
     async function checkAndSendFriendRequest () {
       const friend = await checkFriendCode();
@@ -178,24 +191,30 @@ export default function Friends(props) {
             <Divider variant="fullWidth" component="li" />
 
             {!props.userData.friends[0] ? <ListItem ><ListItemText primary="No Friends ☹️" /></ListItem> : props.userData.friends.map((el, index) => {
-              return (
-                <div key={el.id}>
-                  <ListItem
-                    key={el.id}
-                    disablePadding
-                    secondaryAction={
-                      <Badge color="primary" badgeContent={0} showZero >
-                        <MailIcon />
-                      </Badge>
-                    }
-                  >
-                    <ListItemButton onClick={() => props.friendSelectEvent(index)}>
-                      <ListItemText primary={el.name} />
-                    </ListItemButton>
-                  </ListItem>
-                  <Divider variant="fullWidth" component="li" />
-                </div>
-              );
+              //el.accepted
+              if(true){
+                return (
+                  <div key={el.id}>
+                    <ListItem
+                      key={el.id}
+                      disablePadding
+                      secondaryAction={
+                        <Badge color="primary" badgeContent={0} showZero >
+                          <MailIcon />
+                        </Badge>
+                      }
+                    >
+                      <ListItemButton onClick={() => props.friendSelectEvent(index)}>
+                        <ListItemText primary={el.name} />
+                      </ListItemButton>
+                    </ListItem>
+                    <Divider variant="fullWidth" component="li" />
+                  </div>
+                );
+              }
+              else{
+                return(<></>)
+              }
             })}
           </List>
         </Box>
