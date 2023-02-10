@@ -8,11 +8,13 @@ import {
   DialogContentText,
   DialogTitle,
   Divider,
+  IconButton,
   List,
   ListItem,
   ListItemButton,
   ListItemIcon,
   ListItemText,
+  ListSubheader,
   TextField,
   ThemeProvider,
   Typography,
@@ -24,6 +26,8 @@ import Badge from "@mui/material/Badge";
 import { useEffect, useState } from "react";
 import { doc, getDocs, query, serverTimestamp, setDoc, where } from "firebase/firestore";
 import { db, usersRef } from "../App";
+import CheckIcon from '@mui/icons-material/Check';
+import CloseIcon from '@mui/icons-material/Close';
 
 export default function Friends(props) {
   const [checked, setChecked] = useState(false);
@@ -46,7 +50,12 @@ export default function Friends(props) {
   const sendFriendRequest = () => {
     setRequest(true);
   }
+  const handleFriendAccept = () => {
 
+  }
+  const handleFriendDecline = () => {
+
+  }
   const checkExistingFriendRequests = (friendDoc) => {
     const fr = friendDoc.data();
     if(fr.friends.some(e => e.id === props.userID)){
@@ -181,18 +190,34 @@ export default function Friends(props) {
           <Typography variant="h4" sx={{ paddingTop: "10px", paddingBottom: "10px"}}>
             Friends
           </Typography>
-          <List disablePadding sx={{ width: "100%", fontFamily: "Roboto" }}>
-            <Divider variant="fullWidth" component="li" />
+          <Divider variant="fullWidth" />
+          <List disablePadding subheader={<ListSubheader sx={{textAlign: 'left'}} >Friend Requests</ListSubheader>}>
+          <Divider variant="fullWidth" component="li" />
+            {props.userData.friends.map((el,index) => {
+              if(!el.accepted){
+                return(
+                  <>
+                  <ListItem disablePadding secondaryAction={<Box sx={{display: 'flex', gap: '16px'}}><IconButton onClick={handleFriendAccept}><CheckIcon /></IconButton><IconButton onClick={handleFriendDecline}><CloseIcon /></IconButton></Box>} >
+                    <ListItemButton >
+                      <ListItemText primary={el.name} />
+                    </ListItemButton>
+                  </ListItem>
+                  <Divider variant="fullWidth" component="li" />
+                  </>
+                )
+              }
+            })}
+          </List>
+          <List disablePadding sx={{ width: "100%"}} subheader={<ListSubheader sx={{textAlign: 'left'}} >Friends</ListSubheader>}>
+          <Divider variant="fullWidth" component="li" />
             <ListItem disablePadding secondaryAction={<PersonAddIcon sx={{display:'flex'}} />}>
               <ListItemButton onClick={handleAddFriendEvent}>
                 <ListItemText primary="Add Friend" />
               </ListItemButton>
             </ListItem>
             <Divider variant="fullWidth" component="li" />
-
             {!props.userData.friends[0] ? <ListItem ><ListItemText primary="No Friends ☹️" /></ListItem> : props.userData.friends.map((el, index) => {
-              //el.accepted
-              if(true){
+              if(el.accepted){
                 return (
                   <div key={el.id}>
                     <ListItem
