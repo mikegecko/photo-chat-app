@@ -7,7 +7,6 @@ ________________________________________________
 ________________________________________________
     Current Tasks
     ¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯
-    🔴 Add functions for updating friends in sender when a user accepts a friend request
     🔴 Add functions for updating message_chain for friend when one is created
 
     🟠 Figure out how to add event listener to DB to listen for changes to the following[friendRequests, friends, messages, notifications] then trigger a state update
@@ -102,3 +101,5 @@ ________________________________________________
     ✅  firestore new user function
     ✅  firestore query user from uid function
     ✅  Adding friends
+    ✅  Add functions for updating friends in sender when a user accepts a friend request
+
