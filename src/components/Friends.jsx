@@ -35,6 +35,7 @@ export default function Friends(props) {
   const [friendCode, setFriendCode] = useState(null);
   const [loading, setLoading] = useState(false);
   const [request, setRequest] = useState(false);
+  const [acceptCode, setAcceptCode] = useState(null);
 
   const handleToggle = (e) => {
     setChecked(!checked);
@@ -47,14 +48,15 @@ export default function Friends(props) {
   const handleFriendCodeInput = (e) => {
     setFriendCode(e.target.value);
   }
-  const sendFriendRequest = () => {
+  const sendFriendRequest = (e) => {
     setRequest(true);
   }
-  const handleFriendAccept = () => {
-
+  const handleFriendAccept = (e) => {
+    setAcceptCode(e.target.id);
+    setRequest(true);
   }
-  const handleFriendDecline = () => {
-
+  const handleFriendDecline = (e) => {
+    //
   }
   const checkExistingFriendRequests = (friendDoc) => {
     const fr = friendDoc.data();
@@ -63,13 +65,13 @@ export default function Friends(props) {
     }
     return false;
   }
-
+  // This handles sending friend requests and checking friend code
   useEffect(() => {
     setLoading(true);
-
-    async function checkFriendCode () {
+    // This returns the userData object from DB - maybe rename to something more accurate
+    async function getUser (userid) {
       try {
-        const q = query(usersRef, where("__name__", "==", friendCode));
+        const q = query(usersRef, where("__name__", "==", userid));
         const querySnapshot = await getDocs(q);
         let i;
         //This could cause bugs if there is more than one result for query
@@ -96,7 +98,7 @@ export default function Friends(props) {
       }
     }
     async function checkAndSendFriendRequest () {
-      const friend = await checkFriendCode();
+      const friend = await getUser(friendCode);
       if(!friend){
         console.log("Invalid Friend Code");
       }
@@ -105,15 +107,41 @@ export default function Friends(props) {
         await sendFriendRequest(friend);
       }
     }
-
-    if(request){
-      checkAndSendFriendRequest();
-      //setRequest(false);
+    async function acceptFriendRequest (userDoc) {
+      const userRef = doc(db, "users", userDoc.id);
+      await setDoc( userRef, {friends: [...userDoc.data().friends, {accepted: true, id: props.userID, name: props.userData.name} ]}, {merge: true});
+    }
+    async function acceptAndSetFriend () {
+      const sender = await getUser(acceptCode);
+      if(!sender){
+        console.log("Error accepting request: sender not found")
+      }
+      else{
+        await acceptFriendRequest(sender);
+        // now we need to set our friend.accepted to true
+        const newUserData = {
+          ...props.userData,
+          friends: [...props.userData.friends],
+        };
+        for(let i = 0; i < newUserData.friends.length; i++){
+          if(newUserData.friends[i].id === acceptCode){
+            newUserData.friends[i].accepted = true;
+          }
+        }
+        props.setStateOfUserData(newUserData);
+      }
     }
 
+    if(request && friendCode !== null){
+      checkAndSendFriendRequest();
+    }
+    if(request && acceptCode !== null){
+      acceptAndSetFriend();
+    }
     return () => {
-      setLoading(false)
-      setRequest(false)
+      setFriendCode(null);
+      setLoading(false);
+      setRequest(false);
     }
   },[request])
 
@@ -196,14 +224,14 @@ export default function Friends(props) {
             {props.userData.friends.map((el,index) => {
               if(!el.accepted){
                 return(
-                  <>
-                  <ListItem disablePadding secondaryAction={<Box sx={{display: 'flex', gap: '16px'}}><IconButton onClick={handleFriendAccept}><CheckIcon /></IconButton><IconButton onClick={handleFriendDecline}><CloseIcon /></IconButton></Box>} >
-                    <ListItemButton >
+                  <div key={el.id}>
+                  <ListItem disablePadding secondaryAction={<Box sx={{display: 'flex', gap: '16px'}}><IconButton onClick={handleFriendAccept}><CheckIcon id={el.id} /></IconButton><IconButton onClick={handleFriendDecline}><CloseIcon id={el.id} /></IconButton></Box>} >
+                    <ListItemButton id={el.id} >
                       <ListItemText primary={el.name} />
                     </ListItemButton>
                   </ListItem>
                   <Divider variant="fullWidth" component="li" />
-                  </>
+                  </div>
                 )
               }
             })}
@@ -236,9 +264,6 @@ export default function Friends(props) {
                     <Divider variant="fullWidth" component="li" />
                   </div>
                 );
-              }
-              else{
-                return(<></>)
               }
             })}
           </List>
