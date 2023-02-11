@@ -102,9 +102,9 @@ function App() {
           <Profile user={user} logoutEvent={logoutEvent} userData={userData} userID={userID} theme={theme} qrcodeEvent={qrcodeEvent} />
         );
       case "friends":
-        return <Friends userData={userData} userID={userID} friendSelectEvent={friendSelectEvent} theme={theme} />;
+        return <Friends userData={userData} userID={userID} friendSelectEvent={friendSelectEvent} theme={theme} setStateOfUserData={setStateOfUserData} />;
       case "friends-sending":
-        return <Friends isSending={true} capture={capture} userData={userData} theme={theme} />;
+        return <Friends isSending={true} capture={capture} userData={userData} theme={theme} setStateOfUserData={setStateOfUserData} />;
       case "chat":
         return <Chat friend={friend} userData={userData} userID={userID} theme={theme} setStateOfUserData={setStateOfUserData} />
       case "notifications":
@@ -123,6 +123,7 @@ function App() {
   const debugHandler = (e) => {
     setStateOfUserData('friends', {name: 'Somename', id:"2fg2ef3", })
   }
+  // Calling/setting this state will cause a DB update
   const setStateOfUserData = (userDataObj) => {
     if(!userData){
       return;
@@ -281,7 +282,6 @@ function App() {
         name: user.user.displayName,
         uid: user.user.uid,
         friends: [],
-        friendRequests: [],
         settings:{},
         joined: serverTimestamp(),
 
