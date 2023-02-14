@@ -55,6 +55,7 @@ import Chat from "./components/Chat";
 import { motion } from "framer-motion";
 import { themeDark, themeLight } from "./theme/theme";
 import QRcode from "./components/QRcode";
+import SendIcon from '@mui/icons-material/Send';
 
 // Initialize Firebase
 export const app = initializeApp(firebaseConfig);
@@ -63,10 +64,13 @@ export const db = getFirestore(app);
 export const usersRef = collection(db, "users");
 export const messageChainsRef = collection(db, "message_chains");
 
+const LOADING_IMAGE_URL = 'https://www.google.com/images/spin-32.gif?a';
+
 function App() {
   const [width, setWidth] = useState(window.innerWidth);
   const [height, setHeight] = useState(window.innerWidth);
   const [capture, setCapture] = useState(null);
+  const [rawCapture, setRawCapture] = useState(null);
   const [facingMode, setFacingMode] = useState("user");
   const [hideLogin, setHideLogin] = useState(false);
   const [signInWithGoogle, user, loading, error] = useSignInWithGoogle(auth);
@@ -77,6 +81,8 @@ function App() {
   const [friend, setFriend] = useState();
   const [settings, setSettings] = useState({brightnessMode:getPreferredColorScheme(), });
   const [theme, setTheme] = useState(getPreferredColorScheme() ? themeLight : themeDark);
+  const [sending, setSending] = useState(false);
+  
   const breakpoint = 768;
   const cameraRef = useRef(null);
   
@@ -104,7 +110,7 @@ function App() {
       case "friends":
         return <Friends userData={userData} userID={userID} friendSelectEvent={friendSelectEvent} theme={theme} setStateOfUserData={setStateOfUserData} />;
       case "friends-sending":
-        return <Friends isSending={true} friend={friend} capture={capture} userData={userData} userID={userID} theme={theme} setStateOfUserData={setStateOfUserData} />;
+        return <Friends isSending={true} sending={sending} friend={friend} capture={capture} userData={userData} userID={userID} theme={theme} setStateOfUserData={setStateOfUserData} />;
       case "chat":
         return <Chat friend={friend} userData={userData} userID={userID} theme={theme} setStateOfUserData={setStateOfUserData} />
       case "notifications":
@@ -227,6 +233,7 @@ function App() {
   };
   const galleryEvent = (e) => {
     let src = URL.createObjectURL(e.target.files[0]);
+    setRawCapture(e.target.files[0]);
     setCapture(src);
     setAppPage("capture");
     setCameraControls(false);
@@ -243,27 +250,47 @@ function App() {
   const profileEvent = (e) => {
     setAppPage("profile");
     setCameraControls(false);
+    setSending(false);
   };
   const settingsEvent = (e) => {
     setAppPage("settings");
     setCameraControls(false);
+    setSending(false);
   };
   const friendsEvent = (e) => {
     setAppPage("friends");
     setCameraControls(false);
+    setSending(false);
   };
   const friendSelectEvent = (friendIndex) => {
     setFriend(friendIndex);
     setAppPage('chat');
     setCameraControls(false);
+    setSending(false);
   }
   const notificationEvent = (e) => {
     setAppPage('notifications');
     setCameraControls(false);
+    setSending(false);
   }
-  const sendEvent = (e) => {
+  const nextEvent = (e) => {
     setAppPage('friends-sending');
     setCameraControls(false);
+    setSending(false);
+  }
+  const sendEvent = (e) => {
+    if(appPage === 'friends-sending'){
+      // Send capture to selected friends
+      // Display snackbar success/error
+      /**
+       * - Upload to cloud storage
+       * - get cloud storage link url
+       * - update messages to show image
+       * - 
+       */
+      setSending(true);
+      console.log('Sending Pic');
+    }
   }
   useEffect(() => {
     const handleResizeWindow = () => {
@@ -272,6 +299,7 @@ function App() {
     };
     window.addEventListener("resize", handleResizeWindow);
     return () => {
+      //Cleanup
       window.removeEventListener("resize", handleResizeWindow);
     };
   }, []);
@@ -365,6 +393,45 @@ function App() {
       console.log(userData);
     }
   },[userData])
+  // Hook for sending images to users by using firebase cloud storage
+  //ADD DOC NEEDS TO BE CHANGED
+  //We need to add in the proper message_chains ID then grab 'messages' collection and add to it
+  useEffect(() => {
+    
+    async function saveImageMessage(file){
+      try{
+        const messageRef = await addDoc(messageChainsRef, {
+          imageURL: LOADING_IMAGE_URL,
+          sender: userID,
+          timestamp: serverTimestamp(),
+        });
+        // Upload image to cloud storage
+        const filePath = `${auth.currentUser.uid}/${messageRef.id}/${file.name}`;
+        const newImageRef = ref(getStorage(app), filePath);
+        const fileSnapshot = await uploadBytesResumable(newImageRef, file);
+        // Generate url
+        const publicImageUrl = await getDownloadURL(newImageRef);
+        // Update placeholder image with image URL
+        await updateDoc(messageRef, {
+          imageURL: publicImageUrl,
+          storageUrl: fileSnapshot.metadata.fullPath,
+        });
+
+      } 
+      catch(error){
+        console.error(error);
+      }
+    }
+
+    if(capture){
+      saveImageMessage(rawCapture);
+    }
+
+
+    return () => {
+
+    }
+  },[sending])
   //Theme control
   useEffect(() => {
     if(settings.brightnessMode){
@@ -487,11 +554,23 @@ function App() {
             sx={{ color: "white", height: "70px", width: "70px" }}
           />
         </ButtonBase>
-        <ButtonBase disabled={arrowControl()} onClick={sendEvent}>
-          <ArrowForwardIcon
-            sx={arrowStyle()}
-          />
-        </ButtonBase>
+          {(() => {
+            if(appPage === 'friends-sending'){
+              return(
+                <ButtonBase disabled={arrowControl()} onClick={sendEvent}>
+                  <SendIcon sx={arrowStyle()} />
+                </ButtonBase>
+                  )
+            }
+            else{
+              
+              return(
+                <ButtonBase disabled={arrowControl()} onClick={nextEvent}>
+                  <ArrowForwardIcon sx={arrowStyle()}/>
+                </ButtonBase>
+              )
+            }
+          })()}
       </Box>
       </ThemeProvider>
     </Box>
