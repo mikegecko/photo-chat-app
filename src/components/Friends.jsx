@@ -50,6 +50,9 @@ export default function Friends(props) {
   }
   const sendFriendRequest = (e) => {
     setRequest(true);
+    // test if valid friend code
+    // display error if incorrect
+    // display success message and close dialog
   }
   const handleFriendAccept = (e) => {
     setAcceptCode(e.target.id);
@@ -238,7 +241,7 @@ export default function Friends(props) {
             Friends
           </Typography>
           <Divider variant="fullWidth" />
-          <List disablePadding subheader={subHeadCtrl}>
+          <List disablePadding subheader={subHeadCtrl()}>
           <Divider variant="fullWidth" component="li" />
             {props.userData.friends.map((el,index) => {
               if(!el.accepted){
