@@ -25,6 +25,7 @@ import { useEffect, useRef, useState } from "react";
 import { db, messageChainsRef, usersRef } from "../App";
 import SendIcon from "@mui/icons-material/Send";
 import StyledMessage from "./StyledMessage";
+import StyledImageMessage from "./StyledImageMessage";
 
 export default function Chat(props) {
   const [chain, setChain] = useState();
@@ -304,15 +305,27 @@ export default function Chat(props) {
           </Box>
         ) : (
           messages.sort(compareTimestamp).map((el, index) => {
-            return (
-              <StyledMessage
+            if(el.imageURL){
+              return(
+                <StyledImageMessage
                 theme={props.theme}
                 key={index}
                 userID={props.userID}
                 message={el}
-                id={index}
-              />
-            );
+                id={index} />
+              )
+            }
+            else{
+              return (
+                <StyledMessage
+                  theme={props.theme}
+                  key={index}
+                  userID={props.userID}
+                  message={el}
+                  id={index}
+                />
+              );
+            }
           })
         )}
       </Box>
