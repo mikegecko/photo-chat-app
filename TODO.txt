@@ -51,7 +51,7 @@ ________________________________________________
     - Complete Avatar/Profile pane design
     - Error message for failed sign-in
     - Error message for no camera
-    
+    - Add limitation to size of image to avoid maxing cloud storage
     ____________________________________________
     BACKEND/Firebase
     ¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯
