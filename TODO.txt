@@ -7,9 +7,10 @@ ________________________________________________
 ________________________________________________
     Current Tasks
     ¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯
-    🔴 Add functions for updating message_chain for friend when one is created
+    🔴 Begin work on image storage in firebase
+    🔴 Add QR code scanner for adding friends
 
-    🟠 Figure out how to add event listener to DB to listen for changes to the following[friendRequests, friends, messages, notifications] then trigger a state update
+    🟠 Figure out how to add event listener to firestore DB to listen for changes to the following[friends, messages, notifications] then trigger a state update
     🟡 Add light mode theme for chat messages
     🟡 Add timestamp on messages to show when it was sent
     🟡 Scroll to bottom of chat when sending a message or recieving one
@@ -19,8 +20,9 @@ ________________________________________________
             [Profile: logout, friendCode / QR code, ]
             [Settings: light/dark mode, account info, delete account, ]
     🟠 work on design for profile/settings/friends pages
-    🟡 Add QR code scanner for adding friends ( first hook up friend requests and friends in backend)
-
+    🟡 Add snackbars for displaying errors/success/warnings
+    🟡 Fix snackbar theme colors
+    🟡 Fix add friend dialog theme colors
     ________________________________________________
     UI/FRONTEND
     ¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯
@@ -58,11 +60,12 @@ ________________________________________________
                      BUGS
 ________________________________________________
 
+    ⚠️ Snackbar light & dark theme broken
+    ⚠️ Add friend dialog light theme broken 
     ⚠️ Fix friend QR code border displaying improperly on iPhone in safari
     ⚠️ Fix controlled/uncontrolled component error in chat
     ⚠️ Can send empty messages
     ⚠️ Fix loading progress implementation (currently uses settimeout)
-    ⚠️ Chat input text not centered on mobile
     ⚠️ Desktop mobile view - QR code rounded corners show gradient lines
     ⚠️ Uploading an image then closing the image or changing pages and trying to upload the same image again doesn't work
     ⚠️ Fix webcam component size not fitting to mobile size
@@ -102,4 +105,5 @@ ________________________________________________
     ✅  firestore query user from uid function
     ✅  Adding friends
     ✅  Add functions for updating friends in sender when a user accepts a friend request
+    ✅  Add functions for updating message_chain for friend when one is created
 
