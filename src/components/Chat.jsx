@@ -14,13 +14,15 @@ import {
   addDoc,
   collection,
   doc,
+  getDoc,
   getDocs,
   query,
   serverTimestamp,
+  setDoc,
   where,
 } from "firebase/firestore";
 import { useEffect, useRef, useState } from "react";
-import { db, messageChainsRef } from "../App";
+import { db, messageChainsRef, usersRef } from "../App";
 import SendIcon from "@mui/icons-material/Send";
 import StyledMessage from "./StyledMessage";
 
@@ -63,22 +65,42 @@ export default function Chat(props) {
   };
   //Handles message_chain document in firestore
   useEffect(() => {
-    // !!! useRef workaround is ill-advised, look into other solutions
+    
     setLoading(true);
+    async function setFriendMessageChain (chainID) {
+      const userRef = doc(db, "users", props.userData.friends[props.friend].id);
+      const friendSnap = await getDoc(userRef);
+      if(friendSnap.exists()){
+        let userIndex = null;
+        friendSnap.data().friends.forEach((el,index) => {
+          if(el.id === props.userID){
+            userIndex = index;
+          }
+        })
+        const newFriends = {friends: [...friendSnap.data().friends]};
+        newFriends.friends[userIndex].message_chain = chainID;
+        await setDoc( userRef, newFriends , {merge: true});
+      }
+      else{
+        console.log("Error getting user for message_chain creation.")
+      }
+      
+    }
     async function createMessageChain() {
       try {
         const docRef = await addDoc(collection(db, "message_chains"), {
           timestamp: serverTimestamp(),
           users: [props.userID, props.userData.friends[props.friend].id],
         });
-        // This docRef.id needs to be added to message_chain in firestore for both users
-        // Currently only updates userData state -> useEffect((),[userData]) -> firestore update function?
+        
         const newUserData = {
           ...props.userData,
           friends: [...props.userData.friends],
         };
         newUserData.friends[props.friend].message_chain = docRef.id;
         props.setStateOfUserData(newUserData);
+        await setFriendMessageChain(docRef.id);
+
         return docRef;
       } catch (error) {
         console.error(error);
@@ -124,7 +146,7 @@ export default function Chat(props) {
         setChain(chain);
       }
     }
-
+// !!! useRef workaround is ill-advised, look into other solutions
     if (mountRef.current) {
       mountRef.current = false;
       console.log(messageChainID);
