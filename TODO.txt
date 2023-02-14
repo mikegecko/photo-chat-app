@@ -7,7 +7,9 @@ ________________________________________________
 ________________________________________________
     Current Tasks
     ¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯
-    🔴 Begin work on image storage in firebase
+    🔴 Fix saveImageMessage function to only send to selected friends
+    🔴 Work on press to view to display image for 10 sec
+    🔴 Cover edge cases for sending image when messageChainID doesnt exist yet
     🔴 Add QR code scanner for adding friends
 
     🟠 Figure out how to add event listener to firestore DB to listen for changes to the following[friends, messages, notifications] then trigger a state update
@@ -23,6 +25,8 @@ ________________________________________________
     🟡 Add snackbars for displaying errors/success/warnings
     🟡 Fix snackbar theme colors
     🟡 Fix add friend dialog theme colors
+    🟡 Figure out how to do and handle notifications
+    🟡 Figure out how to create push notifications and add toggle to settings
     ________________________________________________
     UI/FRONTEND
     ¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯
@@ -51,10 +55,7 @@ ________________________________________________
     ____________________________________________
     BACKEND/Firebase
     ¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯
-    - firestore update user function
-    - firestore friends functions
-    - firestore settings functions
-    - setup cloud storage structure
+    - Finalize backend and review rules
     
 ________________________________________________
                      BUGS
@@ -106,4 +107,7 @@ ________________________________________________
     ✅  Adding friends
     ✅  Add functions for updating friends in sender when a user accepts a friend request
     ✅  Add functions for updating message_chain for friend when one is created
-
+    ✅  firestore update user function
+    ✅  firestore friends functions
+    ✅  firestore settings functions
+    ✅  setup cloud storage structure
