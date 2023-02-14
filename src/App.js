@@ -396,6 +396,7 @@ function App() {
   // Hook for sending images to users by using firebase cloud storage
   //ADD DOC NEEDS TO BE CHANGED
   //We need to add in the proper message_chains ID then grab 'messages' collection and add to it
+  //Add checks for message_chain -> create new chain if one doesnt exist
   useEffect(() => {
     
     async function saveImageMessage(file){
