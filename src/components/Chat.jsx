@@ -115,13 +115,13 @@ export default function Chat(props) {
           )
         );
         const querySnapshot = await getDocs(q);
-        console.log("Queried");
+        //console.log("Queried");
         let i;
         //This could cause bugs if there is more than one result for query
         querySnapshot.forEach((doc) => {
           if (doc.exists()) {
             i = doc;
-            console.log(doc.id);
+            //console.log(doc.id);
           } else {
             console.log("Could not retrieve message_chain");
           }
@@ -147,7 +147,7 @@ export default function Chat(props) {
 // !!! useRef workaround is ill-advised, look into other solutions
     if (mountRef.current) {
       mountRef.current = false;
-      console.log(messageChainID);
+      //console.log(messageChainID);
       getAndCreateMessageChain();
       //getAndCreateMessageCollection();
     }
@@ -157,7 +157,7 @@ export default function Chat(props) {
     }, 500);
     return () => {
       //Cleanup useEffect
-      console.log("Cleanup Chat");
+      //console.log("Cleanup Chat");
       clearTimeout(timer);
       //mountRef.current = true;
     };
@@ -170,7 +170,7 @@ export default function Chat(props) {
       const querySnapshot = await getDocs(
         collection(db, `message_chains/${messageChainID}/messages`)
       );
-      console.log("Collecting Messages");
+      //console.log("Collecting Messages");
       const messageArray = [];
       querySnapshot.forEach((message) => {
         if (message.exists()) {
@@ -191,12 +191,12 @@ export default function Chat(props) {
           timestamp: serverTimestamp(),
         }
       );
-      console.log("Creating New Messages");
-      console.log(docRef.id);
+      //console.log("Creating New Messages");
+      //console.log(docRef.id);
       return docRef;
     }
     async function getAndCreateMessageCollection() {
-      console.log("Started Message Collection...");
+      //console.log("Started Message Collection...");
       const messageArray = await getMessageCollection();
       if (!messageArray[0]) {
         const createMessage = await createMessageCollection();
@@ -244,8 +244,8 @@ export default function Chat(props) {
             timestamp: serverTimestamp(),
           }
         );
-        console.log("Sending message");
-        console.log(docRef.id);
+        //console.log("Sending message");
+        //console.log(docRef.id);
         return docRef;
       } catch (error) {
         console.error(error);
