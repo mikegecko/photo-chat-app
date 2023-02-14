@@ -1,5 +1,5 @@
 # PicFlo
-PicFlo is a photo chatting web app that allows users to communicate through photos. Share your favorite moments, memories and experiences with friends and family with just a tap of a button. Inspired by SnapChat and similar apps.
+PicFlo is a photo sharing web app that allows users to communicate through photos. Share your favorite moments, memories and experiences with friends with just a tap of a button. Inspired by SnapChat and similar apps.
 
 This project was created with [Create React App](https://github.com/facebook/create-react-app).
 
@@ -8,7 +8,7 @@ This project was created with [Create React App](https://github.com/facebook/cre
 - Responsive design
 - Firebase backend
 - Google Auth
-- Take and send photos to contacts
+- Take and send photos to friends
 - Option to add captions to photos
 - Push notifications for new messages
 - In-app camera functionality
