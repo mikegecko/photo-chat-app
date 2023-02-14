@@ -400,14 +400,14 @@ function App() {
     
     async function saveImageMessage(file){
       try{
-        const messageRef = await addDoc(messageChainsRef, {
+        const messageRef = await addDoc(collection(db, `message_chains/${userData.friends[0].message_chain}/messages`), {
           imageURL: LOADING_IMAGE_URL,
           sender: userID,
           timestamp: serverTimestamp(),
         });
         // Upload image to cloud storage
-        const filePath = `${auth.currentUser.uid}/${messageRef.id}/${file.name}`;
-        const newImageRef = ref(getStorage(app), filePath);
+        const filePath = `${getAuth().currentUser.uid}/${messageRef.id}/${file.name}`;
+        const newImageRef = ref(getStorage(), filePath);
         const fileSnapshot = await uploadBytesResumable(newImageRef, file);
         // Generate url
         const publicImageUrl = await getDownloadURL(newImageRef);
@@ -423,7 +423,7 @@ function App() {
       }
     }
 
-    if(capture){
+    if(capture && sending){
       saveImageMessage(rawCapture);
     }
 
