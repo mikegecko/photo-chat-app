@@ -65,6 +65,25 @@ export default function Friends(props) {
     }
     return false;
   }
+  const subHeadCtrl = () =>{
+    let flag = false;
+    props.userData.friends.forEach((el,index) => {
+      if(!el.accepted){
+        flag = true;
+      }
+      else{
+        return;
+      }
+    });
+    if(flag){
+      return(
+        <ListSubheader sx={{textAlign: 'left'}} >Friend Requests</ListSubheader>
+      )
+    }
+    else{
+      return;
+    }
+  }
   // This handles sending friend requests and checking friend code
   useEffect(() => {
     setLoading(true);
@@ -219,7 +238,7 @@ export default function Friends(props) {
             Friends
           </Typography>
           <Divider variant="fullWidth" />
-          <List disablePadding subheader={<ListSubheader sx={{textAlign: 'left'}} >Friend Requests</ListSubheader>}>
+          <List disablePadding subheader={subHeadCtrl}>
           <Divider variant="fullWidth" component="li" />
             {props.userData.friends.map((el,index) => {
               if(!el.accepted){
