@@ -39,10 +39,12 @@ export default function Friends(props) {
   const [request, setRequest] = useState(false);
   const [acceptCode, setAcceptCode] = useState(null);
   const [snack, setSnack] = useState(false);
+  //Maybe lift this state up
   const [sendList, setSendList] = useState(props.userData.friends.map((el,index) => {
-    return(false);
+    if(el.accepted){
+      return(false);
+    }
   }));
-
 
 
   const handleToggle = (e) => {
@@ -100,7 +102,7 @@ export default function Friends(props) {
     }
   }
   useEffect(() => {
-    console.log(sendList);
+    //console.log(sendList);
     return () => {
       //Cleanup
     }
