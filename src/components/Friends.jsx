@@ -1,4 +1,5 @@
 import {
+  Alert,
   Button,
   ButtonBase,
   Checkbox,
@@ -15,6 +16,7 @@ import {
   ListItemIcon,
   ListItemText,
   ListSubheader,
+  Snackbar,
   TextField,
   ThemeProvider,
   Typography,
@@ -36,6 +38,7 @@ export default function Friends(props) {
   const [loading, setLoading] = useState(false);
   const [request, setRequest] = useState(false);
   const [acceptCode, setAcceptCode] = useState(null);
+  const [snack, setSnack] = useState(false);
 
   const handleToggle = (e) => {
     setChecked(!checked);
@@ -50,9 +53,7 @@ export default function Friends(props) {
   }
   const sendFriendRequest = (e) => {
     setRequest(true);
-    // test if valid friend code
-    // display error if incorrect
-    // display success message and close dialog
+    setAddFriendDialog(false);
   }
   const handleFriendAccept = (e) => {
     setAcceptCode(e.target.id);
@@ -60,6 +61,9 @@ export default function Friends(props) {
   }
   const handleFriendDecline = (e) => {
     //
+  }
+  const handleSnackClose = (e) => {
+    setSnack(false);
   }
   const checkExistingFriendRequests = (friendDoc) => {
     const fr = friendDoc.data();
@@ -122,6 +126,7 @@ export default function Friends(props) {
     async function checkAndSendFriendRequest () {
       const friend = await getUser(friendCode);
       if(!friend){
+        setSnack(true);
         console.log("Invalid Friend Code");
       }
       else{
@@ -224,7 +229,12 @@ export default function Friends(props) {
             height: "100%",
             flexDirection: "column",
           }}
-        >
+        >        
+          <Snackbar open={snack} autoHideDuration={5000} onClose={handleSnackClose} action={<IconButton onClick={handleSnackClose}><CloseIcon /></IconButton>} >
+            <Alert onClose={handleSnackClose} severity="error" sx={{width: '100%'}}>
+              Invalid Friend Code!
+            </Alert> 
+            </Snackbar>
           <Dialog open={addFriendDialog} onClose={() => setAddFriendDialog(false)}>
             <DialogTitle>Send Friend Request</DialogTitle>
             <DialogContent>
