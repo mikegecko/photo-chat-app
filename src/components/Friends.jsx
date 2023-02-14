@@ -39,9 +39,17 @@ export default function Friends(props) {
   const [request, setRequest] = useState(false);
   const [acceptCode, setAcceptCode] = useState(null);
   const [snack, setSnack] = useState(false);
+  const [sendList, setSendList] = useState(props.userData.friends.map((el,index) => {
+    return(false);
+  }));
+
+
 
   const handleToggle = (e) => {
-    setChecked(!checked);
+    const index = e;
+    const newList = [...sendList];
+    newList[index] = !newList[index];
+    setSendList(newList);
   };
 
   const handleAddFriendEvent = (e) => {
@@ -91,6 +99,12 @@ export default function Friends(props) {
       return;
     }
   }
+  useEffect(() => {
+    console.log(sendList);
+    return () => {
+      //Cleanup
+    }
+  }, [sendList])
   // This handles sending friend requests and checking friend code
   useEffect(() => {
     setLoading(true);
@@ -200,11 +214,13 @@ export default function Friends(props) {
                       </Badge>
                     }
                   >
-                    <ListItemButton onClick={handleToggle}>
+                    <ListItemButton id={index.toString()} onClick={() => handleToggle(index)}>
                       <ListItemIcon>
                         <Checkbox
+                          id={index.toString()}
                           edge="start"
-                          checked={checked}
+                          checked={sendList[index]}
+                          onChange={() => handleToggle(index)}
                           tabIndex={-1}
                           disableRipple
                         />
