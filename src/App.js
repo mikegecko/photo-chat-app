@@ -104,7 +104,7 @@ function App() {
       case "friends":
         return <Friends userData={userData} userID={userID} friendSelectEvent={friendSelectEvent} theme={theme} setStateOfUserData={setStateOfUserData} />;
       case "friends-sending":
-        return <Friends isSending={true} capture={capture} userData={userData} theme={theme} setStateOfUserData={setStateOfUserData} />;
+        return <Friends isSending={true} friend={friend} capture={capture} userData={userData} userID={userID} theme={theme} setStateOfUserData={setStateOfUserData} />;
       case "chat":
         return <Chat friend={friend} userData={userData} userID={userID} theme={theme} setStateOfUserData={setStateOfUserData} />
       case "notifications":
@@ -328,7 +328,7 @@ function App() {
   }, [user]);
   //Runs when userData changes ex. new message chain, 
   useEffect(() => {
-    //This function sets the document to the userData state
+    //This function sets the user document in firestore to the userData state
     async function updateUserData () {
       const userRef = doc(db, "users", userID);
       await setDoc( userRef, userData, {merge: true});
@@ -348,9 +348,6 @@ function App() {
         }
       });
       return(i);
-    }
-    async function updateFriendData () {
-      
     }
     async function updateRefreshUserData () {
       await updateUserData();
