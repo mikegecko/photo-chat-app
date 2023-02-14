@@ -230,7 +230,7 @@ export default function Friends(props) {
             flexDirection: "column",
           }}
         >        
-          <Snackbar open={snack} autoHideDuration={5000} onClose={handleSnackClose} action={<IconButton onClick={handleSnackClose}><CloseIcon /></IconButton>} >
+          <Snackbar sx={{marginBottom: '80px'}} open={snack} autoHideDuration={5000} onClose={handleSnackClose} action={<IconButton onClick={handleSnackClose}><CloseIcon /></IconButton>} >
             <Alert onClose={handleSnackClose} severity="error" sx={{width: '100%'}}>
               Invalid Friend Code!
             </Alert> 
