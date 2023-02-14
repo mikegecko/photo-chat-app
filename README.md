@@ -19,7 +19,7 @@ This project was created with [Create React App](https://github.com/facebook/cre
 - [React Router](https://reactrouter.com/en/main)
 - [Firebase](https://firebase.google.com/)
 - [React Webcam](https://www.npmjs.com/package/react-webcam)
-- 
+- [Framer Motion](https://www.framer.com/motion/)
 
 ## Live [Demo]()
     - Not ready yet
