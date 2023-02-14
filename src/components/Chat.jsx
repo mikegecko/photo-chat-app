@@ -36,17 +36,15 @@ export default function Chat(props) {
   let mountRef = useRef(true);
   let idMountRef = useRef(true);
 
-  // !!! FUTURE ME !!!
   // WRITE THE FOLLOWING FUNCTIONS
   /*
-     - update DB for user with messageChainID -> userData.friends.message_chain: 'idvalue'
-     - update DB for friend with '' '' ''
-     - function for sending messages to DB eg. addMessage() then maybe grab new messages? do more research into how to handle this without making too many requests
+     - function for updating messages and refreshing when a new message is sent. do more research into how to handle this without making too many requests.
+        LOOK INTO FIREBASE HANDLERS TO CATCH UPDATE EVENTS
      - functions for deleting convos
-     - figure out why leaving and coming back to this component breaks it
+     - error messages
   */
 
-  // Sorts messages based on timestamp
+  // Sorts messages based on timestamp -> firebase has a built in system for returning documents ordered by timestamp
   const compareTimestamp = (a, b) => {
     if (a.timestamp < b.timestamp) {
       return -1;
