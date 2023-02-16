@@ -115,7 +115,7 @@ function App() {
       case "friends-sending":
         return <Friends isSending={true} setStateOfSendList={setStateOfSendList} sending={sending} friend={friend} capture={capture} userData={userData} userID={userID} theme={theme} setStateOfUserData={setStateOfUserData} />;
       case "chat":
-        return <Chat friend={friend} userData={userData} userID={userID} theme={theme} setStateOfUserData={setStateOfUserData} />
+        return <Chat mobileView={mobileView} friend={friend} userData={userData} userID={userID} theme={theme} setStateOfUserData={setStateOfUserData} />
       case "notifications":
         return(<Notifications userData={userData} theme={theme} />)
       case "settings":

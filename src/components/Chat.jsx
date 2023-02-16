@@ -274,15 +274,111 @@ export default function Chat(props) {
     console.log(messages);
   }, [messages]);
 
+  if(!props.mobileView){
+    return (
+      <ThemeProvider theme={props.theme}>
+        <Box
+          sx={{
+            display: "flex",
+            height: "100%",
+            flexDirection: "column",
+          }}
+        >
+        <Typography
+          variant="h4"
+          sx={{ paddingTop: "10px", paddingBottom: "8px" }}
+        >
+          Chat
+        </Typography>
+        <Divider variant="fullWidth" />
+        <Box
+          sx={{
+            display: "flex",
+            height: "100%",
+            maxHeight: "100%",
+            flexDirection: "column",
+            overflowY: "scroll",
+          }}
+        >
+          {loading ? (
+            <Box
+              sx={{
+                display: "flex",
+                justifyContent: "center",
+                alignItems: "center",
+                padding: "1rem",
+              }}
+            >
+              <CircularProgress />
+            </Box>
+          ) : (
+            messages.sort(compareTimestamp).map((el, index) => {
+              if(el.imageURL){
+                return(
+                  <StyledImageMessage
+                  theme={props.theme}
+                  key={index}
+                  userID={props.userID}
+                  message={el}
+                  id={index} />
+                )
+              }
+              else{
+                return (
+                  <StyledMessage
+                    theme={props.theme}
+                    key={index}
+                    userID={props.userID}
+                    message={el}
+                    id={index}
+                  />
+                );
+              }
+            })
+          )}
+        </Box>
+        <Box
+          sx={{
+            bgcolor: "#0060c1",
+            padding: "8px",
+            display: "flex",
+            flexDirection: "row",
+            gap: "8px",
+          }}
+        >
+          <InputBase
+            value={tempMessage}
+            sx={{
+              bgcolor: props.theme.palette.background.default,
+              borderRadius: ".5rem",
+              paddingLeft: "8px",
+              height: "2.7rem",
+              width: "100%",
+              display: "flex",
+              alignItems: "center",
+            }}
+            placeholder="Send Message..."
+            variant="outlined"
+            size="small"
+            onChange={handleInputChangeEvent}
+            onKeyDown={(e) => {
+              if (e.key === "Enter") {
+                handleSendEvent();
+              }
+            }}
+          />
+          <Button variant="contained" color="success" onClick={handleSendEvent}>
+            <SendIcon />
+          </Button>
+        </Box>
+        </Box>
+      </ThemeProvider>
+    );
+  }
+
   return (
     <ThemeProvider theme={props.theme}>
-      <Box
-        sx={{
-          display: "flex",
-          height: "100%",
-          flexDirection: "column",
-        }}
-      >
+      
       <Typography
         variant="h4"
         sx={{ paddingTop: "10px", paddingBottom: "8px" }}
@@ -369,7 +465,6 @@ export default function Chat(props) {
         <Button variant="contained" color="success" onClick={handleSendEvent}>
           <SendIcon />
         </Button>
-      </Box>
       </Box>
     </ThemeProvider>
   );
