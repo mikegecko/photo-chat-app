@@ -483,7 +483,6 @@ function App() {
       <ThemeProvider theme={theme}>
       <CssBaseline />
       <Box
-      
         sx={{
           minHeight: "80px",
           height: "80px",
@@ -491,12 +490,13 @@ function App() {
           bgcolor: "#004D9B",
           display: "flex",
           alignItems: "center",
-          justifyContent: "flex-start",
+          justifyContent: "space-between",
           paddingLeft: '2rem',
+          paddingRight: '2rem',
           zIndex: 2,
         }}
       >
-        
+        <Box sx={{display: 'flex' , flexDirection: 'row', justifyContent: 'center', alignItems: 'center'}}>
         <ButtonBase onClick={profileEvent}
         initial={{ scale: 0 }}
         animate={iconScale('profile')}
@@ -511,6 +511,14 @@ function App() {
         <Typography variant="h5" sx={{backgroundColor: "#004D9B", paddingLeft: '1rem' }}>
           {userData ? userData.name : ""}
         </Typography>
+        </Box>
+        <Box sx={{
+          fontFamily: 'Pacifico',
+          letterSpacing: '',
+          fontSize: 44
+        }}>
+          PicFlo
+        </Box>
       </Box>
       <Box>
         <ButtonBase
