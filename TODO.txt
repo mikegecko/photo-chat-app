@@ -10,7 +10,7 @@ ________________________________________________
     🔴 Work on press to view to display image for 10 sec
     🔴 Create firestore event listener to update chat messages in realtime
     🔴 Cover edge cases for sending image when messageChainID doesnt exist yet
-
+    🟠 Add system for managing snackbar messages - success/error/warning/info
     🟠 Fix QRScan page - improve integration into friend component or move to its own page
     🟠 Figure out how to add event listener to firestore DB to listen for changes to the following[friends, messages, notifications] then trigger a state update
     🟡 Add light mode theme for chat messages
