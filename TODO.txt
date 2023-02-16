@@ -61,6 +61,7 @@ ________________________________________________
                      BUGS
 ________________________________________________
 
+    ⚠️ Can friend and send messages to self??? Decide if this is actually an issue
     ⚠️ Opening QRscan when friend code field is focused crashes app
     ⚠️ QrScan overlaps friend code place holder text in dialog
     ⚠️ Snackbar light & dark theme broken
