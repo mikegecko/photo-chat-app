@@ -323,6 +323,7 @@ function App() {
       console.log('Sending Pic');
     }
   }
+  //Window Size stuff
   useEffect(() => {
     const handleResizeWindow = () => {
       setWidth(window.innerWidth);
@@ -339,6 +340,14 @@ function App() {
       window.removeEventListener("resize", handleResizeWindow);
     };
   }, []);
+  //
+  useEffect(() => {
+    if(width > breakpoint) {
+      setMobileView(false);
+    } else{
+      setMobileView(true);
+    }
+  })
   // Firestore functions for userData runs when user gets updated from google auth
   useEffect(() => {
     async function createUser () {
