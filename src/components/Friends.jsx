@@ -103,6 +103,34 @@ export default function Friends(props) {
   }
   useEffect(() => {
     //console.log(sendList);
+    //Convert bool to userData
+    function convertSendList() {
+      //This array holds friend data and a new value called send dependent upon checkbox value
+      let convertArr = [];
+      props.userData.friends.forEach((el,index) => {
+        if(el.accepted){
+          convertArr.push(el);
+          convertArr.find(x => x.id === el.id).index = index;
+        }
+      })
+      convertArr.forEach((el,index) => {
+        if(sendList[index]){
+          convertArr[index].send = true;    
+        }
+        else{
+          convertArr[index].send = false;
+        }
+      })
+      //Check if message_chain exists -> this check needs to be in App.js
+      for (let index = 0; index < convertArr.length; index++) {
+        const element = convertArr[index];
+        if(!element.message_chain){
+          //If message_chain doesn't exist we need to create a new one
+        }
+      }
+      props.setStateOfSendList(convertArr);
+    }
+    convertSendList();
     return () => {
       //Cleanup
     }
