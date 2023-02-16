@@ -8,6 +8,7 @@ ________________________________________________
     Current Tasks
     ¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯
     🔴 Work on press to view to display image for 10 sec
+    🔴 Create firestore event listener to update chat messages in realtime
     🔴 Cover edge cases for sending image when messageChainID doesnt exist yet
     🔴 Add QR code scanner for adding friends
 
@@ -19,7 +20,7 @@ ________________________________________________
     🟠 figure out how to send images and text between users
     🟡 figure out what the difference between settings and profile will be
             [Profile: logout, friendCode / QR code, ]
-            [Settings: light/dark mode, account info, delete account, ]
+            [Settings: light/dark mode, account info, delete account, push notifications,  ]
     🟠 work on design for profile/settings/friends pages
     🟡 Add snackbars for displaying errors/success/warnings
     🟡 Fix snackbar theme colors
