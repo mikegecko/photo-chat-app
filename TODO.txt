@@ -7,9 +7,12 @@ ________________________________________________
 ________________________________________________
     Current Tasks
     ¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯
+    🔴 After sending message display success/failure snack bar and return to camera screen -> maybe display loading while sending?
+    🔴 Add ability to send capture to chat
     🔴 Work on press to view to display image for 10 sec
     🔴 Create firestore event listener to update chat messages in realtime
     🔴 Cover edge cases for sending image when messageChainID doesnt exist yet
+    🔴 Work on desktop view
     🟠 Add system for managing snackbar messages - success/error/warning/info
     🟠 Fix QRScan page - improve integration into friend component or move to its own page
     🟠 Figure out how to add event listener to firestore DB to listen for changes to the following[friends, messages, notifications] then trigger a state update
@@ -61,6 +64,7 @@ ________________________________________________
                      BUGS
 ________________________________________________
 
+    ⚠️ Going to friends quickly after loading into app causes it to crash
     ⚠️ Can friend and send messages to self??? Decide if this is actually an issue
     ⚠️ Opening QRscan when friend code field is focused crashes app
     ⚠️ QrScan overlaps friend code place holder text in dialog
