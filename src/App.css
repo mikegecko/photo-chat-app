@@ -5,6 +5,16 @@
   height: 100%;
   
 }
+.title{
+  color: transparent;
+  -webkit-text-stroke: 1px #03a9f4;
+  z-index: 5;
+}
+.title2{
+  color: #03a9f4;
+  animation: waterAnim 5s ease-in-out infinite;
+  z-index: 5;
+}
 .box{
   --b: 2px;   /* thickness of the border */
   --c: repeating-linear-gradient(45deg,red,blue);   /* color of the border */
