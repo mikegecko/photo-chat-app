@@ -40,6 +40,8 @@ export default function Friends(props) {
   const [request, setRequest] = useState(false);
   const [acceptCode, setAcceptCode] = useState(null);
   const [snack, setSnack] = useState(false);
+  const [snackContent, setSnackContent] = useState();
+  const [snackSeverity, setSnackSeverity] = useState();
   const [showScanner, setShowScanner] = useState(false);
   //Maybe lift this state up
   const [sendList, setSendList] = useState(props.userData.friends.map((el,index) => {
@@ -86,6 +88,8 @@ export default function Friends(props) {
   }
   const handleSnackClose = (e) => {
     setSnack(false);
+    setSnackContent("");
+    setSnackSeverity("");
   }
   const checkExistingFriendRequests = (friendDoc) => {
     const fr = friendDoc.data();
@@ -175,14 +179,23 @@ export default function Friends(props) {
       const userRef = doc(db, "users", friendDoc.id);
       if(!checkExistingFriendRequests(friendDoc)){
         await setDoc( userRef, {friends: [ ...friendDoc.data().friends, {accepted: false, id: props.userID, name: props.userData.name} ]}, {merge: true});
+        setSnackContent("Friend request sent");
+        setSnackSeverity("success");
+        setSnack(true);
+        console.log("Friend Request sent");
       }
       else{
+        setSnackContent("You already sent this person a friend request");
+        setSnackSeverity("error");
+        setSnack(true);
         console.log("You already sent this person a friend request");
       }
     }
     async function checkAndSendFriendRequest () {
       const friend = await getUser(friendCode);
       if(!friend){
+        setSnackSeverity("error");
+        setSnackContent("Invalid Friend Code")
         setSnack(true);
         console.log("Invalid Friend Code");
       }
@@ -290,8 +303,8 @@ export default function Friends(props) {
           }}
         >       
           <Snackbar sx={{marginBottom: '80px'}} open={snack} autoHideDuration={5000} onClose={handleSnackClose} action={<IconButton onClick={handleSnackClose}><CloseIcon /></IconButton>} >
-            <Alert onClose={handleSnackClose} severity="error" sx={{width: '100%'}}>
-              Invalid Friend Code!
+            <Alert onClose={handleSnackClose} severity={snackSeverity} sx={{width: '100%'}}>
+              {snackContent}
             </Alert> 
             </Snackbar>
           <Dialog sx={{zIndex: 99}} open={addFriendDialog} onClose={() => setAddFriendDialog(false)}>
