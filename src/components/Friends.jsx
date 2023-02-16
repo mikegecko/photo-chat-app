@@ -30,6 +30,7 @@ import { doc, getDocs, query, serverTimestamp, setDoc, where } from "firebase/fi
 import { db, usersRef } from "../App";
 import CheckIcon from '@mui/icons-material/Check';
 import CloseIcon from '@mui/icons-material/Close';
+import QRScan from "./QRScan";
 
 export default function Friends(props) {
   const [checked, setChecked] = useState(false);
@@ -39,6 +40,7 @@ export default function Friends(props) {
   const [request, setRequest] = useState(false);
   const [acceptCode, setAcceptCode] = useState(null);
   const [snack, setSnack] = useState(false);
+  const [showScanner, setShowScanner] = useState(false);
   //Maybe lift this state up
   const [sendList, setSendList] = useState(props.userData.friends.map((el,index) => {
     if(el.accepted){
@@ -46,7 +48,13 @@ export default function Friends(props) {
     }
   }));
 
+  const setStateOfFriendCode = (friendCode) => {
+    setFriendCode(friendCode);
+  }
 
+  const scannerEvent = (e) => {
+    setShowScanner(true);
+  }
   const handleToggle = (e) => {
     const index = e;
     const newList = [...sendList];
@@ -276,7 +284,7 @@ export default function Friends(props) {
             height: "100%",
             flexDirection: "column",
           }}
-        >        
+        >       
           <Snackbar sx={{marginBottom: '80px'}} open={snack} autoHideDuration={5000} onClose={handleSnackClose} action={<IconButton onClick={handleSnackClose}><CloseIcon /></IconButton>} >
             <Alert onClose={handleSnackClose} severity="error" sx={{width: '100%'}}>
               Invalid Friend Code!
@@ -290,10 +298,11 @@ export default function Friends(props) {
             </DialogContent>
             <DialogActions sx={{gap: '8px'}}>
               <Button variant="text" onClick={sendFriendRequest} >Add Friend</Button>
-              <Button variant="text" >QR Code</Button>
+              <Button variant="text" onClick={scannerEvent} >QR Code</Button>
               <Button variant="outlined" onClick={() => setAddFriendDialog(false)}>Cancel</Button>
             </DialogActions>
           </Dialog>
+          {showScanner ? <QRScan setStateOfFriendCode={setStateOfFriendCode} /> : <></>}
           <Typography variant="h4" sx={{ paddingTop: "10px", paddingBottom: "10px"}}>
             Friends
           </Typography>
