@@ -101,6 +101,7 @@ export default function Friends(props) {
       return;
     }
   }
+  //Handles passing sendList data to main component
   useEffect(() => {
     //console.log(sendList);
     //Convert bool to userData

@@ -7,7 +7,6 @@ ________________________________________________
 ________________________________________________
     Current Tasks
     ¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯
-    🔴 Fix saveImageMessage function to only send to selected friends
     🔴 Work on press to view to display image for 10 sec
     🔴 Cover edge cases for sending image when messageChainID doesnt exist yet
     🔴 Add QR code scanner for adding friends
@@ -112,3 +111,4 @@ ________________________________________________
     ✅  firestore friends functions
     ✅  firestore settings functions
     ✅  setup cloud storage structure
+    ✅  Fix saveImageMessage function to only send to selected friends
