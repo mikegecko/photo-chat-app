@@ -10,15 +10,14 @@ ________________________________________________
     🔴 Work on press to view to display image for 10 sec
     🔴 Create firestore event listener to update chat messages in realtime
     🔴 Cover edge cases for sending image when messageChainID doesnt exist yet
-    🔴 Add QR code scanner for adding friends
 
+    🟠 Fix QRScan page - improve integration into friend component or move to its own page
     🟠 Figure out how to add event listener to firestore DB to listen for changes to the following[friends, messages, notifications] then trigger a state update
     🟡 Add light mode theme for chat messages
     🟡 Add timestamp on messages to show when it was sent
     🟡 Scroll to bottom of chat when sending a message or recieving one
     🟡 when openeing chat set scroll position to bottom
-    🟠 figure out how to send images and text between users
-    🟡 figure out what the difference between settings and profile will be
+    🟡 figure out what fields will go into settings and profile
             [Profile: logout, friendCode / QR code, ]
             [Settings: light/dark mode, account info, delete account, push notifications,  ]
     🟠 work on design for profile/settings/friends pages
@@ -62,15 +61,17 @@ ________________________________________________
                      BUGS
 ________________________________________________
 
+    ⚠️ Opening QRscan when friend code field is focused crashes app
+    ⚠️ QrScan overlaps friend code place holder text in dialog
     ⚠️ Snackbar light & dark theme broken
     ⚠️ Add friend dialog light theme broken 
     ⚠️ Fix friend QR code border displaying improperly on iPhone in safari
-    ⚠️ Fix controlled/uncontrolled component error in chat
     ⚠️ Can send empty messages
     ⚠️ Fix loading progress implementation (currently uses settimeout)
     ⚠️ Desktop mobile view - QR code rounded corners show gradient lines
     ⚠️ Uploading an image then closing the image or changing pages and trying to upload the same image again doesn't work
     ⚠️ Fix webcam component size not fitting to mobile size
+    ✅ Fix controlled/uncontrolled component error in chat
     ✅ Signing out and back in brings you to the same page you were previously on
     ✅ Fix 403 error on desktop
     ✅ Sort messages by timestamp to fix ordering issues
@@ -113,3 +114,5 @@ ________________________________________________
     ✅  firestore settings functions
     ✅  setup cloud storage structure
     ✅  Fix saveImageMessage function to only send to selected friends
+    ✅  Add QR code scanner for adding friends
+    ✅  figure out how to send images and text between users
