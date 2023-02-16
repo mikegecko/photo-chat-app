@@ -7,12 +7,13 @@ ________________________________________________
 ________________________________________________
     Current Tasks
     ¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯
+    🔴 Add back buttons to following pages settings/friends/profile/notifications - brings you back to camera page. Chat back button will bring you back to friends
     🔴 After sending message display success/failure snack bar and return to camera screen -> maybe display loading while sending?
     🔴 Add ability to send capture to chat
     🔴 Work on press to view to display image for 10 sec
     🔴 Create firestore event listener to update chat messages in realtime
     🔴 Cover edge cases for sending image when messageChainID doesnt exist yet
-    🔴 Work on desktop view
+    🟠 Work on desktop view
     🟠 Add system for managing snackbar messages - success/error/warning/info
     🟠 Fix QRScan page - improve integration into friend component or move to its own page
     🟠 Figure out how to add event listener to firestore DB to listen for changes to the following[friends, messages, notifications] then trigger a state update
@@ -23,7 +24,7 @@ ________________________________________________
     🟡 figure out what fields will go into settings and profile
             [Profile: logout, friendCode / QR code, ]
             [Settings: light/dark mode, account info, delete account, push notifications,  ]
-    🟠 work on design for profile/settings/friends pages
+    🟡 work on design for profile/settings/friends pages
     🟡 Add snackbars for displaying errors/success/warnings
     🟡 Fix snackbar theme colors
     🟡 Fix add friend dialog theme colors
