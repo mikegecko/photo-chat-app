@@ -7,7 +7,7 @@ import ArrowForwardIcon from "@mui/icons-material/ArrowForward";
 import FlipCameraAndroidIcon from "@mui/icons-material/FlipCameraAndroid";
 import PhotoLibraryIcon from "@mui/icons-material/PhotoLibrary";
 import "./App.css";
-import { Avatar, Button, ButtonBase, CssBaseline, IconButton, ThemeProvider, Typography } from "@mui/material";
+import { Avatar, Button, ButtonBase, CssBaseline, Divider, IconButton, ThemeProvider, Typography } from "@mui/material";
 import { useCallback, useEffect, useRef, useState } from "react";
 import Webcam from "react-webcam";
 import WebcamComponent from "./components/WebcamComponent";
@@ -84,6 +84,7 @@ function App() {
   const [theme, setTheme] = useState(getPreferredColorScheme() ? themeLight : themeDark);
   const [sending, setSending] = useState(false);
   const [sendList, setSendList] = useState([]);
+  const [mobileView, setMobileView] = useState(false);
   
   const breakpoint = 768;
   const cameraRef = useRef(null);
@@ -102,7 +103,7 @@ function App() {
         );
       case "capture":
         if (capture) {
-          return <Capture capture={capture} closeEvent={clearCaptureEvent} />;
+          return <Capture mobileView={mobileView} capture={capture} closeEvent={clearCaptureEvent} />;
         }
         break;
       case "profile":
@@ -302,6 +303,11 @@ function App() {
       setHeight(window.innerHeight);
     };
     window.addEventListener("resize", handleResizeWindow);
+    if(width > breakpoint) {
+      setMobileView(false);
+    } else{
+      setMobileView(true);
+    }
     return () => {
       //Cleanup
       window.removeEventListener("resize", handleResizeWindow);
@@ -507,10 +513,11 @@ function App() {
           />
         </ButtonBase>
       </Box>
-      <Box sx={{display: 'flex' , minHeight: 'calc(100% - 160px)', height: 'calc(100% - 160px)' }}>
-        <Box sx={{width: '30%', backgroundColor: '#1f1f1f'}}>
-           {userData ? <Friends qrscanEvent={qrscanEvent} userData={userData} setStateOfSendList={setStateOfSendList} userID={userID} friendSelectEvent={friendSelectEvent} theme={theme} setStateOfUserData={setStateOfUserData} /> : <></>}
+      <Box sx={{display: 'flex' , minHeight: 'calc(100% - 160px)', height: 'calc(100% - 160px)', maxHeight: 'calc(100% - 160px)',  width: '100%', maxWidth: '100%' }}>
+        <Box sx={{width: '30%', minWidth: '30%', backgroundColor: '#1f1f1f'}}>
+           {userData ? capture ? <Friends isSending={true} setStateOfSendList={setStateOfSendList} sending={sending} friend={friend} capture={capture} userData={userData} userID={userID} theme={theme} setStateOfUserData={setStateOfUserData} /> : <Friends qrscanEvent={qrscanEvent} userData={userData} setStateOfSendList={setStateOfSendList} userID={userID} friendSelectEvent={friendSelectEvent} theme={theme} setStateOfUserData={setStateOfUserData} /> : <></>}
         </Box>
+        <Divider orientation="vertical" flexItem />
         <Box>
         {pageSelector()}
         </Box>
@@ -561,6 +568,7 @@ function App() {
     </Box>;
   }
   //Mobile View
+  
   return (
     <Box className="App" >
       <Login loading={loading} hidden={hideLogin} loginHandler={loginEvent} />
