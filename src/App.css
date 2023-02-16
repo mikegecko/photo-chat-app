@@ -25,6 +25,10 @@
   padding: var(--b); /* space for the border */
   position:relative;
 }
+.capture{
+  max-width: 69vw;
+  max-height: calc(100vh - 160px);
+}
 .box::before{
   content: "";
   position: absolute;
