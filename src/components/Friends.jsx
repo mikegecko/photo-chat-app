@@ -35,7 +35,7 @@ import QRScan from "./QRScan";
 export default function Friends(props) {
   const [checked, setChecked] = useState(false);
   const [addFriendDialog, setAddFriendDialog] = useState(false);
-  const [friendCode, setFriendCode] = useState(null);
+  const [friendCode, setFriendCode] = useState('');
   const [loading, setLoading] = useState(false);
   const [request, setRequest] = useState(false);
   const [acceptCode, setAcceptCode] = useState(null);
@@ -50,10 +50,14 @@ export default function Friends(props) {
 
   const setStateOfFriendCode = (friendCode) => {
     setFriendCode(friendCode);
+    closeScannerEvent(false);
   }
-
+  const closeScannerEvent = (e) => {
+    setShowScanner(false);
+  }
   const scannerEvent = (e) => {
     setShowScanner(true);
+    
   }
   const handleToggle = (e) => {
     const index = e;
@@ -290,19 +294,20 @@ export default function Friends(props) {
               Invalid Friend Code!
             </Alert> 
             </Snackbar>
-          <Dialog open={addFriendDialog} onClose={() => setAddFriendDialog(false)}>
+          <Dialog sx={{zIndex: 99}} open={addFriendDialog} onClose={() => setAddFriendDialog(false)}>
             <DialogTitle>Send Friend Request</DialogTitle>
             <DialogContent>
               <DialogContentText>Enter friend code or scan QR code</DialogContentText>
-              <TextField onChange={handleFriendCodeInput} autoFocus margin="dense" id="friendcode" label="Friend Code" type="text" fullWidth variant="standard" />
+              <TextField autoFocus={true} onChange={handleFriendCodeInput} value={friendCode}  margin="dense" id="friendcode" label="Friend Code" type="text" fullWidth variant="standard" />
             </DialogContent>
             <DialogActions sx={{gap: '8px'}}>
               <Button variant="text" onClick={sendFriendRequest} >Add Friend</Button>
+              {/* scannerEvent || props.qrscanEvent */}
               <Button variant="text" onClick={scannerEvent} >QR Code</Button>
               <Button variant="outlined" onClick={() => setAddFriendDialog(false)}>Cancel</Button>
             </DialogActions>
           </Dialog>
-          {showScanner ? <QRScan setStateOfFriendCode={setStateOfFriendCode} /> : <></>}
+          {showScanner ? <QRScan closeScannerEvent={closeScannerEvent} setStateOfFriendCode={setStateOfFriendCode} /> : <></>}
           <Typography variant="h4" sx={{ paddingTop: "10px", paddingBottom: "10px"}}>
             Friends
           </Typography>
