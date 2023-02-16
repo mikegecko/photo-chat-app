@@ -7,13 +7,14 @@ import ArrowForwardIcon from "@mui/icons-material/ArrowForward";
 import FlipCameraAndroidIcon from "@mui/icons-material/FlipCameraAndroid";
 import PhotoLibraryIcon from "@mui/icons-material/PhotoLibrary";
 import "./App.css";
-import { Avatar, Button, ButtonBase, CssBaseline, Divider, IconButton, ThemeProvider, Typography } from "@mui/material";
+import { Alert, Avatar, Button, ButtonBase, CssBaseline, Divider, IconButton, Snackbar, ThemeProvider, Typography } from "@mui/material";
 import { useCallback, useEffect, useReducer, useRef, useState } from "react";
 import Webcam from "react-webcam";
 import WebcamComponent from "./components/WebcamComponent";
 import Capture from "./components/Capture";
 import { initializeApp } from "firebase/app";
 import { firebaseConfig } from "./components/config";
+import CloseIcon from "@mui/icons-material/Close";
 import {
   getAuth,
   onAuthStateChanged,
@@ -85,7 +86,8 @@ function App() {
   const [sending, setSending] = useState(false);
   const [sendList, setSendList] = useState([]);
   const [mobileView, setMobileView] = useState(false);
-  
+  const [snack, setSnack] = useState(false);
+  const [snackInfo, setSnackInfo] = useState({});
   const breakpoint = 768;
   const cameraRef = useRef(null);
   
@@ -136,6 +138,12 @@ function App() {
         );
     }
   };
+
+  const handleSnackClose = () => {
+    setSnack(false);
+    setSnackInfo({...snackInfo, content: ""});
+  }
+
   const setStateOfSendList = (arr) => {
     setSendList([...arr]);
   }
@@ -456,6 +464,9 @@ function App() {
 
     if(capture && sending){
       saveImageMessage(rawCapture);
+      clearCaptureEvent();
+      setSnackInfo({content: "Image Sent", severity: "success"});
+      setSnack(true);
     }
 
 
@@ -476,8 +487,14 @@ function App() {
       setTheme(themeLight);
     }
   }, [settings])
+
+  //----------------
+  //
+  //  DESKTOP VIEW
+  //
+  //----------------
+
   if (width > breakpoint) {
-    //Desktop view
     return <Box className="App">
       <Login loading={loading} hidden={hideLogin} loginHandler={loginEvent} />
       <ThemeProvider theme={theme}>
@@ -593,8 +610,11 @@ function App() {
       </ThemeProvider>
     </Box>;
   }
-  //Mobile View
-  
+  //----------------
+  //
+  //  MOBILE VIEW
+  //
+  //----------------
   return (
     <Box className="App" >
       <Login loading={loading} hidden={hideLogin} loginHandler={loginEvent} />
@@ -680,6 +700,11 @@ function App() {
       </Box>
       {pageSelector()}
       {/* <Button variant="outlined" color="primary" onClick={debugHandler}>Click me</Button> */}
+      <Snackbar sx={{marginBottom: '80px'}} open={snack} autoHideDuration={5000} onClose={handleSnackClose} action={<IconButton onClick={handleSnackClose}><CloseIcon /></IconButton>} >
+            <Alert onClose={handleSnackClose} severity={snackInfo.severity} sx={{width: '100%'}}>
+              {snackInfo.content}
+            </Alert> 
+          </Snackbar>
       <Box
         sx={{
           minHeight: "80px",
