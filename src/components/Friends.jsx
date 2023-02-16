@@ -89,7 +89,6 @@ export default function Friends(props) {
   const handleSnackClose = (e) => {
     setSnack(false);
     setSnackContent("");
-    setSnackSeverity("");
   }
   const checkExistingFriendRequests = (friendDoc) => {
     const fr = friendDoc.data();
@@ -311,7 +310,7 @@ export default function Friends(props) {
             <DialogTitle>Send Friend Request</DialogTitle>
             <DialogContent>
               <DialogContentText>Enter friend code or scan QR code</DialogContentText>
-              <TextField autoFocus={true} onChange={handleFriendCodeInput} value={friendCode}  margin="dense" id="friendcode" label="Friend Code" type="text" fullWidth variant="standard" />
+              <TextField autoFocus={true} onChange={handleFriendCodeInput} value={friendCode ? friendCode : ""}  margin="dense" id="friendcode" label="Friend Code" type="text" fullWidth variant="standard" />
             </DialogContent>
             <DialogActions sx={{gap: '8px'}}>
               <Button variant="text" onClick={sendFriendRequest} >Add Friend</Button>
