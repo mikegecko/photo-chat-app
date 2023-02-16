@@ -305,7 +305,7 @@ export default function Friends(props) {
             <Alert onClose={handleSnackClose} severity={snackSeverity} sx={{width: '100%'}}>
               {snackContent}
             </Alert> 
-            </Snackbar>
+          </Snackbar>
           <Dialog sx={{zIndex: 99}} open={addFriendDialog} onClose={() => setAddFriendDialog(false)}>
             <DialogTitle>Send Friend Request</DialogTitle>
             <DialogContent>
