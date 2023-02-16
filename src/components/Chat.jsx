@@ -276,6 +276,13 @@ export default function Chat(props) {
 
   return (
     <ThemeProvider theme={props.theme}>
+      <Box
+        sx={{
+          display: "flex",
+          height: "100%",
+          flexDirection: "column",
+        }}
+      >
       <Typography
         variant="h4"
         sx={{ paddingTop: "10px", paddingBottom: "8px" }}
@@ -362,6 +369,7 @@ export default function Chat(props) {
         <Button variant="contained" color="success" onClick={handleSendEvent}>
           <SendIcon />
         </Button>
+      </Box>
       </Box>
     </ThemeProvider>
   );
