@@ -126,7 +126,7 @@ function App() {
       case "settings":
         return <Settings userID={userID} user={user} userData={userData} setStateOfSettings={setStateOfSettings} settings={settings} theme={theme} />;
       case "qrcode":
-        return <QRcode userID={userID} width={width} />
+        return <QRcode qrcodeCloseEvent={qrcodeCloseEvent} mobileView={mobileView} userID={userID} width={width} height={height} />
       case "qrcodescan":
         //Temp for debugging qrscanner
         return <QRScan  />
@@ -217,6 +217,11 @@ function App() {
     setCapture(null);
     setAppPage('qrcode');
     setCameraControls(false);
+  }
+  const qrcodeCloseEvent = (e) => {
+    setAppPage("profile");
+    setCameraControls(false);
+    setSending(false);
   }
   const qrscanEvent = () => {
     // Temp for debugging qrscanner
