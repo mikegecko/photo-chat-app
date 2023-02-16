@@ -532,7 +532,7 @@ function App() {
         </ButtonBase>
       </Box>
       <Box sx={{display: 'flex' , minHeight: 'calc(100% - 160px)', height: 'calc(100% - 160px)', maxHeight: 'calc(100% - 160px)',  width: '100%', maxWidth: '100%' }}>
-        <Box sx={{width: '30%', minWidth: '30%', backgroundColor: '#1f1f1f'}}>
+        <Box sx={{width: '30%', minWidth: '30%'}}>
            {userData ? capture ? <Friends isSending={true} setStateOfSendList={setStateOfSendList} sending={sending} friend={friend} capture={capture} userData={userData} userID={userID} theme={theme} setStateOfUserData={setStateOfUserData} /> : <Friends qrscanEvent={qrscanEvent} friend={friend} userData={userData} setStateOfSendList={setStateOfSendList} userID={userID} friendSelectEvent={friendSelectEvent} theme={theme} setStateOfUserData={setStateOfUserData} /> : <></>}
         </Box>
         <Divider orientation="vertical" flexItem />
