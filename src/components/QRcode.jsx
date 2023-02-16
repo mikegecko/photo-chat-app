@@ -1,4 +1,4 @@
-import { Box, height } from "@mui/system";
+import { Box } from "@mui/system";
 import { QRCodeSVG } from "qrcode.react";
 
 export default function QRcode(props){
