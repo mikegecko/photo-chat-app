@@ -82,6 +82,7 @@ function App() {
   const [settings, setSettings] = useState({brightnessMode:getPreferredColorScheme(), });
   const [theme, setTheme] = useState(getPreferredColorScheme() ? themeLight : themeDark);
   const [sending, setSending] = useState(false);
+  const [sendList, setSendList] = useState([]);
   
   const breakpoint = 768;
   const cameraRef = useRef(null);
@@ -108,9 +109,9 @@ function App() {
           <Profile user={user} logoutEvent={logoutEvent} userData={userData} userID={userID} theme={theme} qrcodeEvent={qrcodeEvent} />
         );
       case "friends":
-        return <Friends userData={userData} userID={userID} friendSelectEvent={friendSelectEvent} theme={theme} setStateOfUserData={setStateOfUserData} />;
+        return <Friends userData={userData} setStateOfSendList={setStateOfSendList} userID={userID} friendSelectEvent={friendSelectEvent} theme={theme} setStateOfUserData={setStateOfUserData} />;
       case "friends-sending":
-        return <Friends isSending={true} sending={sending} friend={friend} capture={capture} userData={userData} userID={userID} theme={theme} setStateOfUserData={setStateOfUserData} />;
+        return <Friends isSending={true} setStateOfSendList={setStateOfSendList} sending={sending} friend={friend} capture={capture} userData={userData} userID={userID} theme={theme} setStateOfUserData={setStateOfUserData} />;
       case "chat":
         return <Chat friend={friend} userData={userData} userID={userID} theme={theme} setStateOfUserData={setStateOfUserData} />
       case "notifications":
@@ -125,9 +126,8 @@ function App() {
         );
     }
   };
-  //Debug handler for temp button
-  const debugHandler = (e) => {
-    setStateOfUserData('friends', {name: 'Somename', id:"2fg2ef3", })
+  const setStateOfSendList = (arr) => {
+    setSendList([...arr]);
   }
   // Calling/setting this state will cause a DB update
   const setStateOfUserData = (userDataObj) => {
@@ -278,17 +278,11 @@ function App() {
     setCameraControls(false);
     setSending(false);
   }
+  // Maybe refactor this
   const sendEvent = (e) => {
     if(appPage === 'friends-sending'){
-      // Send capture to selected friends
-      // Display snackbar success/error
-      /**
-       * - Upload to cloud storage
-       * - get cloud storage link url
-       * - update messages to show image
-       * - 
-       */
       setSending(true);
+      //get list of people to send to with message_chains
       console.log('Sending Pic');
     }
   }
@@ -394,33 +388,35 @@ function App() {
     }
   },[userData])
   // Hook for sending images to users by using firebase cloud storage
-  //ADD DOC NEEDS TO BE CHANGED
-  //We need to add in the proper message_chains ID then grab 'messages' collection and add to it
   //Add checks for message_chain -> create new chain if one doesnt exist
   useEffect(() => {
-    
     async function saveImageMessage(file){
-      try{
-        const messageRef = await addDoc(collection(db, `message_chains/${userData.friends[0].message_chain}/messages`), {
-          imageURL: LOADING_IMAGE_URL,
-          sender: userID,
-          timestamp: serverTimestamp(),
-        });
-        // Upload image to cloud storage
-        const filePath = `${getAuth().currentUser.uid}/${messageRef.id}/${file.name}`;
-        const newImageRef = ref(getStorage(), filePath);
-        const fileSnapshot = await uploadBytesResumable(newImageRef, file);
-        // Generate url
-        const publicImageUrl = await getDownloadURL(newImageRef);
-        // Update placeholder image with image URL
-        await updateDoc(messageRef, {
-          imageURL: publicImageUrl,
-          storageUrl: fileSnapshot.metadata.fullPath,
-        });
-
-      } 
-      catch(error){
-        console.error(error);
+      for (let index = 0; index < sendList.length; index++) {
+        const element = sendList[index];
+        if(element.send){
+          try{
+            const messageRef = await addDoc(collection(db, `message_chains/${element.message_chain}/messages`), {
+              imageURL: LOADING_IMAGE_URL,
+              sender: userID,
+              timestamp: serverTimestamp(),
+            });
+            // Upload image to cloud storage
+            const filePath = `${getAuth().currentUser.uid}/${messageRef.id}/${file.name}`;
+            const newImageRef = ref(getStorage(), filePath);
+            const fileSnapshot = await uploadBytesResumable(newImageRef, file);
+            // Generate url
+            const publicImageUrl = await getDownloadURL(newImageRef);
+            // Update placeholder image with image URL
+            await updateDoc(messageRef, {
+              imageURL: publicImageUrl,
+              storageUrl: fileSnapshot.metadata.fullPath,
+            });
+    
+          } 
+          catch(error){
+            console.error(error);
+          }
+        }
       }
     }
 
@@ -433,6 +429,10 @@ function App() {
 
     }
   },[sending])
+  //Hook for handling sending images to users
+  useEffect(() => {
+    console.log(sendList);
+  },[sendList])
   //Theme control
   useEffect(() => {
     if(settings.brightnessMode){
