@@ -56,6 +56,7 @@ import { motion } from "framer-motion";
 import { themeDark, themeLight } from "./theme/theme";
 import QRcode from "./components/QRcode";
 import SendIcon from '@mui/icons-material/Send';
+import QRScan from "./components/QRScan";
 
 // Initialize Firebase
 export const app = initializeApp(firebaseConfig);
@@ -109,7 +110,7 @@ function App() {
           <Profile user={user} logoutEvent={logoutEvent} userData={userData} userID={userID} theme={theme} qrcodeEvent={qrcodeEvent} />
         );
       case "friends":
-        return <Friends userData={userData} setStateOfSendList={setStateOfSendList} userID={userID} friendSelectEvent={friendSelectEvent} theme={theme} setStateOfUserData={setStateOfUserData} />;
+        return <Friends qrscanEvent={qrscanEvent} userData={userData} setStateOfSendList={setStateOfSendList} userID={userID} friendSelectEvent={friendSelectEvent} theme={theme} setStateOfUserData={setStateOfUserData} />;
       case "friends-sending":
         return <Friends isSending={true} setStateOfSendList={setStateOfSendList} sending={sending} friend={friend} capture={capture} userData={userData} userID={userID} theme={theme} setStateOfUserData={setStateOfUserData} />;
       case "chat":
@@ -120,6 +121,9 @@ function App() {
         return <Settings userID={userID} user={user} userData={userData} setStateOfSettings={setStateOfSettings} settings={settings} theme={theme} />;
       case "qrcode":
         return <QRcode userID={userID} width={width} />
+      case "qrcodescan":
+        //Temp for debugging qrscanner
+        return <QRScan  />
       default:
         return (
           <WebcamComponent cameraRef={cameraRef} facingMode={facingMode} />
@@ -206,6 +210,12 @@ function App() {
   const qrcodeEvent = () => {
     setCapture(null);
     setAppPage('qrcode');
+    setCameraControls(false);
+  }
+  const qrscanEvent = () => {
+    // Temp for debugging qrscanner
+    setCapture(null);
+    setAppPage('qrcodescan');
     setCameraControls(false);
   }
   const clearCaptureEvent = (e) => {
