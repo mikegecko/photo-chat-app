@@ -518,7 +518,7 @@ function App() {
            {userData ? capture ? <Friends isSending={true} setStateOfSendList={setStateOfSendList} sending={sending} friend={friend} capture={capture} userData={userData} userID={userID} theme={theme} setStateOfUserData={setStateOfUserData} /> : <Friends qrscanEvent={qrscanEvent} userData={userData} setStateOfSendList={setStateOfSendList} userID={userID} friendSelectEvent={friendSelectEvent} theme={theme} setStateOfUserData={setStateOfUserData} /> : <></>}
         </Box>
         <Divider orientation="vertical" flexItem />
-        <Box sx={{width: '100%'}}>
+        <Box sx={{width: '100%', maxHeight: '100%'}}>
           {pageSelector()}
         </Box>
       </Box>
