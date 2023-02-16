@@ -7,7 +7,7 @@ import ArrowForwardIcon from "@mui/icons-material/ArrowForward";
 import FlipCameraAndroidIcon from "@mui/icons-material/FlipCameraAndroid";
 import PhotoLibraryIcon from "@mui/icons-material/PhotoLibrary";
 import "./App.css";
-import { Avatar, Button, ButtonBase, CssBaseline, IconButton, ThemeProvider } from "@mui/material";
+import { Avatar, Button, ButtonBase, CssBaseline, IconButton, ThemeProvider, Typography } from "@mui/material";
 import { useCallback, useEffect, useRef, useState } from "react";
 import Webcam from "react-webcam";
 import WebcamComponent from "./components/WebcamComponent";
@@ -454,7 +454,111 @@ function App() {
   }, [settings])
   if (width > breakpoint) {
     //Desktop view
-    return <div className="App"></div>;
+    return <Box className="App">
+      <Login loading={loading} hidden={hideLogin} loginHandler={loginEvent} />
+      <ThemeProvider theme={theme}>
+      <CssBaseline />
+      <Box
+      
+        sx={{
+          minHeight: "80px",
+          height: "80px",
+          width: "100%",
+          bgcolor: "#004D9B",
+          display: "flex",
+          alignItems: "center",
+          justifyContent: "flex-start",
+          paddingLeft: '2rem',
+          zIndex: 2,
+        }}
+      >
+        
+        <ButtonBase onClick={profileEvent}
+        initial={{ scale: 0 }}
+        animate={iconScale('profile')}
+        component={motion.div}
+        transition={{ type: "spring", stiffness: 260, damping: 20 }}>
+          <Avatar
+            sx={{ height: "52px", width: "52px" }}
+            src={user ? user.user.photoURL : null}
+            imgProps={{ referrerPolicy: "no-referrer" }}
+          />
+        </ButtonBase>
+        <Typography variant="h5" sx={{backgroundColor: "#004D9B", paddingLeft: '1rem' }}>
+          {userData ? userData.name : ""}
+        </Typography>
+      </Box>
+      <Box>
+        <ButtonBase
+          aria-label="upload picture"
+          component="label"
+          sx={{
+            display: cameraControls ? "block" : "none",
+            position: "absolute",
+            top: "105px",
+            left: "calc(30% + 20px)",
+            opacity: "54%",
+            zIndex: 5,
+          }}
+        >
+          <input hidden accept="image/*" type="file" onChange={galleryEvent} />
+          <PhotoLibraryIcon
+            sx={{ color: "white", height: "30px", width: "30px" }}
+          />
+        </ButtonBase>
+      </Box>
+      <Box sx={{display: 'flex' , minHeight: 'calc(100% - 160px)', height: 'calc(100% - 160px)' }}>
+        <Box sx={{width: '30%', backgroundColor: '#1f1f1f'}}>
+           {userData ? <Friends qrscanEvent={qrscanEvent} userData={userData} setStateOfSendList={setStateOfSendList} userID={userID} friendSelectEvent={friendSelectEvent} theme={theme} setStateOfUserData={setStateOfUserData} /> : <></>}
+        </Box>
+        <Box>
+        {pageSelector()}
+        </Box>
+      </Box>
+      
+      <Box
+        sx={{
+          minHeight: "80px",
+          height: "80px",
+          width: "100%",
+          bgcolor: "#004D9B",
+          display: "flex",
+          alignItems: "center",
+          justifyContent: "space-around",
+        }}
+      >
+        <ButtonBase onClick={settingsEvent}
+        initial={{ scale: 0 }}
+        animate={iconScale('settings')}
+        component={motion.div}
+        transition={{ type: "spring", stiffness: 260, damping: 20 }}>
+          <SettingsIcon sx={iconStyle("settings")} />
+        </ButtonBase>
+        <ButtonBase onClick={captureEvent}>
+          <PanoramaFishEyeIcon
+            sx={{ color: "white", height: "70px", width: "70px" }}
+          />
+        </ButtonBase>
+          {(() => {
+            if(appPage === 'friends-sending'){
+              return(
+                <ButtonBase disabled={arrowControl()} onClick={sendEvent}>
+                  <SendIcon sx={arrowStyle()} />
+                </ButtonBase>
+                  )
+            }
+            else{
+              
+              return(
+                <ButtonBase disabled={arrowControl()} onClick={nextEvent}>
+                  <ArrowForwardIcon sx={arrowStyle()}/>
+                </ButtonBase>
+              )
+            }
+          })()}
+      </Box>
+      </ThemeProvider>
+    </Box>;
   }
   //Mobile View
   return (
