@@ -377,97 +377,99 @@ export default function Chat(props) {
       </ThemeProvider>
     );
   }
-
-  return (
-    <ThemeProvider theme={props.theme}>
-      
-      <Typography
-        variant="h4"
-        sx={{ paddingTop: "10px", paddingBottom: "8px" }}
-      >
-        Chat
-      </Typography>
-      <Divider variant="fullWidth" />
-      <Box
-        sx={{
-          display: "flex",
-          height: "100%",
-          maxHeight: "100%",
-          flexDirection: "column",
-          overflowY: "scroll",
-        }}
-      >
-        {loading ? (
-          <Box
-            sx={{
-              display: "flex",
-              justifyContent: "center",
-              alignItems: "center",
-              padding: "1rem",
-            }}
-          >
-            <CircularProgress />
-          </Box>
-        ) : (
-          messages.sort(compareTimestamp).map((el, index) => {
-            if(el.imageURL){
-              return(
-                <StyledImageMessage
-                theme={props.theme}
-                key={index}
-                userID={props.userID}
-                message={el}
-                id={index} />
-              )
-            }
-            else{
-              return (
-                <StyledMessage
+  //Mobile view
+  else{
+    return (
+      <ThemeProvider theme={props.theme}>
+        
+        <Typography
+          variant="h4"
+          sx={{ paddingTop: "10px", paddingBottom: "8px" }}
+        >
+          Chat
+        </Typography>
+        <Divider variant="fullWidth" />
+        <Box
+          sx={{
+            display: "flex",
+            height: "calc(100%)",
+            maxHeight: "calc(100%)",
+            flexDirection: "column",
+            overflowY: "scroll",
+          }}
+        >
+          {loading ? (
+            <Box
+              sx={{
+                display: "flex",
+                justifyContent: "center",
+                alignItems: "center",
+                padding: "1rem",
+              }}
+            >
+              <CircularProgress />
+            </Box>
+          ) : (
+            messages.sort(compareTimestamp).map((el, index) => {
+              if(el.imageURL){
+                return(
+                  <StyledImageMessage
                   theme={props.theme}
                   key={index}
                   userID={props.userID}
                   message={el}
-                  id={index}
-                />
-              );
-            }
-          })
-        )}
-      </Box>
-      <Box
-        sx={{
-          bgcolor: "#0060c1",
-          padding: "8px",
-          display: "flex",
-          flexDirection: "row",
-          gap: "8px",
-        }}
-      >
-        <InputBase
-          value={tempMessage}
+                  id={index} />
+                )
+              }
+              else{
+                return (
+                  <StyledMessage
+                    theme={props.theme}
+                    key={index}
+                    userID={props.userID}
+                    message={el}
+                    id={index}
+                  />
+                );
+              }
+            })
+          )}
+        </Box>
+        <Box
           sx={{
-            bgcolor: props.theme.palette.background.default,
-            borderRadius: ".5rem",
-            paddingLeft: "8px",
-            height: "2.7rem",
-            width: "100%",
+            bgcolor: "#0060c1",
+            padding: "8px",
             display: "flex",
-            alignItems: "center",
+            flexDirection: "row",
+            gap: "8px",
           }}
-          placeholder="Send Message..."
-          variant="outlined"
-          size="small"
-          onChange={handleInputChangeEvent}
-          onKeyDown={(e) => {
-            if (e.key === "Enter") {
-              handleSendEvent();
-            }
-          }}
-        />
-        <Button variant="contained" color="success" onClick={handleSendEvent}>
-          <SendIcon />
-        </Button>
-      </Box>
-    </ThemeProvider>
-  );
+        >
+          <InputBase
+            value={tempMessage}
+            sx={{
+              bgcolor: props.theme.palette.background.default,
+              borderRadius: ".5rem",
+              paddingLeft: "8px",
+              height: "2.7rem",
+              width: "100%",
+              display: "flex",
+              alignItems: "center",
+            }}
+            placeholder="Send Message..."
+            variant="outlined"
+            size="small"
+            onChange={handleInputChangeEvent}
+            onKeyDown={(e) => {
+              if (e.key === "Enter") {
+                handleSendEvent();
+              }
+            }}
+          />
+          <Button variant="contained" color="success" onClick={handleSendEvent}>
+            <SendIcon />
+          </Button>
+        </Box>
+      </ThemeProvider>
+    );
+  }
 }
