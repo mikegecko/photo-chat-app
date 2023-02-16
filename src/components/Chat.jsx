@@ -21,7 +21,7 @@ import {
   setDoc,
   where,
 } from "firebase/firestore";
-import { useEffect, useRef, useState } from "react";
+import { useEffect, useReducer, useRef, useState } from "react";
 import { db, messageChainsRef, usersRef } from "../App";
 import SendIcon from "@mui/icons-material/Send";
 import StyledMessage from "./StyledMessage";
@@ -34,6 +34,7 @@ export default function Chat(props) {
   const [messageChainID, setMessageChainID] = useState(null);
   const [messageToSend, setMessageToSend] = useState(null);
   const [tempMessage, setTempMessage] = useState(null);
+
   let mountRef = useRef(true);
   let idMountRef = useRef(true);
 
@@ -274,6 +275,7 @@ export default function Chat(props) {
     console.log(messages);
   }, [messages]);
 
+  //Desktop View
   if(!props.mobileView){
     return (
       <ThemeProvider theme={props.theme}>

@@ -362,7 +362,7 @@ export default function Friends(props) {
                         </Badge>
                       }
                     >
-                      <ListItemButton onClick={() => props.friendSelectEvent(index)}>
+                      <ListItemButton onClick={() =>{ props.friendSelectEvent(index)}}>
                         <ListItemText primary={el.name} />
                       </ListItemButton>
                     </ListItem>

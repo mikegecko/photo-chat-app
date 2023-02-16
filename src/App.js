@@ -8,7 +8,7 @@ import FlipCameraAndroidIcon from "@mui/icons-material/FlipCameraAndroid";
 import PhotoLibraryIcon from "@mui/icons-material/PhotoLibrary";
 import "./App.css";
 import { Avatar, Button, ButtonBase, CssBaseline, Divider, IconButton, ThemeProvider, Typography } from "@mui/material";
-import { useCallback, useEffect, useRef, useState } from "react";
+import { useCallback, useEffect, useReducer, useRef, useState } from "react";
 import Webcam from "react-webcam";
 import WebcamComponent from "./components/WebcamComponent";
 import Capture from "./components/Capture";
@@ -89,9 +89,14 @@ function App() {
   const breakpoint = 768;
   const cameraRef = useRef(null);
   
-  const pageSelector = () => {
+  const pageSelector = (override) => {
     //decouple appPage from this
-    switch (appPage) {
+    let x = appPage;
+    if(override){
+      x = override;
+      setAppPage(override);
+    }
+    switch (x) {
       case "camera":
         return (
           <WebcamComponent
@@ -111,11 +116,11 @@ function App() {
           <Profile mobileView={mobileView} user={user} logoutEvent={logoutEvent} userData={userData} userID={userID} theme={theme} qrcodeEvent={qrcodeEvent} />
         );
       case "friends":
-        return <Friends qrscanEvent={qrscanEvent} userData={userData} setStateOfSendList={setStateOfSendList} userID={userID} friendSelectEvent={friendSelectEvent} theme={theme} setStateOfUserData={setStateOfUserData} />;
+        return <Friends qrscanEvent={qrscanEvent} userData={userData} setStateOfSendList={setStateOfSendList} userID={userID} friend={friend} friendSelectEvent={friendSelectEvent} theme={theme} setStateOfUserData={setStateOfUserData} />;
       case "friends-sending":
         return <Friends isSending={true} setStateOfSendList={setStateOfSendList} sending={sending} friend={friend} capture={capture} userData={userData} userID={userID} theme={theme} setStateOfUserData={setStateOfUserData} />;
       case "chat":
-        return <Chat mobileView={mobileView} friend={friend} userData={userData} userID={userID} theme={theme} setStateOfUserData={setStateOfUserData} />
+        return <Chat key={friend} mobileView={mobileView} friend={friend} userData={userData} userID={userID} theme={theme} setStateOfUserData={setStateOfUserData} />
       case "notifications":
         return(<Notifications userData={userData} theme={theme} />)
       case "settings":
@@ -274,10 +279,18 @@ function App() {
     setSending(false);
   };
   const friendSelectEvent = (friendIndex) => {
-    setFriend(friendIndex);
-    setAppPage('chat');
-    setCameraControls(false);
-    setSending(false);
+    if(!mobileView){
+      //BUG: Cannot select other friend chats on desktop
+      setFriend(friendIndex);
+      setCameraControls(false);
+      setSending(false);
+      setAppPage('chat');
+    } else{
+      setFriend(friendIndex);
+      setAppPage('chat');
+      setCameraControls(false);
+      setSending(false);
+    }
   }
   const notificationEvent = (e) => {
     setAppPage('notifications');
@@ -445,7 +458,7 @@ function App() {
 
     }
   },[sending])
-  //Hook for handling sending images to users
+  //Debug Hook
   useEffect(() => {
     console.log(sendList);
   },[sendList])
@@ -515,7 +528,7 @@ function App() {
       </Box>
       <Box sx={{display: 'flex' , minHeight: 'calc(100% - 160px)', height: 'calc(100% - 160px)', maxHeight: 'calc(100% - 160px)',  width: '100%', maxWidth: '100%' }}>
         <Box sx={{width: '30%', minWidth: '30%', backgroundColor: '#1f1f1f'}}>
-           {userData ? capture ? <Friends isSending={true} setStateOfSendList={setStateOfSendList} sending={sending} friend={friend} capture={capture} userData={userData} userID={userID} theme={theme} setStateOfUserData={setStateOfUserData} /> : <Friends qrscanEvent={qrscanEvent} userData={userData} setStateOfSendList={setStateOfSendList} userID={userID} friendSelectEvent={friendSelectEvent} theme={theme} setStateOfUserData={setStateOfUserData} /> : <></>}
+           {userData ? capture ? <Friends isSending={true} setStateOfSendList={setStateOfSendList} sending={sending} friend={friend} capture={capture} userData={userData} userID={userID} theme={theme} setStateOfUserData={setStateOfUserData} /> : <Friends qrscanEvent={qrscanEvent} friend={friend} userData={userData} setStateOfSendList={setStateOfSendList} userID={userID} friendSelectEvent={friendSelectEvent} theme={theme} setStateOfUserData={setStateOfUserData} /> : <></>}
         </Box>
         <Divider orientation="vertical" flexItem />
         <Box sx={{width: '100%', maxHeight: '100%'}}>
