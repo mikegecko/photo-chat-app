@@ -108,7 +108,7 @@ function App() {
         break;
       case "profile":
         return (
-          <Profile user={user} logoutEvent={logoutEvent} userData={userData} userID={userID} theme={theme} qrcodeEvent={qrcodeEvent} />
+          <Profile mobileView={mobileView} user={user} logoutEvent={logoutEvent} userData={userData} userID={userID} theme={theme} qrcodeEvent={qrcodeEvent} />
         );
       case "friends":
         return <Friends qrscanEvent={qrscanEvent} userData={userData} setStateOfSendList={setStateOfSendList} userID={userID} friendSelectEvent={friendSelectEvent} theme={theme} setStateOfUserData={setStateOfUserData} />;
@@ -518,8 +518,8 @@ function App() {
            {userData ? capture ? <Friends isSending={true} setStateOfSendList={setStateOfSendList} sending={sending} friend={friend} capture={capture} userData={userData} userID={userID} theme={theme} setStateOfUserData={setStateOfUserData} /> : <Friends qrscanEvent={qrscanEvent} userData={userData} setStateOfSendList={setStateOfSendList} userID={userID} friendSelectEvent={friendSelectEvent} theme={theme} setStateOfUserData={setStateOfUserData} /> : <></>}
         </Box>
         <Divider orientation="vertical" flexItem />
-        <Box>
-        {pageSelector()}
+        <Box sx={{width: '100%'}}>
+          {pageSelector()}
         </Box>
       </Box>
       
