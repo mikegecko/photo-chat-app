@@ -16,6 +16,7 @@ import {
   doc,
   getDoc,
   getDocs,
+  onSnapshot,
   query,
   serverTimestamp,
   setDoc,
@@ -133,7 +134,7 @@ export default function Chat(props) {
         console.error(error);
       }
     }
-
+    
     async function getAndCreateMessageChain() {
       const chain = await getMessageChain();
       if (!chain) {
@@ -197,6 +198,25 @@ export default function Chat(props) {
       //console.log(docRef.id);
       return docRef;
     }
+    async function subscribeToFirestoreMessaging () {
+      const q = query(collection(db, `message_chains/${messageChainID}/messages`))
+      const unsubscribe = onSnapshot(q, (querySnapshot) => {
+        const m = [];
+        const sources = [];
+        let serverFlag = false;
+        querySnapshot.forEach((doc) => {
+          const source = doc.metadata.hasPendingWrites ? "Local" : "Server";
+          if(source === "Server"){
+            serverFlag = true;
+          }
+          sources.push(source);
+          m.push(doc.data());
+        });
+        if(serverFlag){
+          setMessages([...m]);
+        }
+      })
+    }
     async function getAndCreateMessageCollection() {
       //console.log("Started Message Collection...");
       const messageArray = await getMessageCollection();
@@ -205,8 +225,10 @@ export default function Chat(props) {
         //setMessages([...createMessage]);
         const addMessage = await getMessageCollection();
         setMessages([...addMessage]);
+        subscribeToFirestoreMessaging();
       } else {
         setMessages([...messageArray]);
+        subscribeToFirestoreMessaging();
       }
     }
     if (idMountRef.current) {
