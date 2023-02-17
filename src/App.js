@@ -376,6 +376,16 @@ function App() {
       });
       return(i);
     }
+    // Figure out how to avoid infinite loop
+    async function subscribeToFirestore (userDoc) {
+      const unsubscribe = onSnapshot(doc(usersRef, userDoc.id), (doc) => {
+        const source = doc.metadata.hasPendingWrites ? "Local" : "Server";
+        console.log(source, "data: ", doc.data());
+        if(source === 'Server'){
+          setUserData(doc.data());
+        }
+      })
+    }
     async function getAndCreateUser () {
       const userT = await getUser();
       // If user does not exist userT is undefined
@@ -384,10 +394,12 @@ function App() {
         const userJ = await getUser();
         setUserID(userJ.id);
         setUserData(userJ.data());
+        subscribeToFirestore(userJ);
       }
       else{
         setUserID(userT.id);
         setUserData(userT.data());
+        subscribeToFirestore(userT);
       }
     }
 
