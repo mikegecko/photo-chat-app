@@ -247,6 +247,7 @@ function App() {
       clearCaptureEvent();
     } else {
       const imgSrc = cameraRef.current.getScreenshot();
+      setRawCapture(imgSrc);
       setCapture(imgSrc);
       setAppPage("capture");
       setCameraControls(false);
@@ -380,7 +381,7 @@ function App() {
     async function subscribeToFirestore (userDoc) {
       const unsubscribe = onSnapshot(doc(usersRef, userDoc.id), (doc) => {
         const source = doc.metadata.hasPendingWrites ? "Local" : "Server";
-        console.log(source, "data: ", doc.data());
+        //console.log(source, "data: ", doc.data());
         if(source === 'Server'){
           setUserData(doc.data());
         }
@@ -495,7 +496,13 @@ function App() {
 
     }
   },[sending])
-  //Debug Hook
+  //Debug Hooks
+  useEffect(() => {
+    console.log('Cap: ');
+    console.log(capture);
+    console.log('Raw: ');
+    console.log(rawCapture);
+  }, [capture])
   useEffect(() => {
     console.log(sendList);
   },[sendList])
