@@ -9,15 +9,13 @@ ________________________________________________
     ¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯
     🔴 Add remove friend button
     🔴 Add back buttons to following pages settings/friends/profile/notifications - brings you back to camera page. Chat back button will bring you back to friends
-    🔴 After sending message display success/failure snack bar and return to camera screen -> maybe display loading while sending?
+    🔴 Handle sending image message to no selected friends
     🔴 Add ability to send capture to chat
     🔴 Work on press to view to display image for 10 sec
-    🔴 Create firestore event listener to update chat messages in realtime
     🔴 Cover edge cases for sending image when messageChainID doesnt exist yet
     🟠 Work on desktop view
     🟠 Add system for managing snackbar messages - success/error/warning/info
     🟠 Fix QRScan page - improve integration into friend component or move to its own page
-    🟠 Figure out how to add event listener to firestore DB to listen for changes to the following[friends, messages, notifications] then trigger a state update
     🟡 Add light mode theme for chat messages
     🟡 Add timestamp on messages to show when it was sent
     🟡 Scroll to bottom of chat when sending a message or recieving one
@@ -43,7 +41,7 @@ ________________________________________________
     - Edit wave mask in sign-in page to go between about 33% and 66% of the text
     - Use mui snackbar's for showing errors and success messages
     - loading screen for sending messages or going between pages
-    - add drag up to refresh in chat/friends/etc.
+    - add drag up to refresh in chat/friends/etc. -> not needed now that i have realtime updates set up?
     - Add swipe animation between friend and chat pages
     - Add water wave transition between pages
     - Add ability to add text bar to image
@@ -123,3 +121,6 @@ ________________________________________________
     ✅  Fix saveImageMessage function to only send to selected friends
     ✅  Add QR code scanner for adding friends
     ✅  figure out how to send images and text between users
+    ✅ Figure out how to add event listener to firestore DB to listen for changes to the following[friends, messages, notifications] then trigger a state update
+    ✅ Create firestore event listener to update chat messages in realtime
+
