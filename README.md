@@ -11,6 +11,7 @@ This project was created with [Create React App](https://github.com/facebook/cre
 - Take and send photos to friends
 - Option to add captions to photos
 - Push notifications for new messages
+- Realtime updates
 - In-app camera functionality
 
 ## Built With
