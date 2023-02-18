@@ -4,6 +4,7 @@ import { useEffect, useState } from "react";
 import { css } from "@emotion/react";
 import VisibilityIcon from "@mui/icons-material/Visibility";
 import VisibilityOutlinedIcon from "@mui/icons-material/VisibilityOutlined";
+import ImageIcon from '@mui/icons-material/Image';
 import { ButtonBase, Typography } from "@mui/material";
 
 export default function StyledImageMessage(props) {
@@ -27,6 +28,7 @@ export default function StyledImageMessage(props) {
     alignSelf: "flex-start",
     bgcolor: "#454545",
     flexDirection: "row",
+    gap: "1rem",
     margin: "8px",
     padding: "4px",
     borderRadius: ".7rem .7rem .7rem 0",
@@ -40,9 +42,11 @@ export default function StyledImageMessage(props) {
     bgcolor: "#002b5a",
     flexDirection: "row",
     margin: "8px",
-    padding: ".5rem 1rem .5rem 1rem",
+    padding: "4px",
     borderRadius: ".7rem .7rem 0 .7rem",
   };
+  
+
 
   const styleMessage = () => {
     //Message is from user
@@ -54,10 +58,19 @@ export default function StyledImageMessage(props) {
     }
     //Message is from friend
     else {
+      
       return receiverStyle;
     }
   };
   const viewContent = () => {
+    if(props.userID === props.message.sender){
+      return(
+        <>
+          <ImageIcon />
+          <Typography>Image Sent</Typography>
+        </>
+      )
+    }
     if (show) {
       return (
         <>
