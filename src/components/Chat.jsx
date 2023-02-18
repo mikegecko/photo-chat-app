@@ -49,10 +49,10 @@ export default function Chat(props) {
 
   // Sorts messages based on timestamp -> firebase has a built in system for returning documents ordered by timestamp
   const compareTimestamp = (a, b) => {
-    if (a.timestamp < b.timestamp) {
+    if (a.timestamp > b.timestamp) {
       return -1;
     }
-    if (a.timestamp > b.timestamp) {
+    if (a.timestamp < b.timestamp) {
       return 1;
     }
     return 0;
@@ -320,7 +320,7 @@ export default function Chat(props) {
             display: "flex",
             height: "100%",
             maxHeight: "100%",
-            flexDirection: "column",
+            flexDirection: "column-reverse",
             overflowY: "scroll",
           }}
         >
@@ -416,7 +416,7 @@ export default function Chat(props) {
             display: "flex",
             height: "calc(100%)",
             maxHeight: "calc(100%)",
-            flexDirection: "column",
+            flexDirection: "column-reverse",
             overflowY: "scroll",
           }}
         >
