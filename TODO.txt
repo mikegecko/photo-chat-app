@@ -39,7 +39,6 @@ ________________________________________________
     - make friend codes more friendly
     - custom loading icons
     - Edit wave mask in sign-in page to go between about 33% and 66% of the text
-    - Use mui snackbar's for showing errors and success messages
     - loading screen for sending messages or going between pages
     - add drag up to refresh in chat/friends/etc. -> not needed now that i have realtime updates set up?
     - Add swipe animation between friend and chat pages
@@ -121,8 +120,9 @@ ________________________________________________
     ✅  Fix saveImageMessage function to only send to selected friends
     ✅  Add QR code scanner for adding friends
     ✅  figure out how to send images and text between users
-    ✅ Figure out how to add event listener to firestore DB to listen for changes to the following[friends, messages, notifications] then trigger a state update
-    ✅ Create firestore event listener to update chat messages in realtime
-    ✅ Fix capture from webcam not sending properly
-    ✅ Add ability to send capture to chat
+    ✅  Figure out how to add event listener to firestore DB to listen for changes to the following[friends, messages, notifications] then trigger a state update
+    ✅  Create firestore event listener to update chat messages in realtime
+    ✅  Fix capture from webcam not sending properly
+    ✅  Add ability to send capture to chat
+    ✅  Use mui snackbar's for showing errors and success messages
 
