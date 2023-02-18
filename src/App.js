@@ -263,10 +263,6 @@ function App() {
       setCameraControls(false);
     }
   };
-  const captureCallback = useCallback(() => {
-    const imagesrc = cameraRef.current.getScreenshot();
-    setRawCapture(imagesrc);
-  },[cameraRef, setRawCapture]);
   const switchCameraEvent = (e) => {
     if (facingMode === "user") {
       setFacingMode("environment");
