@@ -6,8 +6,8 @@ import { css } from '@emotion/react'
 
 export default function StyledImageMessage (props) {
 
-    const senderStyle = {display: 'flex', justifyContent:'center', alignItems: 'center', alignSelf:'flex-end', bgcolor: '#002b5a', flexDirection: 'row', margin: '8px', padding: '0', borderRadius: '.7rem .7rem 0 .7rem'}
-    const receiverStyle = {display: 'flex', justifyContent:'center', alignItems: 'center', alignSelf:'flex-start', bgcolor: '#454545', flexDirection: 'row', margin: '8px', padding: '0', borderRadius: '.7rem .7rem .7rem 0'}
+    const senderStyle = {width: '80%' , display: 'flex', justifyContent:'center', alignItems: 'center', alignSelf:'flex-end', bgcolor: '#002b5a', flexDirection: 'row', margin: '8px', padding: '4px', borderRadius: '.7rem .7rem 0 .7rem'}
+    const receiverStyle = {display: 'flex', justifyContent:'center', alignItems: 'center', alignSelf:'flex-start', bgcolor: '#454545', flexDirection: 'row', margin: '8px', padding: '4px', borderRadius: '.7rem .7rem .7rem 0'}
     const styleMessage = () => {
         //Message is from user
         if(props.userID === props.message.sender){
@@ -24,8 +24,9 @@ export default function StyledImageMessage (props) {
     return(
         <Box key={props.id} sx={() => styleMessage()}>
             <img css={css`
-                width: 80%;
-                height: 80%;
+                max-width: 100%;
+                max-height: 100%;
+                border-radius: .7rem
             `} src={props.message.imageURL} alt={`${props.message.sender}'s pic`} />
         </Box>
     )
