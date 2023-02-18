@@ -89,16 +89,24 @@ export default function StyledImageMessage(props) {
   };
   const viewEvent = (e) => {
     if(props.userID === props.message.sender){
+      // Ignore viewEvents if user is clicking own message
       return;
     }
     else{
       if(show){
         setShow(!show);
         setView(!view);
+        // Call function for updating viewed state in firestore HERE
       }
       setView(!view);
     }
   };
+  useEffect(() => {
+    if(props.message.viewed){
+      //Message has already been seen -> change show states
+      setShow(false);
+    }
+  }, [])
   useEffect(() => {
 
     //Interval for view length
@@ -107,6 +115,7 @@ export default function StyledImageMessage(props) {
         // Hide image & change message
           setView(!view);
           setShow(false);
+          // Call function for updating viewed state in firestore HERE
       }, 8000)
     }
     
