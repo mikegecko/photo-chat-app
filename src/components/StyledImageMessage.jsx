@@ -88,7 +88,16 @@ export default function StyledImageMessage(props) {
     }
   };
   const viewEvent = (e) => {
-    setView(!view);
+    if(props.userID === props.message.sender){
+      return;
+    }
+    else{
+      if(show){
+        setShow(!show);
+        setView(!view);
+      }
+      setView(!view);
+    }
   };
   useEffect(() => {
 
