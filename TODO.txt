@@ -7,12 +7,14 @@ ________________________________________________
 ________________________________________________
     Current Tasks
     ¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯
+    🔴 Fix capture from webcam not sending properly
     🔴 Add remove friend button
     🔴 Add back buttons to following pages settings/friends/profile/notifications - brings you back to camera page. Chat back button will bring you back to friends
     🔴 Handle sending image message to no selected friends
     🔴 Add ability to send capture to chat
     🔴 Work on press to view to display image for 10 sec
     🔴 Cover edge cases for sending image when messageChainID doesnt exist yet
+    🟠 Fix desktop view for friends when sending image
     🟠 Work on desktop view
     🟠 Add system for managing snackbar messages - success/error/warning/info
     🟠 Fix QRScan page - improve integration into friend component or move to its own page

@@ -319,9 +319,16 @@ function App() {
   // Maybe refactor this
   const sendEvent = (e) => {
     if(appPage === 'friends-sending'){
-      setSending(true);
-      //get list of people to send to with message_chains
-      console.log('Sending Pic');
+      const obj = sendList.find(el => el.send === true);
+      if(!obj){
+        setSnackInfo({content:'Please select a friend', severity: 'info'});
+        setSnack(true);
+      }
+      else{
+        setSending(true);
+        //get list of people to send to with message_chains
+        console.log('Sending Pic');
+      } 
     }
   }
   //Window Size stuff
@@ -348,7 +355,7 @@ function App() {
     } else{
       setMobileView(true);
     }
-  })
+  },[width])
   // Firestore functions for userData runs when user gets updated from google auth
   useEffect(() => {
     async function createUser () {
