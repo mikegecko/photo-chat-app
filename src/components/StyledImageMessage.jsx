@@ -8,6 +8,7 @@ import { ButtonBase, Typography } from "@mui/material";
 
 export default function StyledImageMessage(props) {
   const [view, setView] = useState(false);
+  const [show, setShow] = useState(true);
   const senderStyle = {
     display: "flex",
     justifyContent: "center",
@@ -55,7 +56,7 @@ export default function StyledImageMessage(props) {
     }
   };
   const viewContent = () => {
-    if (!view) {
+    if (show) {
       return (
         <>
           <VisibilityIcon />
@@ -75,17 +76,38 @@ export default function StyledImageMessage(props) {
     setView(!view);
   };
   useEffect(() => {
-    //console.log(props.message)
-    //setView(true);
-  }, []);
 
+    //Interval for view length
+    if(view){
+      var interval = setInterval(() => {
+        // Hide image & change message
+          setView(!view);
+          setShow(false);
+      }, 8000)
+    }
+    
+    return() => {
+        clearInterval(interval);
+    }
+  }, [view]);
   if (true) {
     return (
       <Box key={props.id} sx={() => styleMessage()}>
         <ButtonBase onClick={viewEvent} sx={() => styleMessage()}>
-          {/* {view ? <VisibilityIcon /> : <VisibilityOutlinedIcon />}
-                {view ? 'Press To View' : 'Viewed'} */}
-          {viewContent()}
+          {!view ? viewContent() : <Box sx={{backgroundColor: '#1f1f1f', position: 'fixed', top:'80px', left: '0', height: 'calc(100vh - 160px)', width: '100%', zIndex: 6}}><img
+        css={css`
+        position: fixed;
+        display: flex;
+        top: 50%;
+        left: 0;
+        width: 100%;
+        max-height: calc(100vh - 160px);
+        z-index: 7;
+        transform: translateY(-50%);
+      `}
+        src={props.message.imageURL}
+        alt={`${props.message.sender}'s pic`}
+      /></Box>}
         </ButtonBase>
       </Box>
     );
