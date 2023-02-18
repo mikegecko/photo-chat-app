@@ -247,12 +247,26 @@ function App() {
       clearCaptureEvent();
     } else {
       const imgSrc = cameraRef.current.getScreenshot();
-      setRawCapture(imgSrc);
+      // Convert the base64-encoded data URL to a binary Blob object
+      const byteString = atob(imgSrc.split(',')[1]);
+      const mimeString = imgSrc.split(',')[0].split(':')[1].split(';')[0];
+      const ab = new ArrayBuffer(byteString.length);
+      const ia = new Uint8Array(ab);
+
+      for (let i = 0; i < byteString.length; i++) {
+        ia[i] = byteString.charCodeAt(i);
+      }
+      const blob = new Blob([ab], { type: mimeString });
+      setRawCapture(blob);
       setCapture(imgSrc);
       setAppPage("capture");
       setCameraControls(false);
     }
   };
+  const captureCallback = useCallback(() => {
+    const imagesrc = cameraRef.current.getScreenshot();
+    setRawCapture(imagesrc);
+  },[cameraRef, setRawCapture]);
   const switchCameraEvent = (e) => {
     if (facingMode === "user") {
       setFacingMode("environment");
