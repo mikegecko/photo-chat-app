@@ -39,13 +39,6 @@ export default function Chat(props) {
   let mountRef = useRef(true);
   let idMountRef = useRef(true);
 
-  // WRITE THE FOLLOWING FUNCTIONS
-  /*
-     - function for updating messages and refreshing when a new message is sent. do more research into how to handle this without making too many requests.
-        LOOK INTO FIREBASE HANDLERS TO CATCH UPDATE EVENTS
-     - functions for deleting convos
-     - error messages
-  */
 
   // Sorts messages based on timestamp -> firebase has a built in system for returning documents ordered by timestamp
   const compareTimestamp = (a, b) => {
@@ -198,6 +191,7 @@ export default function Chat(props) {
       //console.log(docRef.id);
       return docRef;
     }
+    // Subscribes to firebase events to update messages
     async function subscribeToFirestoreMessaging () {
       const q = query(collection(db, `message_chains/${messageChainID}/messages`))
       const unsubscribe = onSnapshot(q, (querySnapshot) => {
