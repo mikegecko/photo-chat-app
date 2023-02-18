@@ -469,7 +469,7 @@ function App() {
     }
   },[userData])
   // Hook for sending images to users by using firebase cloud storage
-  //Add checks for message_chain -> create new chain if one doesnt exist
+  //!!!Add checks for message_chain -> create new chain if one doesnt exist!!!
   useEffect(() => {
     async function saveImageMessage(file){
       for (let index = 0; index < sendList.length; index++) {
@@ -480,6 +480,7 @@ function App() {
               imageURL: LOADING_IMAGE_URL,
               sender: userID,
               timestamp: serverTimestamp(),
+              viewed: false,
             });
             // Upload image to cloud storage
             const filePath = `${getAuth().currentUser.uid}/${messageRef.id}/${file.name}`;
