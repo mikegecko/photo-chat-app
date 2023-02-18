@@ -7,11 +7,9 @@ ________________________________________________
 ________________________________________________
     Current Tasks
     ¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯
-    🔴 Fix capture from webcam not sending properly
     🔴 Add remove friend button
     🔴 Add back buttons to following pages settings/friends/profile/notifications - brings you back to camera page. Chat back button will bring you back to friends
     🔴 Handle sending image message to no selected friends
-    🔴 Add ability to send capture to chat
     🔴 Work on press to view to display image for 10 sec
     🔴 Cover edge cases for sending image when messageChainID doesnt exist yet
     🟠 Fix desktop view for friends when sending image
@@ -125,4 +123,6 @@ ________________________________________________
     ✅  figure out how to send images and text between users
     ✅ Figure out how to add event listener to firestore DB to listen for changes to the following[friends, messages, notifications] then trigger a state update
     ✅ Create firestore event listener to update chat messages in realtime
+    ✅ Fix capture from webcam not sending properly
+    ✅ Add ability to send capture to chat
 
