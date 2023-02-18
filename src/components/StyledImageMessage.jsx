@@ -97,6 +97,7 @@ export default function StyledImageMessage(props) {
         setShow(!show);
         setView(!view);
         // Call function for updating viewed state in firestore HERE
+        props.setStateOfMessageToUpdate({...props.message, viewed: true});
       }
       setView(!view);
     }
@@ -116,6 +117,7 @@ export default function StyledImageMessage(props) {
           setView(!view);
           setShow(false);
           // Call function for updating viewed state in firestore HERE
+          props.setStateOfMessageToUpdate({...props.message, viewed: true});
       }, 8000)
     }
     
