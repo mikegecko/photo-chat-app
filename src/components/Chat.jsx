@@ -436,6 +436,7 @@ export default function Chat(props) {
               if(el.imageURL){
                 return(
                   <StyledImageMessage
+                  mobileView={props.mobileView}
                   theme={props.theme}
                   key={index}
                   userID={props.userID}

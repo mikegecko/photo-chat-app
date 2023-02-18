@@ -47,7 +47,9 @@ export default function StyledImageMessage(props) {
   const styleMessage = () => {
     //Message is from user
     if (props.userID === props.message.sender) {
-      //return(senderStyle);
+      if(!props.mobileView){
+        return(senderStyle);
+      }
       return viewStyle;
     }
     //Message is from friend
@@ -90,7 +92,7 @@ export default function StyledImageMessage(props) {
         clearInterval(interval);
     }
   }, [view]);
-  if (true) {
+  if (props.mobileView) {
     return (
       <Box key={props.id} sx={() => styleMessage()}>
         <ButtonBase onClick={viewEvent} sx={() => styleMessage()}>
@@ -112,18 +114,20 @@ export default function StyledImageMessage(props) {
       </Box>
     );
   }
-
-  return (
-    <Box key={props.id} sx={() => styleMessage()}>
-      <img
-        css={css`
-          max-width: 100%;
-          max-height: 100%;
-          border-radius: 0.7rem;
-        `}
-        src={props.message.imageURL}
-        alt={`${props.message.sender}'s pic`}
-      />
-    </Box>
-  );
+  else{
+    return (
+      <Box key={props.id} sx={() => styleMessage()}>
+        <img
+          css={css`
+            width: 100%;
+            max-width: 100%;
+            border-radius: 0.7rem;
+          `}
+          src={props.message.imageURL}
+          alt={`${props.message.sender}'s pic`}
+        />
+      </Box>
+    );
+  }
+  
 }
