@@ -10,7 +10,7 @@ ________________________________________________
     🔴 Add remove friend button
     🔴 Add back buttons to following pages settings/friends/profile/notifications - brings you back to camera page. Chat back button will bring you back to friends
     🔴 Work on press to view to display image for 10 sec
-    🔴 Add viewed prop to backend for image messages and update it when viewed by receiver
+    🔴 Fix not being able to quick end viewing
     🔴 Cover edge cases for sending image when messageChainID doesnt exist yet
     🟠 Fix desktop view for friends when sending image
     🟠 Add system for managing snackbar messages - success/error/warning/info
@@ -126,3 +126,4 @@ ________________________________________________
     ✅  when openeing chat set scroll position to bottom
     ✅  Handle sending image message to no selected friends
     ✅  Start work on desktop view
+    ✅ Add viewed prop to backend for image messages and update it when viewed by receiver
