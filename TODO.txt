@@ -9,20 +9,17 @@ ________________________________________________
     ¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯
     🔴 Add remove friend button
     🔴 Add back buttons to following pages settings/friends/profile/notifications - brings you back to camera page. Chat back button will bring you back to friends
-    🔴 Handle sending image message to no selected friends
     🔴 Work on press to view to display image for 10 sec
+    🔴 Add viewed prop to backend for image messages and update it when viewed by receiver
     🔴 Cover edge cases for sending image when messageChainID doesnt exist yet
     🟠 Fix desktop view for friends when sending image
-    🟠 Work on desktop view
     🟠 Add system for managing snackbar messages - success/error/warning/info
     🟠 Fix QRScan page - improve integration into friend component or move to its own page
     🟡 Add light mode theme for chat messages
     🟡 Add timestamp on messages to show when it was sent
-    🟡 Scroll to bottom of chat when sending a message or recieving one
-    🟡 when openeing chat set scroll position to bottom
     🟡 figure out what fields will go into settings and profile
             [Profile: logout, friendCode / QR code, ]
-            [Settings: light/dark mode, account info, delete account, push notifications,  ]
+            [Settings: light/dark mode, account info, delete account, push notifications, view length?,   ]
     🟡 work on design for profile/settings/friends pages
     🟡 Add snackbars for displaying errors/success/warnings
     🟡 Fix snackbar theme colors
@@ -125,4 +122,7 @@ ________________________________________________
     ✅  Fix capture from webcam not sending properly
     ✅  Add ability to send capture to chat
     ✅  Use mui snackbar's for showing errors and success messages
-
+    ✅  Scroll to bottom of chat when sending a message or recieving one
+    ✅  when openeing chat set scroll position to bottom
+    ✅  Handle sending image message to no selected friends
+    ✅  Start work on desktop view
