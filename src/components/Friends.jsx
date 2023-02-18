@@ -174,6 +174,7 @@ export default function Friends(props) {
         console.error(error);
       }
     }
+    // Create messageChainID HERE -> This will allow me to remove all other garbage that checks/creates messageChains in other components
     async function sendFriendRequest (friendDoc) {
       const userRef = doc(db, "users", friendDoc.id);
       if(!checkExistingFriendRequests(friendDoc)){
