@@ -492,6 +492,7 @@ function App() {
             await updateDoc(messageRef, {
               imageURL: publicImageUrl,
               storageUrl: fileSnapshot.metadata.fullPath,
+              docId: messageRef.id,
             });
     
           } 
