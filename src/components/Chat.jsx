@@ -35,6 +35,7 @@ export default function Chat(props) {
   const [messageChainID, setMessageChainID] = useState(null);
   const [messageToSend, setMessageToSend] = useState(null);
   const [tempMessage, setTempMessage] = useState(null);
+  const [messageToUpdate, setMessageToUpdate] = useState(null);
 
   let mountRef = useRef(true);
   let idMountRef = useRef(true);
@@ -57,6 +58,10 @@ export default function Chat(props) {
   const handleInputChangeEvent = (e) => {
     setTempMessage(e.target.value);
   };
+
+  const setStateOfMessageToUpdate = (messageObj) => {
+    setMessageToUpdate(messageObj);
+  }
   //Handles message_chain document in firestore
   useEffect(() => {
     
@@ -187,6 +192,8 @@ export default function Chat(props) {
           timestamp: serverTimestamp(),
         }
       );
+      await setDoc(docRef, {docId: docRef.id}, {merge: true});
+
       //console.log("Creating New Messages");
       //console.log(docRef.id);
       return docRef;
@@ -211,6 +218,7 @@ export default function Chat(props) {
         }
       })
     }
+    
     async function getAndCreateMessageCollection() {
       //console.log("Started Message Collection...");
       const messageArray = await getMessageCollection();
@@ -260,8 +268,10 @@ export default function Chat(props) {
             content: messageText,
             sender: props.userID,
             timestamp: serverTimestamp(),
+            
           }
         );
+        await setDoc(docRef, {docId: docRef.id}, {merge: true});
         //console.log("Sending message");
         //console.log(docRef.id);
         return docRef;
@@ -286,6 +296,22 @@ export default function Chat(props) {
       }
     };
   }, [messageToSend]);
+  useEffect(() => {
+    async function updateMessageStatus(){
+      console.log('Update Message');
+      console.log(messageToUpdate);
+
+
+    }
+    if(messageToUpdate !== null){
+      updateMessageStatus();
+    }
+    return () => {
+      setMessageToUpdate(null);
+    }
+  }, [messageToUpdate])
+
+
   //Debugging state
   useEffect(() => {
     console.log(messages);
@@ -430,6 +456,7 @@ export default function Chat(props) {
               if(el.imageURL){
                 return(
                   <StyledImageMessage
+                  setStateOfMessageToUpdate={setStateOfMessageToUpdate}
                   mobileView={props.mobileView}
                   theme={props.theme}
                   key={index}
