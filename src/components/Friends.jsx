@@ -313,11 +313,11 @@ export default function Friends(props) {
               <DialogContentText>Enter friend code or scan QR code</DialogContentText>
               <TextField autoFocus={true} onChange={handleFriendCodeInput} value={friendCode ? friendCode : ""}  margin="dense" id="friendcode" label="Friend Code" type="text" fullWidth variant="standard" />
             </DialogContent>
-            <DialogActions sx={{gap: '8px'}}>
-              <Button variant="text" onClick={sendFriendRequest} >Add Friend</Button>
+            <DialogActions sx={{gap: '0px'}}>
+              <Button variant="contained" onClick={sendFriendRequest} >Add Friend</Button>
               {/* scannerEvent || props.qrscanEvent */}
-              <Button variant="text" onClick={scannerEvent} >QR Code</Button>
-              <Button variant="outlined" onClick={() => setAddFriendDialog(false)}>Cancel</Button>
+              <Button variant="contained" onClick={scannerEvent} >QR Code</Button>
+              <Button variant="contained" onClick={() => setAddFriendDialog(false)}>Cancel</Button>
             </DialogActions>
           </Dialog>
           {showScanner ? <QRScan closeScannerEvent={closeScannerEvent} setStateOfFriendCode={setStateOfFriendCode} /> : <></>}
