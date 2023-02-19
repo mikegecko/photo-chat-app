@@ -331,7 +331,7 @@ function App() {
   }
   // Maybe refactor this
   const sendEvent = (e) => {
-    if(appPage === 'friends-sending'){
+    if(appPage === 'friends-sending' || capture){
       const obj = sendList.find(el => el.send === true);
       if(!obj){
         setSnackInfo({content:'Please select a friend', severity: 'info'});
@@ -645,7 +645,7 @@ function App() {
           />
         </ButtonBase>
           {(() => {
-            if(appPage === 'friends-sending'){
+            if(capture){
               return(
                 <ButtonBase disabled={arrowControl()} onClick={sendEvent}>
                   <SendIcon sx={arrowStyle()} />

@@ -7,15 +7,14 @@ ________________________________________________
 ________________________________________________
     Current Tasks
     ¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯
-    🔴 Add back buttons to following pages settings/friends/profile/notifications - brings you back to camera page. Chat back button will bring you back to friends
     🔴 Work on press to view to display image for 10 sec & timer in top corner
     🔴 Fix not being able to quick end viewing
     🔴 Cover edge cases for sending image when messageChainID doesnt exist yet
-    🟠 Add Loading screen after sign in to avoid crashing from selecting things too quickly before data is loaded
+    🔴 Add Loading screen after sign in to avoid crashing from selecting things too quickly before data is loaded
+    🟠 Add back buttons to following pages settings/friends/profile/notifications - brings you back to camera page. Chat back button will bring you back to friends
     🟠 Add ability to add text to images
-    🟠 Fix desktop view for friends when sending image
     🟠 Add limitation to size of image to avoid maxing cloud storage
-    🟠 Add functions for deleting images once viewed
+    🟠 Add functions for deleting images once viewed - set imageURL to an image-deleted URL & delete cloud storage
     🟡 Fix QRScan page - improve integration into friend component or move to its own page - make it fill page
     🟡 Fix camera not filling up whole area
     🟡 Add light mode theme for chat messages
@@ -133,4 +132,5 @@ ________________________________________________
     ✅  Add remove friend button -> edit button on subheader
     ✅  Error message for no camera
     ✅  figure out how to display timed photos in chat
-    ✅ Clicking friend code copies it to clipboard
+    ✅  Clicking friend code copies it to clipboard
+    ✅  Fix desktop view for friends when sending image
