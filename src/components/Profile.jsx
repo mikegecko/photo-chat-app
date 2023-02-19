@@ -30,7 +30,7 @@ export default function Profile(props) {
         <Divider variant="fullWidth" />
         <List disablePadding >
         <ListItem disablePadding secondaryAction={props.userID} >
-            <ListItemButton onClick={() => {navigator.clipboard.writeText(props.userID); props.setStateOfSnacks(true,"Copied to clipboard", "success" ) }} >
+            <ListItemButton onClick={() => {navigator.clipboard.writeText(props.userID).then(props.setStateOfSnacks(true,"Copied to clipboard", "success" )) }} >
               <ListItemText primary="Friend Code" />
             </ListItemButton>
           </ListItem>
