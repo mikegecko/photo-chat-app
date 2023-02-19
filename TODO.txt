@@ -29,7 +29,7 @@ ________________________________________________
     🟡 Fix add friend dialog theme colors
     🟡 Figure out how to do and handle notifications
     🟡 Figure out how to create push notifications and add toggle to settings
-    
+    🟡 Make About page with following info [github profile, repo, ]
     ________________________________________________
     UI/FRONTEND
     ¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯
