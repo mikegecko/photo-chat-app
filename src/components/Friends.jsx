@@ -24,6 +24,9 @@ import {
 import { Box } from "@mui/system";
 import MailIcon from "@mui/icons-material/Mail";
 import PersonAddIcon from '@mui/icons-material/PersonAdd';
+import ModeEditOutlineOutlinedIcon from '@mui/icons-material/ModeEditOutlineOutlined';
+import RemoveCircleOutlineIcon from '@mui/icons-material/RemoveCircleOutline';
+import EditIcon from '@mui/icons-material/Edit';
 import Badge from "@mui/material/Badge";
 import { useEffect, useState } from "react";
 import { doc, getDocs, query, serverTimestamp, setDoc, where } from "firebase/firestore";
@@ -35,6 +38,7 @@ import QRScan from "./QRScan";
 export default function Friends(props) {
   const [checked, setChecked] = useState(false);
   const [addFriendDialog, setAddFriendDialog] = useState(false);
+  const [removeFriendDialog, setRemoveFriendDialog] = useState(false);
   const [friendCode, setFriendCode] = useState('');
   const [loading, setLoading] = useState(false);
   const [request, setRequest] = useState(false);
@@ -43,6 +47,8 @@ export default function Friends(props) {
   const [snackContent, setSnackContent] = useState();
   const [snackSeverity, setSnackSeverity] = useState();
   const [showScanner, setShowScanner] = useState(false);
+  const [editMode, setEditMode] = useState(false);
+  const [toRemove, setToRemove] = useState(null);
   //Maybe lift this state up
   const [sendList, setSendList] = useState(props.userData.friends.map((el,index) => {
     if(el.accepted){
@@ -67,7 +73,17 @@ export default function Friends(props) {
     newList[index] = !newList[index];
     setSendList(newList);
   };
-
+  const confirmRemoveFriend = () => {
+    
+  }
+  const handleRemoveFriend = (e) => {
+    setToRemove(e);
+    setRemoveFriendDialog(true);
+    console.log(e);
+  }
+  const handleEditFriendsEvent = (e) => {
+    setEditMode(!editMode);
+  }
   const handleAddFriendEvent = (e) => {
    setAddFriendDialog(true);
   }
@@ -242,8 +258,61 @@ export default function Friends(props) {
     }
   },[request])
 
-
-  if (props.isSending) {
+  if(editMode){
+    return (
+      <ThemeProvider theme={props.theme}>
+        <Box
+          sx={{
+            display: "flex",
+            height: "100%",
+            flexDirection: "column",
+          }}
+        >
+          <Typography variant="h4" sx={{ paddingTop: "10px", paddingBottom: "10px" }}>
+            Friends
+          </Typography>
+          <Dialog sx={{zIndex: 99}} open={removeFriendDialog} onClose={() => setRemoveFriendDialog(false)}>
+            <DialogTitle>Remove Friend</DialogTitle>
+            <DialogContent>
+              <DialogContentText>Would you like to remove {toRemove ? toRemove.name : '...'} as a friend?</DialogContentText>
+            </DialogContent>
+            <DialogActions sx={{display: 'flex', justifyContent: 'space-evenly'}}>
+              <Button variant="contained" sx={{backgroundColor: '#8B0000'}} onClick={confirmRemoveFriend} >Confirm</Button>
+              <Button variant="contained" onClick={() => setRemoveFriendDialog(false)}>Cancel</Button>
+            </DialogActions>
+          </Dialog>
+          <Divider variant="fullWidth" />
+          <List disablePadding sx={{ width: "100%"}} subheader={<ListSubheader sx={{textAlign: 'left', display: 'flex', justifyContent: 'space-between'}} >Friends<ButtonBase onClick={handleEditFriendsEvent} sx={{marginTop: '8px', marginBottom: '8px'}}><ModeEditOutlineOutlinedIcon /></ButtonBase></ListSubheader>}>
+            <Divider variant="fullWidth" component="li" />
+            {props.userData.friends.map((el, index) => {
+              return (
+                <div key={el.id}>
+                  <ListItem
+                    key={el.id}
+                    disablePadding
+                    secondaryAction={
+                      <Badge color="primary" badgeContent={0} showZero> 
+                        <MailIcon />
+                      </Badge>
+                    }
+                  >
+                    <ListItemButton id={index.toString()} onClick={() => handleRemoveFriend(el)}>
+                      <ListItemIcon>
+                        <RemoveCircleOutlineIcon sx={{color: '#8B0000'}} />
+                      </ListItemIcon>
+                      <ListItemText primary={el.name} />
+                    </ListItemButton>
+                  </ListItem>
+                  <Divider variant="fullWidth" component="li" />
+                </div>
+              );
+            })}
+          </List>
+        </Box>
+      </ThemeProvider>
+    );
+  }
+  if(props.isSending) {
     return (
       <ThemeProvider theme={props.theme}>
         <Box
@@ -342,7 +411,7 @@ export default function Friends(props) {
               }
             })}
           </List>
-          <List disablePadding sx={{ width: "100%"}} subheader={<ListSubheader sx={{textAlign: 'left'}} >Friends</ListSubheader>}>
+          <List disablePadding sx={{ width: "100%"}} subheader={<ListSubheader sx={{textAlign: 'left', display: 'flex', justifyContent: 'space-between'}} >Friends<ButtonBase onClick={handleEditFriendsEvent} sx={{marginTop: '8px', marginBottom: '8px'}}><ModeEditOutlineOutlinedIcon /></ButtonBase></ListSubheader>}>
           <Divider variant="fullWidth" component="li" />
             <ListItem disablePadding secondaryAction={<PersonAddIcon sx={{display:'flex'}} />}>
               <ListItemButton onClick={handleAddFriendEvent}>
