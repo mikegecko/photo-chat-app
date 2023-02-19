@@ -11,6 +11,7 @@ ________________________________________________
     🔴 Work on press to view to display image for 10 sec & timer in top corner
     🔴 Fix not being able to quick end viewing
     🔴 Cover edge cases for sending image when messageChainID doesnt exist yet
+    🟠 Add Loading screen after sign in to avoid crashing from selecting things too quickly before data is loaded
     🟠 Add ability to add text to images
     🟠 Fix desktop view for friends when sending image
     🟠 Add limitation to size of image to avoid maxing cloud storage
