@@ -21,6 +21,8 @@ This project was created with [Create React App](https://github.com/facebook/cre
 - [Firebase](https://firebase.google.com/)
 - [React Webcam](https://www.npmjs.com/package/react-webcam)
 - [Framer Motion](https://www.framer.com/motion/)
+- [qr-scanner](https://github.com/nimiq/qr-scanner)
+- [qrcode.react](https://github.com/zpao/qrcode.react)
 
 ## Live [Demo]()
     - Not ready yet
