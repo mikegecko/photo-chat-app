@@ -49,6 +49,7 @@ export default function Friends(props) {
   const [showScanner, setShowScanner] = useState(false);
   const [editMode, setEditMode] = useState(false);
   const [toRemove, setToRemove] = useState(null);
+  const [dot, setDot] = useState(false);
   //Maybe lift this state up
   const [sendList, setSendList] = useState(props.userData.friends.map((el,index) => {
     if(el.accepted){
@@ -337,7 +338,7 @@ export default function Friends(props) {
                     key={el.id}
                     disablePadding
                     secondaryAction={
-                      <Badge color="primary" badgeContent={0} showZero> 
+                      <Badge color="primary" variant="dot" invisible={dot}> 
                         <MailIcon />
                       </Badge>
                     }
@@ -380,7 +381,7 @@ export default function Friends(props) {
                     key={el.id}
                     disablePadding
                     secondaryAction={
-                      <Badge color="primary" badgeContent={0} showZero> 
+                      <Badge color="primary" variant="dot" invisible={dot}> 
                         <MailIcon />
                       </Badge>
                     }
@@ -473,7 +474,7 @@ export default function Friends(props) {
                       key={el.id}
                       disablePadding
                       secondaryAction={
-                        <Badge color="primary" badgeContent={0} showZero >
+                        <Badge color="primary" variant="dot" invisible={dot} >
                           <MailIcon />
                         </Badge>
                       }
