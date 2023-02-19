@@ -115,7 +115,7 @@ function App() {
         break;
       case "profile":
         return (
-          <Profile mobileView={mobileView} user={user} logoutEvent={logoutEvent} userData={userData} userID={userID} theme={theme} qrcodeEvent={qrcodeEvent} />
+          <Profile setStateOfSnacks={setStateOfSnacks} mobileView={mobileView} user={user} logoutEvent={logoutEvent} userData={userData} userID={userID} theme={theme} qrcodeEvent={qrcodeEvent} />
         );
       case "friends":
         return <Friends qrscanEvent={qrscanEvent} userData={userData} setStateOfSendList={setStateOfSendList} userID={userID} friend={friend} friendSelectEvent={friendSelectEvent} theme={theme} setStateOfUserData={setStateOfUserData} />;
@@ -143,7 +143,10 @@ function App() {
     setSnack(false);
     setSnackInfo({...snackInfo, content: ""});
   }
-
+  const setStateOfSnacks = (open, content, severity) => {
+    setSnackInfo({content: content, severity: severity});
+    setSnack(open);
+  }
   const setStateOfSendList = (arr) => {
     setSendList([...arr]);
   }
@@ -610,6 +613,11 @@ function App() {
         <Divider orientation="vertical" flexItem />
         <Box sx={{width: '100%', maxHeight: '100%'}}>
           {pageSelector()}
+          <Snackbar sx={{marginBottom: '80px'}} open={snack} autoHideDuration={5000} onClose={handleSnackClose} action={<IconButton onClick={handleSnackClose}><CloseIcon /></IconButton>} >
+            <Alert onClose={handleSnackClose} severity={snackInfo.severity} sx={{width: '100%'}}>
+              {snackInfo.content}
+            </Alert> 
+          </Snackbar>
         </Box>
       </Box>
       
@@ -746,12 +754,11 @@ function App() {
         </ButtonBase>
       </Box>
       {pageSelector()}
-      {/* <Button variant="outlined" color="primary" onClick={debugHandler}>Click me</Button> */}
       <Snackbar sx={{marginBottom: '80px'}} open={snack} autoHideDuration={5000} onClose={handleSnackClose} action={<IconButton onClick={handleSnackClose}><CloseIcon /></IconButton>} >
-            <Alert onClose={handleSnackClose} severity={snackInfo.severity} sx={{width: '100%'}}>
+          <Alert onClose={handleSnackClose} severity={snackInfo.severity} sx={{width: '100%'}}>
               {snackInfo.content}
-            </Alert> 
-          </Snackbar>
+          </Alert> 
+      </Snackbar>
       <Box
         sx={{
           minHeight: "80px",

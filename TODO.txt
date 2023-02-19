@@ -29,6 +29,7 @@ ________________________________________________
     🟡 Fix add friend dialog theme colors
     🟡 Figure out how to do and handle notifications
     🟡 Figure out how to create push notifications and add toggle to settings
+    
     ________________________________________________
     UI/FRONTEND
     ¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯
@@ -132,3 +133,4 @@ ________________________________________________
     ✅  Add remove friend button -> edit button on subheader
     ✅  Error message for no camera
     ✅  figure out how to display timed photos in chat
+    ✅ Clicking friend code copies it to clipboard
