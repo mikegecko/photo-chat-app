@@ -7,7 +7,6 @@ ________________________________________________
 ________________________________________________
     Current Tasks
     ¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯
-    🔴 Add remove friend button -> edit button on subheader
     🔴 Add back buttons to following pages settings/friends/profile/notifications - brings you back to camera page. Chat back button will bring you back to friends
     🔴 Work on press to view to display image for 10 sec & timer in top corner
     🔴 Fix not being able to quick end viewing
@@ -32,7 +31,6 @@ ________________________________________________
     - swipe animations between pages
     - back button on page header
     - decide how to implement notifications from messages -> i might have to remove notifications...i dont know how to queue all messages for viewed flag without a serious hit to performance
-    - figure out how to display timed photos in chat
     - make friend codes more friendly
     - custom loading icons
     - Edit wave mask in sign-in page to go between about 33% and 66% of the text
@@ -48,7 +46,6 @@ ________________________________________________
     - Complete Settings Pane design
     - Complete Avatar/Profile pane design
     - Error message for failed sign-in
-    - Error message for no camera
     - Add limitation to size of image to avoid maxing cloud storage
     - Add functions for deleting images once viewed
     ____________________________________________
@@ -126,5 +123,8 @@ ________________________________________________
     ✅  when openeing chat set scroll position to bottom
     ✅  Handle sending image message to no selected friends
     ✅  Start work on desktop view
-    ✅ Add viewed prop to backend for image messages and update it when viewed by receiver
-    ✅ Add system for managing snackbar messages - success/error/warning/info
+    ✅  Add viewed prop to backend for image messages and update it when viewed by receiver
+    ✅  Add system for managing snackbar messages - success/error/warning/info
+    ✅  Add remove friend button -> edit button on subheader
+    ✅  Error message for no camera
+    ✅  figure out how to display timed photos in chat
