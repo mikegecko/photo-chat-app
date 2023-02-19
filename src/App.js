@@ -517,13 +517,13 @@ function App() {
   },[sending])
   //Debug Hooks
   useEffect(() => {
-    console.log('Cap: ');
-    console.log(capture);
-    console.log('Raw: ');
-    console.log(rawCapture);
+    // console.log('Cap: ');
+    // console.log(capture);
+    // console.log('Raw: ');
+    // console.log(rawCapture);
   }, [capture])
   useEffect(() => {
-    console.log(sendList);
+    //console.log(sendList);
   },[sendList])
   //Theme control
   useEffect(() => {
