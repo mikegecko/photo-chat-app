@@ -31,6 +31,7 @@ ________________________________________________
     ________________________________________________
     UI/FRONTEND
     ¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯
+    - Make badge for notifications just show if there is a new message (small circle) with no numbers -> I can use a flag set in userDoc to detect updates and use that for notifications and badges!
     - complete work on desktop UI + testing
     - swipe animations between pages
     - decide how to implement notifications from messages -> i might have to remove notifications...i dont know how to queue all messages for viewed flag without a serious hit to performance
