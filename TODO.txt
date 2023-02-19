@@ -13,7 +13,10 @@ ________________________________________________
     🔴 Cover edge cases for sending image when messageChainID doesnt exist yet
     🟠 Add ability to add text to images
     🟠 Fix desktop view for friends when sending image
-    🟡 Fix QRScan page - improve integration into friend component or move to its own page
+    🟠 Add limitation to size of image to avoid maxing cloud storage
+    🟠 Add functions for deleting images once viewed
+    🟡 Fix QRScan page - improve integration into friend component or move to its own page - make it fill page
+    🟡 Fix camera not filling up whole area
     🟡 Add light mode theme for chat messages
     🟡 Add timestamp on messages to show when it was sent
     🟡 figure out what fields will go into settings and profile
@@ -28,8 +31,8 @@ ________________________________________________
     ________________________________________________
     UI/FRONTEND
     ¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯
+    - complete work on desktop UI + testing
     - swipe animations between pages
-    - back button on page header
     - decide how to implement notifications from messages -> i might have to remove notifications...i dont know how to queue all messages for viewed flag without a serious hit to performance
     - make friend codes more friendly
     - custom loading icons
@@ -46,8 +49,6 @@ ________________________________________________
     - Complete Settings Pane design
     - Complete Avatar/Profile pane design
     - Error message for failed sign-in
-    - Add limitation to size of image to avoid maxing cloud storage
-    - Add functions for deleting images once viewed
     ____________________________________________
     BACKEND/Firebase
     ¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯
@@ -57,6 +58,7 @@ ________________________________________________
                      BUGS
 ________________________________________________
 
+    ⚠️ Camera loading sometimes hangs really badly in both webcam and qr components
     ⚠️ Going to friends quickly after loading into app causes it to crash
     ⚠️ Can friend and send messages to self??? Decide if this is actually an issue
     ⚠️ Opening QRscan when friend code field is focused crashes app
