@@ -7,21 +7,21 @@ ________________________________________________
 ________________________________________________
     Current Tasks
     ¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯
-    🔴 Add remove friend button
+    🔴 Add remove friend button -> edit button on subheader
     🔴 Add back buttons to following pages settings/friends/profile/notifications - brings you back to camera page. Chat back button will bring you back to friends
-    🔴 Work on press to view to display image for 10 sec
+    🔴 Work on press to view to display image for 10 sec & timer in top corner
     🔴 Fix not being able to quick end viewing
     🔴 Cover edge cases for sending image when messageChainID doesnt exist yet
+    🟠 Add ability to add text to images
     🟠 Fix desktop view for friends when sending image
-    🟠 Add system for managing snackbar messages - success/error/warning/info
-    🟠 Fix QRScan page - improve integration into friend component or move to its own page
+    🟡 Fix QRScan page - improve integration into friend component or move to its own page
     🟡 Add light mode theme for chat messages
     🟡 Add timestamp on messages to show when it was sent
     🟡 figure out what fields will go into settings and profile
             [Profile: logout, friendCode / QR code, ]
             [Settings: light/dark mode, account info, delete account, push notifications, view length?,   ]
     🟡 work on design for profile/settings/friends pages
-    🟡 Add snackbars for displaying errors/success/warnings
+    🟡 Add more snackbars for displaying errors/success/warnings
     🟡 Fix snackbar theme colors
     🟡 Fix add friend dialog theme colors
     🟡 Figure out how to do and handle notifications
@@ -127,3 +127,4 @@ ________________________________________________
     ✅  Handle sending image message to no selected friends
     ✅  Start work on desktop view
     ✅ Add viewed prop to backend for image messages and update it when viewed by receiver
+    ✅ Add system for managing snackbar messages - success/error/warning/info
