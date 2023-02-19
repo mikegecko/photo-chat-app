@@ -73,8 +73,10 @@ export default function Friends(props) {
     newList[index] = !newList[index];
     setSendList(newList);
   };
-  const confirmRemoveFriend = () => {
-    
+  const confirmRemoveFriend = (e) => {
+    setRequest(true);
+    setRemoveFriendDialog(false);
+    console.log(`Removing ${toRemove.name}`);
   }
   const handleRemoveFriend = (e) => {
     setToRemove(e);
@@ -244,7 +246,50 @@ export default function Friends(props) {
         props.setStateOfUserData(newUserData);
       }
     }
-
+    async function removeUserFromFriend (friendDoc) {
+      const userRef = doc(db, "users", friendDoc.id);
+      const newFriends = [...friendDoc.data().friends];
+      let i;
+      for (let index = 0; index < newFriends.length; index++) {
+        const friend = newFriends[index];
+        if(friend.id === props.userID){
+          i = index;
+        }
+      }
+      newFriends.splice(i,1);
+      await setDoc( userRef, {friends: [...newFriends]}, {merge: true});
+    }
+    async function removeFriendFromUser (userDoc) {
+      const newUserData = {
+        ...props.userData,
+        friends: [...props.userData.friends],
+      };
+      const newFriends = [...userDoc.data().friends];
+      let i;
+      for (let index = 0; index < newFriends.length; index++) {
+        const friend = newFriends[index];
+        if(friend.id === toRemove.id){
+          i = index;
+        }
+      }
+      newFriends.splice(i,1);
+      newUserData.friends = [...newFriends];
+      props.setStateOfUserData(newUserData);
+    }
+    async function removeFriend(){
+      const friend = await getUser(toRemove.id);
+      const user = await getUser(props.userID);
+      if(!friend){
+        console.error("Error finding friend in DB");
+      }else{
+        await removeUserFromFriend(friend);
+        await removeFriendFromUser(user);
+      }
+    }
+    if(request && toRemove !== null){
+      //Removing friend
+      removeFriend();
+    }
     if(request && friendCode !== null){
       checkAndSendFriendRequest();
     }
@@ -253,6 +298,7 @@ export default function Friends(props) {
     }
     return () => {
       setFriendCode(null);
+      setToRemove(null);
       setLoading(false);
       setRequest(false);
     }
