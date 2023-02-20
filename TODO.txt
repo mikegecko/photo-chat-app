@@ -7,7 +7,6 @@ ________________________________________________
 ________________________________________________
     Current Tasks
     ¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯
-    🔴 Work on press to view to display image for 10 sec & timer in top corner
     🔴 Fix not being able to quick end viewing
     🔴 Cover edge cases for sending image when messageChainID doesnt exist yet
     🔴 Add Loading screen after sign in to avoid crashing from selecting things too quickly before data is loaded
@@ -61,7 +60,7 @@ ________________________________________________
 ________________________________________________
 
     ⚠️ Camera loading sometimes hangs really badly in both webcam and qr components
-    ⚠️ Going to friends quickly after loading into app causes it to crash
+    ⚠️ Going to friends quickly after loading into app causes it to crash -> make loading screen
     ⚠️ Can friend and send messages to self??? Decide if this is actually an issue
     ⚠️ Opening QRscan when friend code field is focused crashes app
     ⚠️ QrScan overlaps friend code place holder text in dialog
@@ -134,3 +133,4 @@ ________________________________________________
     ✅  figure out how to display timed photos in chat
     ✅  Clicking friend code copies it to clipboard
     ✅  Fix desktop view for friends when sending image
+    ✅ Work on press to view to display image for 10 sec & timer in top corner
