@@ -6,10 +6,13 @@ import VisibilityIcon from "@mui/icons-material/Visibility";
 import VisibilityOutlinedIcon from "@mui/icons-material/VisibilityOutlined";
 import ImageIcon from '@mui/icons-material/Image';
 import { ButtonBase, Typography } from "@mui/material";
+import Countdown from "./Countdown";
 
 export default function StyledImageMessage(props) {
   const [view, setView] = useState(false);
   const [show, setShow] = useState(true);
+  const countdownLength = 5;
+
   const senderStyle = {
     display: "flex",
     justifyContent: "center",
@@ -89,10 +92,11 @@ export default function StyledImageMessage(props) {
   };
   // Fix not being able to quick end viewing
   const viewEvent = (e) => {
-    if(props.userID === props.message.sender ){
-      // Ignore viewEvents if user is clicking own message 
-      return;
-    }
+    //⚠️⚠️⚠️ UNDO THIS ⚠️⚠️⚠️
+    // if(props.userID === props.message.sender ){
+    //   // Ignore viewEvents if user is clicking own message 
+    //   return;
+    // }
     if(!show){
       //Message has already been viewed
       return;
@@ -123,7 +127,7 @@ export default function StyledImageMessage(props) {
           setShow(false);
           // Call function for updating viewed state in firestore HERE
           props.setStateOfMessageToUpdate({...props.message, viewed: true});
-      }, 8000)
+      }, countdownLength*1000)
     }
     
     return() => {
@@ -147,7 +151,9 @@ export default function StyledImageMessage(props) {
       `}
         src={props.message.imageURL}
         alt={`${props.message.sender}'s pic`}
-      /></Box>}
+      />
+      <Countdown countdownLength={countdownLength}/>
+      </Box>}
         </ButtonBase>
       </Box>
     );
