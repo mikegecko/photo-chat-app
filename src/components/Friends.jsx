@@ -43,6 +43,7 @@ export default function Friends(props) {
   const [loading, setLoading] = useState(false);
   const [request, setRequest] = useState(false);
   const [acceptCode, setAcceptCode] = useState(null);
+  const [declineCode, setDeclineCode] = useState(null);
   const [snack, setSnack] = useState(false);
   const [snackContent, setSnackContent] = useState();
   const [snackSeverity, setSnackSeverity] = useState();
@@ -103,7 +104,9 @@ export default function Friends(props) {
     setRequest(true);
   }
   const handleFriendDecline = (e) => {
-    //
+    //const friendId = e.target.id;
+    setDeclineCode(e);
+    setRequest(true);
   }
   const handleSnackClose = (e) => {
     setSnack(false);
@@ -183,7 +186,7 @@ export default function Friends(props) {
         querySnapshot.forEach((doc) => {
           if (doc.exists()) {
             i = doc;
-            console.log(doc.id);
+            //console.log(doc.id);
           } else {
             console.log("Could not retrieve user");
           }
@@ -310,7 +313,7 @@ export default function Friends(props) {
       newFriends.splice(i,1);
       await setDoc( userRef, {friends: [...newFriends]}, {merge: true});
     }
-    async function removeFriendFromUser (userDoc) {
+    async function removeFriendFromUser (userDoc, removeId) {
       const newUserData = {
         ...props.userData,
         friends: [...props.userData.friends],
@@ -319,7 +322,7 @@ export default function Friends(props) {
       let i;
       for (let index = 0; index < newFriends.length; index++) {
         const friend = newFriends[index];
-        if(friend.id === toRemove.id){
+        if(friend.id === removeId){
           i = index;
         }
       }
@@ -334,7 +337,18 @@ export default function Friends(props) {
         console.error("Error finding friend in DB");
       }else{
         await removeUserFromFriend(friend);
-        await removeFriendFromUser(user);
+        await removeFriendFromUser(user, toRemove.id);
+      }
+    }
+    async function declineFriend(){
+      //console.log(declineCode);
+      const sender = await getUser(declineCode);
+      const user = await getUser(props.userID);
+      if(!sender){
+        console.error("Error finding sender in DB");
+      }
+      else{
+        await removeFriendFromUser(user, declineCode);
       }
     }
     if(request && toRemove !== null){
@@ -347,7 +361,13 @@ export default function Friends(props) {
     if(request && acceptCode !== null){
       acceptAndSetFriend();
     }
+    if(request && declineCode !== null){
+      // Decline friend request
+      declineFriend();
+    }
     return () => {
+      setDeclineCode(null);
+      setAcceptCode(null);
       setFriendCode(null);
       setToRemove(null);
       setLoading(false);
@@ -497,7 +517,7 @@ export default function Friends(props) {
               if(!el.accepted){
                 return(
                   <div key={el.id}>
-                  <ListItem disablePadding secondaryAction={<Box sx={{display: 'flex', gap: '16px'}}><IconButton onClick={handleFriendAccept}><CheckIcon id={el.id} /></IconButton><IconButton onClick={handleFriendDecline}><CloseIcon id={el.id} /></IconButton></Box>} >
+                  <ListItem disablePadding secondaryAction={<Box sx={{display: 'flex', gap: '16px'}}><IconButton onClick={handleFriendAccept}><CheckIcon id={el.id} /></IconButton><IconButton id={el.id} onClick={() => handleFriendDecline(el.id)}><CloseIcon id={el.id} /></IconButton></Box>} >
                     <ListItemButton id={el.id} >
                       <ListItemText primary={el.name} />
                     </ListItemButton>
