@@ -111,7 +111,7 @@ function App() {
         );
       case "capture":
         if (capture) {
-          return <Capture mobileView={mobileView} capture={capture} closeEvent={clearCaptureEvent} />;
+          return <Capture mobileView={mobileView} capture={capture} window_width={width} window_height={height} closeEvent={clearCaptureEvent} />;
         }
         break;
       case "profile":
