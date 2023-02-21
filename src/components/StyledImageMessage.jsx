@@ -48,7 +48,17 @@ export default function StyledImageMessage(props) {
     padding: "4px",
     borderRadius: ".7rem .7rem 0 .7rem",
   };
-  
+  const captionStyle = {
+    position: 'absolute',
+    zIndex: 7,
+     width: 1,
+     left: 0,
+     padding: '4px',
+     height: '1.4375em',
+     fontSize: '1rem',
+     top: props.message.data.y, 
+     backgroundColor: 'rgba(31, 31, 31, 0.6)',
+  }
 
 
   const styleMessage = () => {
@@ -153,6 +163,7 @@ export default function StyledImageMessage(props) {
         alt={`${props.message.sender}'s pic`}
       />
       <Countdown countdownLength={countdownLength}/>
+      <Box sx={captionStyle}>{props.message.data.content}</Box>
       </Box>}
         </ButtonBase>
       </Box>
