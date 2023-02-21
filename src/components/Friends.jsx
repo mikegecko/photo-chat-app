@@ -29,7 +29,7 @@ import RemoveCircleOutlineIcon from '@mui/icons-material/RemoveCircleOutline';
 import EditIcon from '@mui/icons-material/Edit';
 import Badge from "@mui/material/Badge";
 import { useEffect, useState } from "react";
-import { doc, getDocs, query, serverTimestamp, setDoc, where } from "firebase/firestore";
+import { addDoc, collection, doc, getDoc, getDocs, query, serverTimestamp, setDoc, where } from "firebase/firestore";
 import { db, usersRef } from "../App";
 import CheckIcon from '@mui/icons-material/Check';
 import CloseIcon from '@mui/icons-material/Close';
@@ -193,7 +193,53 @@ export default function Friends(props) {
         console.error(error);
       }
     }
-    // Create messageChainID HERE -> This will allow me to remove all other garbage that checks/creates messageChains in other components
+    // Create messageChainID on friend accept
+    async function createMessageChain(friendDoc) {
+      try {
+        const docRef = await addDoc(collection(db, "message_chains"), {
+          timestamp: serverTimestamp(),
+          // change props.friend to newly accepted friend
+          users: [props.userID, friendDoc.id],
+        });
+        
+        const newUserData = {
+          ...props.userData,
+          friends: [...props.userData.friends],
+        };
+        let userIndex = null;
+        newUserData.friends.forEach((el,index) => {
+          if(el.id === friendDoc.id){
+            userIndex = index;
+          }
+        })
+        newUserData.friends[userIndex].message_chain = docRef.id;
+        props.setStateOfUserData(newUserData);
+        await setFriendMessageChain(docRef.id, friendDoc);
+
+        return docRef;
+      } catch (error) {
+        console.error(error);
+      }
+    }
+    async function setFriendMessageChain (chainID, friendDoc) {
+      const userRef = doc(db, "users", friendDoc.id);
+      const friendSnap = await getDoc(userRef);
+      if(friendSnap.exists()){
+        let userIndex = null;
+        friendSnap.data().friends.forEach((el,index) => {
+          if(el.id === props.userID){
+            userIndex = index;
+          }
+        })
+        const newFriends = {friends: [...friendSnap.data().friends]};
+        newFriends.friends[userIndex].message_chain = chainID;
+        await setDoc( userRef, newFriends , {merge: true});
+      }
+      else{
+        console.log("Error getting user for message_chain creation.")
+      }
+      
+    }
     async function sendFriendRequest (friendDoc) {
       const userRef = doc(db, "users", friendDoc.id);
       if(!checkExistingFriendRequests(friendDoc)){
@@ -233,8 +279,11 @@ export default function Friends(props) {
         console.log("Error accepting request: sender not found")
       }
       else{
+        // set new friend data to true
         await acceptFriendRequest(sender);
-        // now we need to set our friend.accepted to true
+        // now we need to set user friend.accepted to true
+        // Create messageChainId for messaging
+
         const newUserData = {
           ...props.userData,
           friends: [...props.userData.friends],
@@ -245,6 +294,7 @@ export default function Friends(props) {
           }
         }
         props.setStateOfUserData(newUserData);
+        createMessageChain(sender);
       }
     }
     async function removeUserFromFriend (friendDoc) {
