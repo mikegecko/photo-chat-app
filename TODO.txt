@@ -9,11 +9,10 @@ ________________________________________________
 ________________________________________________
     Current Tasks
     ¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯
-    🔴 Add ability to decline friend requests
-    🔴 Fix not being able to quick end viewing
+    🔴 Display captions on images in both mobile and desktop chats
     🔴 Implement message notifications - notifiaction: true/false in each friend -> gets updated when you send a message to a friend and when a user views the chat
+    🟠 Fix not being able to quick end viewing
     🟠 Add back buttons to following pages settings/friends/profile/notifications - brings you back to camera page. Chat back button will bring you back to friends
-    🟠 Add ability to add text to images
     🟠 Add functions for deleting images once viewed - set imageURL to an image-deleted URL & delete cloud storage
     🟡 Fix QRScan page - improve integration into friend component or move to its own page - make it fill page
     🟡 Fix camera not filling up whole area
@@ -140,5 +139,9 @@ ________________________________________________
     ✅  Add limitation to size of image to avoid maxing cloud storage
     ✅  Add Loading screen after sign in to avoid crashing from selecting things too quickly before data is loaded
     ✅  Cover edge cases for sending image when messageChainID doesnt exist yet
+    ✅  Add ability to decline friend requests
+    ✅  Add ability to add text to images
+    ✅  Add caption data as part of messages
+
 
 
