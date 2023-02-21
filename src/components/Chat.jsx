@@ -62,7 +62,7 @@ export default function Chat(props) {
   const setStateOfMessageToUpdate = (messageObj) => {
     setMessageToUpdate(messageObj);
   }
-  //Handles message_chain document in firestore
+  //On Mount Hook -> Handles message_chain document in firestore | Handles loading screen state
   useEffect(() => {
     
     setLoading(true);

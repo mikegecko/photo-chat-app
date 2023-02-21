@@ -9,7 +9,6 @@ ________________________________________________
     ¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯
     🔴 Fix not being able to quick end viewing
     🔴 Cover edge cases for sending image when messageChainID doesnt exist yet
-    🔴 Add Loading screen after sign in to avoid crashing from selecting things too quickly before data is loaded
     🟠 Add back buttons to following pages settings/friends/profile/notifications - brings you back to camera page. Chat back button will bring you back to friends
     🟠 Add ability to add text to images
     🟠 Add functions for deleting images once viewed - set imageURL to an image-deleted URL & delete cloud storage
@@ -58,8 +57,8 @@ ________________________________________________
                      BUGS
 ________________________________________________
 
+    ⚠️ Login page loading button flickers when going from loading to onLoadDelay prop
     ⚠️ Camera loading sometimes hangs really badly in both webcam and qr components
-    ⚠️ Going to friends quickly after loading into app causes it to crash -> make loading screen
     ⚠️ Can friend and send messages to self??? Decide if this is actually an issue
     ⚠️ Opening QRscan when friend code field is focused crashes app
     ⚠️ QrScan overlaps friend code place holder text in dialog
@@ -71,6 +70,7 @@ ________________________________________________
     ⚠️ Desktop mobile view - QR code rounded corners show gradient lines
     ⚠️ Uploading an image then closing the image or changing pages and trying to upload the same image again doesn't work
     ⚠️ Fix webcam component size not fitting to mobile size
+    ✅ Going to friends quickly after loading into app causes it to crash -> make loading screen
     ✅ Fix controlled/uncontrolled component error in chat
     ✅ Signing out and back in brings you to the same page you were previously on
     ✅ Fix 403 error on desktop
@@ -134,4 +134,5 @@ ________________________________________________
     ✅  Fix desktop view for friends when sending image
     ✅  Work on press to view to display image for 10 sec & timer in top corner
     ✅  Add limitation to size of image to avoid maxing cloud storage
+    ✅  Add Loading screen after sign in to avoid crashing from selecting things too quickly before data is loaded
 
