@@ -275,8 +275,19 @@ function App() {
     return;
   };
   const galleryEvent = (e) => {
-    let src = URL.createObjectURL(e.target.files[0]);
-    setRawCapture(e.target.files[0]);
+    let file = e.target.files[0];
+    const mb = 1024 * 1024;
+    const maxSize = 8 * (mb); // 1MB
+    if(file.size > maxSize){
+      //Image to large -> open snackbar & maybe change appPage
+      setSnackInfo({content:`Error: File size to large (8 MB Limit) -> ${(file.size/mb).toFixed(2)} MB`, severity: 'error'});
+      setSnack(true);
+      return;
+    }
+
+    let src = URL.createObjectURL(file);
+    
+    setRawCapture(file);
     setCapture(src);
     setAppPage("capture");
     setCameraControls(false);
