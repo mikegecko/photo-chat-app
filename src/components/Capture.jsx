@@ -1,16 +1,15 @@
 import { ButtonBase, InputBase, TextField } from "@mui/material";
 import CloseIcon from "@mui/icons-material/Close";
 import { Box } from "@mui/system";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 
-export default function Capture({window_width, window_height, capture, closeEvent, mobileView }) {
+export default function Capture({window_width, window_height, capture, closeEvent, mobileView, setStateOfCaptureData }) {
 
   const [showTextField, setShowTextField] = useState(false);
   const [textFieldValue, setTextFieldValue] = useState('');
   const [textFieldPos, setTextFieldPos] = useState({x: 0, y: 0});
   const [isDragging, setIsDragging] = useState(false);
   const [dragOffset, setDragOffset] = useState({x:0,y:0});
-  const [width, setWidth] = useState(0);
 
   const mobileStyle = {
     position: "absolute",
@@ -73,6 +72,11 @@ export default function Capture({window_width, window_height, capture, closeEven
   const handleTextFieldBlur = (e) => {
     setShowTextField(false);
   }
+
+  useEffect(() => {
+    const data = {content: textFieldValue, x: textFieldPos.x , y: textFieldPos.y}
+    setStateOfCaptureData(data);
+  }, [textFieldPos, textFieldValue])
 
   return (
     <Box onClick={handleBoxClick} onMouseDown={handleBoxMouseDown} onMouseMove={handleMouseMove} onMouseUp={handleMouseUp}>
