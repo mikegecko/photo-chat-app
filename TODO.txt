@@ -6,14 +6,15 @@ ________________________________________________
     🟡 - Low Priority
     🔵 - Feature
     ⚫ - Dropped Feature
+    ⚪ - Reminder
 ________________________________________________
     Current Tasks
     ¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯
-    🔴 Display captions on images in both mobile and desktop chats
+    
     🔴 Implement message notifications - notifiaction: true/false in each friend -> gets updated when you send a message to a friend and when a user views the chat
-    🟠 Fix not being able to quick end viewing
-    🟠 Add back buttons to following pages settings/friends/profile/notifications - brings you back to camera page. Chat back button will bring you back to friends
     🟠 Add functions for deleting images once viewed - set imageURL to an image-deleted URL & delete cloud storage
+    🟠 Add back buttons to following pages settings/friends/profile/notifications - brings you back to camera page. Chat back button will bring you back to friends
+    🟡 Fix not being able to quick end viewing
     🟡 Fix QRScan page - improve integration into friend component or move to its own page - make it fill page
     🟡 Fix camera not filling up whole area
     🟡 Add light mode theme for chat messages
@@ -27,10 +28,12 @@ ________________________________________________
     🟡 Fix add friend dialog theme colors
     🟡 Figure out how to do and handle notifications
     🟡 Figure out how to create push notifications and add toggle to settings
-    🟡 Make About page with following info [github profile, repo, ]
+    ⚪ Remember to make it so users cannot view their own images onClick on mobile
     ________________________________________________
     UI/FRONTEND
     ¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯
+    🔵 Make About page with following info [github profile, repo, ]
+    🔵 Improve image caption display on desktop
     🔵 Make badge for notifications just show if there is a new message (small circle) with no numbers -> I can use a flag set in userDoc to detect updates and use that for notifications and badges!
     🔵 complete work on desktop UI + testing
     🔵 swipe animations between pages
@@ -142,6 +145,8 @@ ________________________________________________
     ✅  Add ability to decline friend requests
     ✅  Add ability to add text to images
     ✅  Add caption data as part of messages
+    ✅  Display captions on images in both mobile and desktop chats
+
 
 
 
