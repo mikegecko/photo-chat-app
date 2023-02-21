@@ -188,7 +188,7 @@ export default function Chat(props) {
         collection(db, `message_chains/${messageChainID}/messages`),
         {
           content: "New Convo",
-          sender: "test",
+          sender: "debug",
           timestamp: serverTimestamp(),
         }
       );
