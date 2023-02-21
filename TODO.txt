@@ -133,4 +133,4 @@ ________________________________________________
     ✅  figure out how to display timed photos in chat
     ✅  Clicking friend code copies it to clipboard
     ✅  Fix desktop view for friends when sending image
-    ✅ Work on press to view to display image for 10 sec & timer in top corner
+    ✅  Work on press to view to display image for 10 sec & timer in top corner
