@@ -73,6 +73,7 @@ function App() {
   const [height, setHeight] = useState(window.innerWidth);
   const [capture, setCapture] = useState(null);
   const [rawCapture, setRawCapture] = useState(null);
+  const [captureData, setCaptureData] = useState(null);
   const [facingMode, setFacingMode] = useState("user");
   const [hideLogin, setHideLogin] = useState(false);
   const [signInWithGoogle, user, loading, error] = useSignInWithGoogle(auth);
@@ -111,7 +112,7 @@ function App() {
         );
       case "capture":
         if (capture) {
-          return <Capture mobileView={mobileView} capture={capture} window_width={width} window_height={height} closeEvent={clearCaptureEvent} />;
+          return <Capture setStateOfCaptureData={setStateOfCaptureData} mobileView={mobileView} capture={capture} window_width={width} window_height={height} closeEvent={clearCaptureEvent} />;
         }
         break;
       case "profile":
@@ -159,6 +160,10 @@ function App() {
     else{
       setUserData(userDataObj);
     }
+  }
+  const setStateOfCaptureData = (dataObj) => {
+    //dataObj format: {content: 'sometext', x: xpos , y: ypos}
+    setCaptureData(dataObj);
   }
   const setStateOfSettings = (key, value) => {
     const newSettings = {...settings};
@@ -500,7 +505,7 @@ function App() {
     }
   },[userData])
   // Hook for sending images to users by using firebase cloud storage
-  //!!!Add checks for message_chain -> create new chain if one doesnt exist!!!
+  //!!!Add checks for message_chain -> create new chain if one doesnt exist!!! -> MessageChainId should always exist now
   useEffect(() => {
     async function saveImageMessage(file){
       for (let index = 0; index < sendList.length; index++) {
@@ -524,6 +529,7 @@ function App() {
               imageURL: publicImageUrl,
               storageUrl: fileSnapshot.metadata.fullPath,
               docId: messageRef.id,
+              data: captureData,
             });
     
           } 
