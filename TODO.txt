@@ -4,11 +4,14 @@ ________________________________________________
     🔴 - URGENT
     🟠 - Medium Priority
     🟡 - Low Priority
+    🔵 - Feature
+    ⚫ - Dropped Feature
 ________________________________________________
     Current Tasks
     ¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯
-
+    🔴 Add ability to decline friend requests
     🔴 Fix not being able to quick end viewing
+    🔴 Implement message notifications - notifiaction: true/false in each friend -> gets updated when you send a message to a friend and when a user views the chat
     🟠 Add back buttons to following pages settings/friends/profile/notifications - brings you back to camera page. Chat back button will bring you back to friends
     🟠 Add ability to add text to images
     🟠 Add functions for deleting images once viewed - set imageURL to an image-deleted URL & delete cloud storage
@@ -29,29 +32,29 @@ ________________________________________________
     ________________________________________________
     UI/FRONTEND
     ¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯
-    - Make badge for notifications just show if there is a new message (small circle) with no numbers -> I can use a flag set in userDoc to detect updates and use that for notifications and badges!
-    - complete work on desktop UI + testing
-    - swipe animations between pages
-    - decide how to implement notifications from messages -> i might have to remove notifications...i dont know how to queue all messages for viewed flag without a serious hit to performance
-    - make friend codes more friendly
-    - custom loading icons
-    - Edit wave mask in sign-in page to go between about 33% and 66% of the text
-    - loading screen for sending messages or going between pages
-    - add drag up to refresh in chat/friends/etc. -> not needed now that i have realtime updates set up?
-    - Add swipe animation between friend and chat pages
-    - Add water wave transition between pages
-    - Add ability to add text bar to image
-    - Redesign App UI bars
-    - Add custom icons
-    - Complete Notification pane design
-    - Complete Friends Pane design
-    - Complete Settings Pane design
-    - Complete Avatar/Profile pane design
-    - Error message for failed sign-in
+    🔵 Make badge for notifications just show if there is a new message (small circle) with no numbers -> I can use a flag set in userDoc to detect updates and use that for notifications and badges!
+    🔵 complete work on desktop UI + testing
+    🔵 swipe animations between pages
+    🔵 decide how to implement notifications from messages -> i might have to remove notifications...i dont know how to queue all messages for viewed flag without a serious hit to performance
+    ⚫ make friend codes more friendly
+    ⚫ custom loading icons
+    🔵 Edit wave mask in sign-in page to go between about 33% and 66% of the text
+    🔵 loading screen for sending messages or going between pages
+    ⚫ add drag up to refresh in chat/friends/etc. -> not needed now that i have realtime updates set up?
+    🔵 Add swipe animation between friend and chat pages
+    🔵 Add water wave transition between pages
+    🔵 Add ability to add text bar to image
+    🔵 Redesign App UI bars
+    🔵 Add custom icons
+    🔵 Complete Notification pane design
+    🔵 Complete Friends Pane design
+    🔵 Complete Settings Pane design
+    🔵 Complete Avatar/Profile pane design
+    🔵 Error message for failed sign-in
     ____________________________________________
     BACKEND/Firebase
     ¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯
-    - Finalize backend and review rules
+    🔵 Finalize backend and review rules
     
 ________________________________________________
                      BUGS
