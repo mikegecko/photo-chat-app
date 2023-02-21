@@ -7,7 +7,7 @@ import ArrowForwardIcon from "@mui/icons-material/ArrowForward";
 import FlipCameraAndroidIcon from "@mui/icons-material/FlipCameraAndroid";
 import PhotoLibraryIcon from "@mui/icons-material/PhotoLibrary";
 import "./App.css";
-import { Alert, Avatar, Button, ButtonBase, CssBaseline, Divider, IconButton, Snackbar, ThemeProvider, Typography } from "@mui/material";
+import { Alert, Avatar, Button, ButtonBase, CircularProgress, CssBaseline, Divider, IconButton, Snackbar, ThemeProvider, Typography } from "@mui/material";
 import { useCallback, useEffect, useReducer, useRef, useState } from "react";
 import Webcam from "react-webcam";
 import WebcamComponent from "./components/WebcamComponent";
@@ -76,6 +76,7 @@ function App() {
   const [facingMode, setFacingMode] = useState("user");
   const [hideLogin, setHideLogin] = useState(false);
   const [signInWithGoogle, user, loading, error] = useSignInWithGoogle(auth);
+  const [onLoadDelay, setOnLoadDelay] = useState(false);
   const [appPage, setAppPage] = useState("camera");
   const [cameraControls, setCameraControls] = useState(true);
   const [userID, setUserID] = useState();
@@ -251,6 +252,12 @@ function App() {
     } else {
       const imgSrc = cameraRef.current.getScreenshot();
       // Convert the base64-encoded data URL to a binary Blob object
+      if(imgSrc === null){
+        // There is no camera
+        setSnackInfo({content: 'Error: Cannot take photo', severity: 'error'});
+        setSnack(true);
+        return;
+      }
       const byteString = atob(imgSrc.split(',')[1]);
       const mimeString = imgSrc.split(',')[0].split(':')[1].split(';')[0];
       const ab = new ArrayBuffer(byteString.length);
@@ -355,7 +362,7 @@ function App() {
       } 
     }
   }
-  //Window Size stuff
+  //On Mount Hook -> Window Size stuff
   useEffect(() => {
     const handleResizeWindow = () => {
       setWidth(window.innerWidth);
@@ -367,12 +374,13 @@ function App() {
     } else{
       setMobileView(true);
     }
+    
     return () => {
       //Cleanup
       window.removeEventListener("resize", handleResizeWindow);
     };
   }, []);
-  //
+  // Breakpoint for responsive design
   useEffect(() => {
     if(width > breakpoint) {
       setMobileView(false);
@@ -380,6 +388,7 @@ function App() {
       setMobileView(true);
     }
   },[width])
+  
   // Firestore functions for userData runs when user gets updated from google auth
   useEffect(() => {
     async function createUser () {
@@ -437,10 +446,18 @@ function App() {
 
     if (user) {
       getAndCreateUser();
-      setHideLogin(true);
+      // Delay for loading app
+      setOnLoadDelay(true);
+      var timer = setTimeout(() => {
+        setOnLoadDelay(false);
+        setHideLogin(true);
+      }, 2000);
       
     } else {
       setHideLogin(false);
+    }
+    return () => {
+      clearTimeout(timer);
     }
   }, [user]);
   //Runs when userData changes ex. new message chain, 
@@ -557,7 +574,7 @@ function App() {
 
   if (width > breakpoint) {
     return <Box className="App">
-      <Login loading={loading} hidden={hideLogin} loginHandler={loginEvent} />
+      <Login loading={loading} onLoadDelay={onLoadDelay} hidden={hideLogin} loginHandler={loginEvent} />
       <ThemeProvider theme={theme}>
       <CssBaseline />
       <Box
@@ -617,6 +634,7 @@ function App() {
           />
         </ButtonBase>
       </Box>
+      
       <Box sx={{display: 'flex' , minHeight: 'calc(100% - 160px)', height: 'calc(100% - 160px)', maxHeight: 'calc(100% - 160px)',  width: '100%', maxWidth: '100%' }}>
         <Box sx={{width: '30%', minWidth: '30%'}}>
            {userData ? capture ? <Friends isSending={true} setStateOfSendList={setStateOfSendList} sending={sending} friend={friend} capture={capture} userData={userData} userID={userID} theme={theme} setStateOfUserData={setStateOfUserData} /> : <Friends qrscanEvent={qrscanEvent} friend={friend} userData={userData} setStateOfSendList={setStateOfSendList} userID={userID} friendSelectEvent={friendSelectEvent} theme={theme} setStateOfUserData={setStateOfUserData} /> : <></>}
@@ -682,8 +700,9 @@ function App() {
   //
   //----------------
   return (
+    
     <Box className="App" >
-      <Login loading={loading} hidden={hideLogin} loginHandler={loginEvent} />
+      <Login loading={loading} onLoadDelay={onLoadDelay} hidden={hideLogin} loginHandler={loginEvent} />
       <ThemeProvider theme={theme}>
       <CssBaseline />
       <Box
@@ -764,7 +783,7 @@ function App() {
           />
         </ButtonBase>
       </Box>
-      {pageSelector()}
+      { pageSelector()}
       <Snackbar sx={{marginBottom: '80px'}} open={snack} autoHideDuration={5000} onClose={handleSnackClose} action={<IconButton onClick={handleSnackClose}><CloseIcon /></IconButton>} >
           <Alert onClose={handleSnackClose} severity={snackInfo.severity} sx={{width: '100%'}}>
               {snackInfo.content}

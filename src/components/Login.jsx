@@ -3,7 +3,7 @@ import { createTheme, ThemeProvider } from "@mui/material";
 import { Box } from "@mui/system";
 import { motion } from "framer-motion";
 
-export default function Login({ loading, hidden, loginHandler }) {
+export default function Login({ loading, onLoadDelay, hidden, loginHandler }) {
   const theme = createTheme({
     status: {
       danger: "#e53e3e",
@@ -31,6 +31,7 @@ export default function Login({ loading, hidden, loginHandler }) {
       y: 0,
     }
   };
+
   if (hidden) {
     return <></>;
   }
@@ -99,7 +100,7 @@ export default function Login({ loading, hidden, loginHandler }) {
           color="primary"
           onClick={loginHandler}
           variant="outlined"
-          loading={loading}
+          loading={loading || onLoadDelay}
           sx={{
             position: 'absolute',
             top:'60%',
