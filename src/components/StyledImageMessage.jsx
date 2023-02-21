@@ -19,7 +19,7 @@ export default function StyledImageMessage(props) {
     alignItems: "center",
     alignSelf: "flex-end",
     bgcolor: "#002b5a",
-    flexDirection: "row",
+    flexDirection: "column",
     margin: "8px",
     padding: "4px",
     borderRadius: ".7rem .7rem 0 .7rem",
@@ -30,7 +30,7 @@ export default function StyledImageMessage(props) {
     alignItems: "center",
     alignSelf: "flex-start",
     bgcolor: "#454545",
-    flexDirection: "row",
+    flexDirection: "column",
     gap: "1rem",
     margin: "8px",
     padding: "4px",
@@ -181,6 +181,7 @@ export default function StyledImageMessage(props) {
           src={props.message.imageURL}
           alt={`${props.message.sender}'s pic`}
         />
+        <Box>{props.message.data.content}</Box>
       </Box>
     );
   }
