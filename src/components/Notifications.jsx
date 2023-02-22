@@ -19,7 +19,7 @@ export default function Notifications(props) {
     const backDesktop = {
       position: 'absolute', top: '102px', left: 'calc(30% + 25px)', zIndex: 1,
     }
-      
+
   return (
     <ThemeProvider theme={props.theme}>
       <Box
@@ -40,15 +40,27 @@ export default function Notifications(props) {
           {props.userData.friends.map((el,index) => {
             if(!el.accepted){
               return(
-                <>
+                <div key={index}>
                 <ListItem disablePadding secondaryAction={<IconButton><CloseIcon sx={{opacity: '100%', color:''}} /></IconButton>} >
-                  <ListItemButton >
+                  <ListItemButton onClick={() => props.setStateOfAppPage('friends')} >
                     <ListItemText primary={el.name + ' sent you a friend request.'} />
                   </ListItemButton>
                 </ListItem>
                 <Divider variant="fullWidth" component="li" />
-                </>
+                </div>
                 )
+            }
+            if(el.unread){
+              return(
+                <div key={index}>
+                <ListItem disablePadding secondaryAction={<IconButton><CloseIcon sx={{opacity: '100%', color:''}} /></IconButton>} >
+                  <ListItemButton onClick={() => props.setStateOfAppPage('friends')} >
+                    <ListItemText primary={el.name + ' sent you a message.'} />
+                  </ListItemButton>
+                </ListItem>
+                <Divider variant="fullWidth" component="li" />
+                </div>
+              )
             }
           })}
         </List>
