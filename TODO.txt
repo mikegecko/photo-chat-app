@@ -10,7 +10,8 @@ ________________________________________________
 ________________________________________________
     Current Tasks
     ¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯
-    🔴 Implement message notifications - notifiaction: true/false in each friend -> gets updated when you send a message to a friend and when a user views the chat
+    🟠 Fix theme issues
+    🟠 Clean up log statements
     🟠 Add functions for deleting images once viewed - set imageURL to an image-deleted URL & delete cloud storage
     🟡 Fix not being able to quick end viewing
     🟡 Fix QRScan page - improve integration into friend component or move to its own page - make it fill page
@@ -32,10 +33,10 @@ ________________________________________________
     ¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯
     🔵 Make About page with following info [github profile, repo, ]
     🔵 Improve image caption display on desktop
-    🔵 Make badge for notifications just show if there is a new message (small circle) with no numbers -> I can use a flag set in userDoc to detect updates and use that for notifications and badges!
+    ⚫ Make badge for notifications just show if there is a new message (small circle) with no numbers -> I can use a flag set in userDoc to detect updates and use that for notifications and badges!
     🔵 complete work on desktop UI + testing
     🔵 swipe animations between pages
-    🔵 decide how to implement notifications from messages -> i might have to remove notifications...i dont know how to queue all messages for viewed flag without a serious hit to performance
+    ⚫ decide how to implement notifications from messages -> i might have to remove notifications...i dont know how to queue all messages for viewed flag without a serious hit to performance
     ⚫ make friend codes more friendly
     ⚫ custom loading icons
     🔵 Edit wave mask in sign-in page to go between about 33% and 66% of the text
@@ -145,6 +146,7 @@ ________________________________________________
     ✅  Add caption data as part of messages
     ✅  Display captions on images in both mobile and desktop chats
     ✅  Add back buttons to following pages settings/friends/profile/notifications - brings you back to camera page. Chat back button will bring you back to friends
+    ✅  Implement message notifications - notifiaction: true/false in each friend -> gets updated when you send a message to a friend and when a user views the chat
 
 
 
