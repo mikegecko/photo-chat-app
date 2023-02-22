@@ -10,21 +10,17 @@ ________________________________________________
 ________________________________________________
     Current Tasks
     ¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯
-    🟠 Fix theme issues
-    🟠 Clean up log statements
+    🟠 Sending an image needs to update unread status
     🟠 Add functions for deleting images once viewed - set imageURL to an image-deleted URL & delete cloud storage
     🟡 Fix not being able to quick end viewing
     🟡 Fix QRScan page - improve integration into friend component or move to its own page - make it fill page
     🟡 Fix camera not filling up whole area
-    🟡 Add light mode theme for chat messages
     🟡 Add timestamp on messages to show when it was sent
     🟡 figure out what fields will go into settings and profile
             [Profile: logout, friendCode / QR code, ]
             [Settings: light/dark mode, account info, delete account, push notifications, view length?,   ]
     🟡 work on design for profile/settings/friends pages
     🟡 Add more snackbars for displaying errors/success/warnings
-    🟡 Fix snackbar theme colors
-    🟡 Fix add friend dialog theme colors
     🟡 Figure out how to do and handle notifications
     🟡 Figure out how to create push notifications and add toggle to settings
     ⚪ Remember to make it so users cannot view their own images onClick on mobile
@@ -68,7 +64,6 @@ ________________________________________________
     ⚠️ Opening QRscan when friend code field is focused crashes app
     ⚠️ QrScan overlaps friend code place holder text in dialog
     ⚠️ Snackbar light & dark theme broken
-    ⚠️ Add friend dialog light theme broken 
     ⚠️ Fix friend QR code border displaying improperly on iPhone in safari
     ⚠️ Can send empty messages
     ⚠️ Fix loading progress implementation (currently uses settimeout)
@@ -76,6 +71,7 @@ ________________________________________________
     ⚠️ Uploading an image then closing the image or changing pages and trying to upload the same image again doesn't work
     ⚠️ Fix webcam component size not fitting to mobile size
     ✅ Going to friends quickly after loading into app causes it to crash -> make loading screen
+    ✅ Add friend dialog light theme broken 
     ✅ Fix controlled/uncontrolled component error in chat
     ✅ Signing out and back in brings you to the same page you were previously on
     ✅ Fix 403 error on desktop
@@ -147,6 +143,11 @@ ________________________________________________
     ✅  Display captions on images in both mobile and desktop chats
     ✅  Add back buttons to following pages settings/friends/profile/notifications - brings you back to camera page. Chat back button will bring you back to friends
     ✅  Implement message notifications - notifiaction: true/false in each friend -> gets updated when you send a message to a friend and when a user views the chat
+    ✅  Clean up log statements
+    ✅  Fix theme issues
+    ✅  Fix snackbar theme colors
+    ✅  Fix add friend dialog theme colors
+    ✅  Add light mode theme for chat messages
 
 
 

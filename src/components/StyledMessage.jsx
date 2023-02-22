@@ -3,8 +3,8 @@ import { Box } from "@mui/system";
 
 export default function StyledMessage (props) {
 
-    const senderStyle = {display: 'flex', justifyContent:'flex-start', alignSelf:'flex-end', bgcolor: '#002b5a', flexDirection: 'row', margin: '8px', padding: '1rem', borderRadius: '.7rem .7rem 0 .7rem'}
-    const receiverStyle = {display: 'flex', justifyContent:'flex-start', alignSelf:'flex-start', bgcolor: '#454545', flexDirection: 'row', margin: '8px', padding: '1rem', borderRadius: '.7rem .7rem .7rem 0'}
+    const senderStyle = {display: 'flex', justifyContent:'flex-start', alignSelf:'flex-end', flexDirection: 'row', margin: '8px', padding: '1rem', borderRadius: '.7rem .7rem 0 .7rem'}
+    const receiverStyle = {display: 'flex', justifyContent:'flex-start', alignSelf:'flex-start', flexDirection: 'row', margin: '8px', padding: '1rem', borderRadius: '.7rem .7rem .7rem 0'}
     const styleMessage = () => {
         //Message is from user
         if(props.userID === props.message.sender){
@@ -17,7 +17,7 @@ export default function StyledMessage (props) {
     }
 
     return(
-        <Box key={props.id} sx={() => styleMessage()}>
+        <Box key={props.id} sx={() => styleMessage()} bgcolor={props.userID === props.message.sender ? 'message.main' : 'messageR.main'} >
             {props.message.content}
         </Box>
     )

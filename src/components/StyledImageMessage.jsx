@@ -18,8 +18,7 @@ export default function StyledImageMessage(props) {
     justifyContent: "center",
     alignItems: "center",
     alignSelf: "flex-end",
-    bgcolor: "#002b5a",
-    flexDirection: "column",
+    flexDirection: props.mobileView ? "row" : 'column',
     margin: "8px",
     padding: "4px",
     borderRadius: ".7rem .7rem 0 .7rem",
@@ -29,8 +28,7 @@ export default function StyledImageMessage(props) {
     justifyContent: "center",
     alignItems: "center",
     alignSelf: "flex-start",
-    bgcolor: "#454545",
-    flexDirection: "column",
+    flexDirection: props.mobileView ? "row" : 'column',
     gap: "1rem",
     margin: "8px",
     padding: "4px",
@@ -42,7 +40,6 @@ export default function StyledImageMessage(props) {
     justifyContent: "center",
     alignItems: "center",
     alignSelf: "flex-end",
-    bgcolor: "#002b5a",
     flexDirection: "row",
     margin: "8px",
     padding: "4px",
@@ -146,7 +143,7 @@ export default function StyledImageMessage(props) {
   }, [view]);
   if (props.mobileView) {
     return (
-      <Box key={props.id} sx={() => styleMessage()}>
+      <Box key={props.id} sx={() => styleMessage()} bgcolor={props.userID === props.message.sender ? 'message.main' : 'messageR.main'}>
         <ButtonBase onClick={viewEvent} sx={() => styleMessage()}>
           {!view ? viewContent() : <Box sx={{backgroundColor: '#1f1f1f', position: 'fixed', top:'80px', left: '0', height: 'calc(100vh - 160px)', width: '100%', zIndex: 6}}><img
         css={css`
@@ -171,7 +168,7 @@ export default function StyledImageMessage(props) {
   }
   else{
     return (
-      <Box key={props.id} sx={() => styleMessage()}>
+      <Box key={props.id} sx={() => styleMessage()} bgcolor={props.userID === props.message.sender ? 'message.main' : 'messageR.main'}>
         <img
           css={css`
             width: 100%;

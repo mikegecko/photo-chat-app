@@ -197,9 +197,21 @@ export const themeDark = createTheme({
       contrastText: '#FFFFFF'
     },
     error: {
-      main: '#D14343',
+      main: '#8B0000',
       light: '#DA6868',
       dark: '#922E2E',
+      contrastText: '#FFFFFF'
+    },
+    message: {
+      main: '#002b5a',
+      light: '#002b5a',
+      dark: '#454545',
+      contrastText: '#FFFFFF'
+    },
+    messageR: {
+      main: '#454545',
+      light: '#454545',
+      dark: '#454545',
       contrastText: '#FFFFFF'
     },
     text: {
@@ -462,11 +474,11 @@ export const themeLight = createTheme({
     },
     background: {
       default: '#F9FAFC',
-      paper: '#FFFFF'
+      paper: '#F9FAFC'
     },
     divider: 'rgba(0, 0, 0, 0.14)',
     primary: {
-      main: '#5048E5',
+      main: '#8d88ee',
       light: '#828DF8',
       dark: '#3832A0',
       contrastText: '#0D0D0D'
@@ -475,7 +487,7 @@ export const themeLight = createTheme({
       main: '#10B981',
       light: '#3FC79A',
       dark: '#0B815A',
-      contrastText: '##0D0D0D'
+      contrastText: '#0D0D0D'
     },
     success: {
       main: '#14B8A6',
@@ -493,13 +505,25 @@ export const themeLight = createTheme({
       main: '#FFB020',
       light: '#FFBF4C',
       dark: '#B27B16',
-      contrastText: '##0D0D0D'
+      contrastText: '#0D0D0D'
     },
     error: {
       main: '#D14343',
       light: '#DA6868',
       dark: '#922E2E',
-      contrastText: '##0D0D0D'
+      contrastText: '#0D0D0D'
+    },
+    message:{
+      main: '#0073f2',
+      light: '#DA6868',
+      dark: '#922E2E',
+      contrastText: '#0D0D0D'
+    },
+    messageR:{
+      main: '#919191',
+      light: '#919191',
+      dark: '#922E2E',
+      contrastText: '#0D0D0D'
     },
     text: {
       primary: '#0D0D0D',

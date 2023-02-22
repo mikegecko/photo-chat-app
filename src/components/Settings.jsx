@@ -1,6 +1,5 @@
 import {
   ButtonBase,
-    createTheme,
   Divider,
   List,
   ListItem,

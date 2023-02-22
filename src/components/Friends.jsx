@@ -429,7 +429,7 @@ export default function Friends(props) {
               <DialogContentText>Would you like to remove {toRemove ? toRemove.name : '...'} as a friend?</DialogContentText>
             </DialogContent>
             <DialogActions sx={{display: 'flex', justifyContent: 'space-evenly'}}>
-              <Button variant="contained" sx={{backgroundColor: '#8B0000'}} onClick={confirmRemoveFriend} >Confirm</Button>
+              <Button variant="contained" color='error' onClick={confirmRemoveFriend} >Confirm</Button>
               <Button variant="contained" onClick={() => setRemoveFriendDialog(false)}>Cancel</Button>
             </DialogActions>
           </Dialog>
