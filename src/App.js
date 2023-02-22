@@ -513,6 +513,21 @@ function App() {
   // Hook for sending images to users by using firebase cloud storage
   //!!!Add checks for message_chain -> create new chain if one doesnt exist!!! -> MessageChainId should always exist now
   useEffect(() => {
+    async function setFriendReadState(userid) {
+        const friendRef = doc(db, "users", userid);
+        const friendSnap = await getDoc(friendRef);
+        if(friendSnap.exists()){
+          let userIndex = null;
+          friendSnap.data().friends.forEach((el,index) => {
+            if(el.id === userID){
+              userIndex = index;
+            }
+          })
+          const newReadState = {friends: [...friendSnap.data().friends]};
+          newReadState.friends[userIndex].unread = true;
+          await setDoc( friendRef, newReadState , {merge: true});
+        }
+    }
     async function saveImageMessage(file){
       for (let index = 0; index < sendList.length; index++) {
         const element = sendList[index];
@@ -537,7 +552,8 @@ function App() {
               docId: messageRef.id,
               data: captureData,
             });
-    
+            // Update unread state in document
+            await setFriendReadState(element.id);
           } 
           catch(error){
             console.error(error);
