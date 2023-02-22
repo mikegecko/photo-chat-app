@@ -5,13 +5,20 @@ import ListItemButton from "@mui/material/ListItemButton";
 import Divider from "@mui/material/Divider";
 import Typography from "@mui/material/Typography";
 import { Box } from "@mui/system";
-import { ListItemIcon, ListSubheader, ThemeProvider } from "@mui/material";
+import { ButtonBase, ListItemIcon, ListSubheader, ThemeProvider } from "@mui/material";
 import LogoutIcon from "@mui/icons-material/Logout";
 import ArrowForwardIosIcon from '@mui/icons-material/ArrowForwardIos';
+import ArrowBackIcon from '@mui/icons-material/ArrowBack';
 
 export default function Profile(props) {
   
 
+  const backMobile = {
+    position: 'absolute', top: '102px', left: '25px', zIndex: 1,
+  }
+  const backDesktop = {
+    position: 'absolute', top: '102px', left: 'calc(30% + 25px)', zIndex: 1,
+  }
   return (
     <ThemeProvider theme={props.theme}>
       <Box
@@ -21,12 +28,16 @@ export default function Profile(props) {
           flexDirection: "column",
         }}
       >
+        
         <Typography
           variant="h4"
           sx={{ paddingTop: "10px", paddingBottom: "10px" }}
         >
           Account
         </Typography>
+        <ButtonBase onClick={() => props.setStateOfAppPage('camera')} sx={props.mobileView ? backMobile : backDesktop}>
+          <ArrowBackIcon />
+        </ButtonBase>
         <Divider variant="fullWidth" />
         <List disablePadding >
         <ListItem disablePadding secondaryAction={props.userID} >

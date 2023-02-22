@@ -34,6 +34,8 @@ import { db, usersRef } from "../App";
 import CheckIcon from '@mui/icons-material/Check';
 import CloseIcon from '@mui/icons-material/Close';
 import QRScan from "./QRScan";
+import ArrowBackIcon from '@mui/icons-material/ArrowBack';
+
 
 export default function Friends(props) {
   const [checked, setChecked] = useState(false);
@@ -57,6 +59,14 @@ export default function Friends(props) {
       return(false);
     }
   }));
+
+  const backMobile = {
+    position: 'absolute', top: '102px', left: '25px', zIndex: 1,
+  }
+  const backDesktop = {
+    display: 'none',
+    position: 'absolute', top: '102px', left: 'calc(30% + 25px)', zIndex: 1,
+  }
 
   const setStateOfFriendCode = (friendCode) => {
     setFriendCode(friendCode);
@@ -510,6 +520,9 @@ export default function Friends(props) {
           <Typography variant="h4" sx={{ paddingTop: "10px", paddingBottom: "10px"}}>
             Friends
           </Typography>
+          <ButtonBase onClick={() => props.setStateOfAppPage('camera')} sx={props.mobileView ? backMobile : backDesktop}>
+          <ArrowBackIcon />
+        </ButtonBase>
           <Divider variant="fullWidth" />
           <List disablePadding subheader={subHeadCtrl()}>
           <Divider variant="fullWidth" component="li" />

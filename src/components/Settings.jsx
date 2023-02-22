@@ -1,4 +1,5 @@
 import {
+  ButtonBase,
     createTheme,
   Divider,
   List,
@@ -16,12 +17,19 @@ import LightModeIcon from "@mui/icons-material/LightMode";
 import DarkModeIcon from "@mui/icons-material/DarkMode";
 import { useEffect, useState } from "react";
 import { motion } from "framer-motion";
+import ArrowBackIcon from '@mui/icons-material/ArrowBack';
+
 
 export default function Settings(props) {
 
   const visible = { rotate: 180, scale: 1 };
   const hidden = { scale: 0 };
-
+  const backMobile = {
+    position: 'absolute', top: '102px', left: '25px', zIndex: 1,
+  }
+  const backDesktop = {
+    position: 'absolute', top: '102px', left: 'calc(30% + 25px)', zIndex: 1,
+  }
   const handleThemeEvent = (e) => {
     e.stopPropagation();
     props.setStateOfSettings('brightnessMode', !props.settings.brightnessMode)
@@ -66,6 +74,9 @@ export default function Settings(props) {
       <Typography variant="h4" sx={{ paddingTop: "10px", paddingBottom: "10px" }}>
         Settings
       </Typography>
+      <ButtonBase onClick={() => props.setStateOfAppPage('camera')} sx={props.mobileView ? backMobile : backDesktop}>
+          <ArrowBackIcon />
+        </ButtonBase>
       <Divider variant="fullWidth" />
       <List disablePadding subheader={<ListSubheader sx={{textAlign: 'left'}}>Account Info</ListSubheader>}>
       <Divider variant="fullWidth" component="li" />
