@@ -10,7 +10,7 @@ This project was created with [Create React App](https://github.com/facebook/cre
 - Google Auth
 - Take and send photos to friends
 - Option to add captions to photos
-- Push notifications for new messages
+- Notifications for new messages and friend requests
 - Realtime updates
 - In-app camera functionality
 
