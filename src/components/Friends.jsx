@@ -148,6 +148,31 @@ export default function Friends(props) {
       return;
     }
   }
+  //On mount hook -> sets our unread badges
+  useEffect(() => {
+    function setNotificationBadges () {
+      const dotArr =[];
+      props.userData.friends.forEach((el, index) => {
+        if(el.accepted){
+          if(el.unread){
+            //Unread message exists
+            dotArr.push(false);
+          }
+          else{
+            dotArr.push(true);
+          }
+        }
+        else{
+          dotArr.push(null);
+        }
+      });
+      setDot(dotArr)
+    }
+    setNotificationBadges();
+    return () => {
+
+    }
+  }, [])
   //Handles passing sendList data to main component
   useEffect(() => {
     //console.log(sendList);
@@ -206,7 +231,7 @@ export default function Friends(props) {
         console.error(error);
       }
     }
-    // Create messageChainID on friend accept
+    // Create messageChainID on friend accept - this avoids alot of now redunant code in other components
     async function createMessageChain(friendDoc) {
       try {
         const docRef = await addDoc(collection(db, "message_chains"), {
@@ -418,7 +443,7 @@ export default function Friends(props) {
                     key={el.id}
                     disablePadding
                     secondaryAction={
-                      <Badge color="primary" variant="dot" invisible={dot}> 
+                      <Badge color="primary" variant="dot" invisible={dot[index]}> 
                         <MailIcon />
                       </Badge>
                     }
@@ -461,7 +486,7 @@ export default function Friends(props) {
                     key={el.id}
                     disablePadding
                     secondaryAction={
-                      <Badge color="primary" variant="dot" invisible={dot}> 
+                      <Badge color="primary" variant="dot" invisible={dot[index]}> 
                         <MailIcon />
                       </Badge>
                     }
@@ -557,7 +582,7 @@ export default function Friends(props) {
                       key={el.id}
                       disablePadding
                       secondaryAction={
-                        <Badge color="primary" variant="dot" invisible={dot} >
+                        <Badge color="primary" variant="dot" invisible={dot[index]} >
                           <MailIcon />
                         </Badge>
                       }
