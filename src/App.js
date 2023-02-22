@@ -117,18 +117,18 @@ function App() {
         break;
       case "profile":
         return (
-          <Profile setStateOfSnacks={setStateOfSnacks} mobileView={mobileView} user={user} logoutEvent={logoutEvent} userData={userData} userID={userID} theme={theme} qrcodeEvent={qrcodeEvent} />
+          <Profile setStateOfAppPage={setStateOfAppPage} setStateOfSnacks={setStateOfSnacks} mobileView={mobileView} user={user} logoutEvent={logoutEvent} userData={userData} userID={userID} theme={theme} qrcodeEvent={qrcodeEvent} />
         );
       case "friends":
-        return <Friends qrscanEvent={qrscanEvent} userData={userData} setStateOfSendList={setStateOfSendList} userID={userID} friend={friend} friendSelectEvent={friendSelectEvent} theme={theme} setStateOfUserData={setStateOfUserData} />;
+        return <Friends setStateOfAppPage={setStateOfAppPage} mobileView={mobileView} qrscanEvent={qrscanEvent} userData={userData} setStateOfSendList={setStateOfSendList} userID={userID} friend={friend} friendSelectEvent={friendSelectEvent} theme={theme} setStateOfUserData={setStateOfUserData} />;
       case "friends-sending":
-        return <Friends isSending={true} setStateOfSendList={setStateOfSendList} sending={sending} friend={friend} capture={capture} userData={userData} userID={userID} theme={theme} setStateOfUserData={setStateOfUserData} />;
+        return <Friends  isSending={true} setStateOfSendList={setStateOfSendList} sending={sending} friend={friend} capture={capture} userData={userData} userID={userID} theme={theme} setStateOfUserData={setStateOfUserData} />;
       case "chat":
         return <Chat key={friend} mobileView={mobileView} friend={friend} userData={userData} userID={userID} theme={theme} setStateOfUserData={setStateOfUserData} />
       case "notifications":
-        return(<Notifications userData={userData} theme={theme} />)
+        return(<Notifications setStateOfAppPage={setStateOfAppPage} mobileView={mobileView} userData={userData} theme={theme} />)
       case "settings":
-        return <Settings userID={userID} user={user} userData={userData} setStateOfSettings={setStateOfSettings} settings={settings} theme={theme} />;
+        return <Settings setStateOfAppPage={setStateOfAppPage} mobileView={mobileView} userID={userID} user={user} userData={userData} setStateOfSettings={setStateOfSettings} settings={settings} theme={theme} />;
       case "qrcode":
         return <QRcode qrcodeCloseEvent={qrcodeCloseEvent} mobileView={mobileView} userID={userID} width={width} height={height} />
       case "qrcodescan":
@@ -170,6 +170,10 @@ function App() {
     newSettings[key] = value;
     setSettings(newSettings);
     //console.log(settings);
+  }
+  const setStateOfAppPage = (pageStr) => {
+    setAppPage(pageStr);
+    setCameraControls(true);
   }
   const iconStyle = (iconName) => {
     const activeStyle = {
