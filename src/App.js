@@ -13,7 +13,7 @@ import Webcam from "react-webcam";
 import WebcamComponent from "./components/WebcamComponent";
 import Capture from "./components/Capture";
 import { initializeApp } from "firebase/app";
-import { firebaseConfig } from "./components/config";
+import { firebaseConfig } from "../helpers/apiKeys";
 import CloseIcon from "@mui/icons-material/Close";
 import {
   getAuth,
