@@ -48,7 +48,7 @@ export default function QRScan(props) {
     // return () => {
     //     qrScanner.stop();
     // }
-    console.log(hasCamera);
+    //console.log(hasCamera);
   }, [hasCamera]);
 
     return (

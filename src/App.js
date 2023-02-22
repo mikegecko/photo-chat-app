@@ -370,7 +370,7 @@ function App() {
       else{
         setSending(true);
         //get list of people to send to with message_chains
-        console.log('Sending Pic');
+        //console.log('Sending Pic');
       } 
     }
   }
@@ -422,7 +422,7 @@ function App() {
       querySnapshot.forEach((doc) => {
         if (doc.exists()) {
           i = doc;
-          console.log(doc.id);
+          //console.log(doc.id);
         } else {
           console.log("Could not retrieve userData");
         }
@@ -487,7 +487,7 @@ function App() {
       querySnapshot.forEach((doc) => {
         if (doc.exists()) {
           i = doc;
-          console.log(doc.id);
+          //console.log(doc.id);
         } else {
           console.log("Could not retrieve userData");
         }
@@ -507,7 +507,7 @@ function App() {
     }
     if(userData){
       updateRefreshUserData();
-      console.log(userData);
+      //console.log(userData);
     }
   },[userData])
   // Hook for sending images to users by using firebase cloud storage

@@ -352,8 +352,8 @@ export default function Chat(props) {
   }, [messageToSend]);
   useEffect(() => {
     async function updateMessageStatus(){
-      console.log('Update Message');
-      console.log(messageToUpdate);
+      //console.log('Update Message');
+      //console.log(messageToUpdate);
       const docRef = doc(db, `message_chains/${messageChainID}/messages`, messageToUpdate.docId);
       await setDoc(docRef, { viewed: true}, {merge: true});
     }
@@ -368,7 +368,7 @@ export default function Chat(props) {
 
   //Debugging state
   useEffect(() => {
-    console.log(messages);
+    //console.log(messages);
   }, [messages]);
 
   //Desktop View
