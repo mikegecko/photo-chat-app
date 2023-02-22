@@ -154,12 +154,19 @@ export default function Chat(props) {
         setChain(chain);
       }
     }
+    async function setUserReadState(){
+      // On chat open we have 'read' the message so set userDoc.friends.unread to false
+      const newUserData = {...props.userData , friends: [...props.userData.friends]};
+      newUserData.friends[props.friend].unread = false;
+      props.setStateOfUserData(newUserData);
+    }
 // !!! useRef workaround is ill-advised, look into other solutions
     if (mountRef.current) {
       mountRef.current = false;
       //console.log(messageChainID);
       getAndCreateMessageChain();
       //getAndCreateMessageCollection();
+      setUserReadState();
     }
 
     const timer = setTimeout(() => {
@@ -254,6 +261,25 @@ export default function Chat(props) {
   }, [messageChainID]);
   // This useEffect handles sending messages to DB and refreshing the messages state
   useEffect(() => {
+    async function getUser (userid) {
+      try {
+        const q = query(usersRef, where("__name__", "==", userid));
+        const querySnapshot = await getDocs(q);
+        let i;
+        //This could cause bugs if there is more than one result for query
+        querySnapshot.forEach((doc) => {
+          if (doc.exists()) {
+            i = doc;
+            //console.log(doc.id);
+          } else {
+            console.log("Could not retrieve user");
+          }
+        });
+        return i;
+      } catch (error) {
+        console.error(error);
+      }
+    }
     async function getMessageCollection() {
       const querySnapshot = await getDocs(
         collection(db, `message_chains/${messageChainID}/messages`)
@@ -269,6 +295,24 @@ export default function Chat(props) {
       });
       return messageArray;
     }
+    async function setFriendReadState() {
+      const friendDoc = await getUser(props.userData.friends[props.friend].id);
+      if(!friendDoc){
+        console.error("Error: Could not retrive friend");
+      }else{
+        const friendRef = doc(db, "users", friendDoc.id);
+          let userIndex = null;
+          friendDoc.data().friends.forEach((el,index) => {
+            if(el.id === props.userID){
+              userIndex = index;
+            }
+          })
+          const newReadState = {friends: [...friendDoc.data().friends]};
+          newReadState.friends[userIndex].unread = true;
+          await setDoc( friendRef, newReadState , {merge: true});
+        
+      }
+    }
     async function sendMessage(messageText) {
       try {
         const docRef = await addDoc(
@@ -282,6 +326,8 @@ export default function Chat(props) {
         await setDoc(docRef, {docId: docRef.id}, {merge: true});
         //console.log("Sending message");
         //console.log(docRef.id);
+        // Set unread to true in friendDoc
+        await setFriendReadState();
         return docRef;
       } catch (error) {
         console.error(error);
