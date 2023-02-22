@@ -13,7 +13,6 @@ ________________________________________________
     
     🔴 Implement message notifications - notifiaction: true/false in each friend -> gets updated when you send a message to a friend and when a user views the chat
     🟠 Add functions for deleting images once viewed - set imageURL to an image-deleted URL & delete cloud storage
-    🟠 Add back buttons to following pages settings/friends/profile/notifications - brings you back to camera page. Chat back button will bring you back to friends
     🟡 Fix not being able to quick end viewing
     🟡 Fix QRScan page - improve integration into friend component or move to its own page - make it fill page
     🟡 Fix camera not filling up whole area
@@ -146,6 +145,8 @@ ________________________________________________
     ✅  Add ability to add text to images
     ✅  Add caption data as part of messages
     ✅  Display captions on images in both mobile and desktop chats
+    ✅  Add back buttons to following pages settings/friends/profile/notifications - brings you back to camera page. Chat back button will bring you back to friends
+
 
 
 
