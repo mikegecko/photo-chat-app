@@ -46,6 +46,7 @@ export default function StyledImageMessage(props) {
     borderRadius: ".7rem .7rem 0 .7rem",
   };
   const captionStyle = {
+    display: props.message.data.y < 40 ? 'none' : 'block',
     position: 'absolute',
     zIndex: 7,
      width: 1,
@@ -53,7 +54,7 @@ export default function StyledImageMessage(props) {
      padding: '4px',
      height: '1.4375em',
      fontSize: '1rem',
-     top: props.message.data.y, 
+     top: props.message.data.y - 80, 
      backgroundColor: 'rgba(31, 31, 31, 0.6)',
   }
 
@@ -145,7 +146,7 @@ export default function StyledImageMessage(props) {
     return (
       <Box key={props.id} sx={() => styleMessage()} bgcolor={props.userID === props.message.sender ? 'message.main' : 'messageR.main'}>
         <ButtonBase onClick={viewEvent} sx={() => styleMessage()}>
-          {!view ? viewContent() : <Box sx={{backgroundColor: '#1f1f1f', position: 'fixed', top:'80px', left: '0', height: 'calc(100vh - 160px)', width: '100%', zIndex: 6}}><img
+          {!view ? viewContent() : <Box bgcolor='background.default' sx={{ position: 'fixed', top:'80px', left: '0', height: 'calc(100vh - 160px)', width: '100%', zIndex: 6}}><img
         css={css`
         position: fixed;
         display: flex;
