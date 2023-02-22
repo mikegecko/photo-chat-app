@@ -27,8 +27,7 @@ import { db, messageChainsRef, usersRef } from "../App";
 import SendIcon from "@mui/icons-material/Send";
 import StyledMessage from "./StyledMessage";
 import StyledImageMessage from "./StyledImageMessage";
-import ArrowBackIcon from '@mui/icons-material/ArrowBack';
-
+import ArrowBackIcon from "@mui/icons-material/ArrowBack";
 
 export default function Chat(props) {
   const [chain, setChain] = useState();
@@ -42,13 +41,18 @@ export default function Chat(props) {
   let mountRef = useRef(true);
   let idMountRef = useRef(true);
 
-
   const backMobile = {
-    position: 'absolute', top: '102px', left: '25px', zIndex: 1,
-  }
+    position: "absolute",
+    top: "102px",
+    left: "25px",
+    zIndex: 1,
+  };
   const backDesktop = {
-    position: 'absolute', top: '102px', left: 'calc(30% + 25px)', zIndex: 1,
-  }
+    position: "absolute",
+    top: "102px",
+    left: "calc(30% + 25px)",
+    zIndex: 1,
+  };
 
   // Sorts messages based on timestamp -> firebase has a built in system for returning documents ordered by timestamp
   const compareTimestamp = (a, b) => {
@@ -70,29 +74,26 @@ export default function Chat(props) {
 
   const setStateOfMessageToUpdate = (messageObj) => {
     setMessageToUpdate(messageObj);
-  }
+  };
   //On Mount Hook -> Handles message_chain document in firestore | Handles loading screen state
   useEffect(() => {
-    
     setLoading(true);
-    async function setFriendMessageChain (chainID) {
+    async function setFriendMessageChain(chainID) {
       const userRef = doc(db, "users", props.userData.friends[props.friend].id);
       const friendSnap = await getDoc(userRef);
-      if(friendSnap.exists()){
+      if (friendSnap.exists()) {
         let userIndex = null;
-        friendSnap.data().friends.forEach((el,index) => {
-          if(el.id === props.userID){
+        friendSnap.data().friends.forEach((el, index) => {
+          if (el.id === props.userID) {
             userIndex = index;
           }
-        })
-        const newFriends = {friends: [...friendSnap.data().friends]};
+        });
+        const newFriends = { friends: [...friendSnap.data().friends] };
         newFriends.friends[userIndex].message_chain = chainID;
-        await setDoc( userRef, newFriends , {merge: true});
+        await setDoc(userRef, newFriends, { merge: true });
+      } else {
+        console.log("Error getting user for message_chain creation.");
       }
-      else{
-        console.log("Error getting user for message_chain creation.")
-      }
-      
     }
     async function createMessageChain() {
       try {
@@ -100,7 +101,7 @@ export default function Chat(props) {
           timestamp: serverTimestamp(),
           users: [props.userID, props.userData.friends[props.friend].id],
         });
-        
+
         const newUserData = {
           ...props.userData,
           friends: [...props.userData.friends],
@@ -141,7 +142,7 @@ export default function Chat(props) {
         console.error(error);
       }
     }
-    
+
     async function getAndCreateMessageChain() {
       const chain = await getMessageChain();
       if (!chain) {
@@ -154,13 +155,16 @@ export default function Chat(props) {
         setChain(chain);
       }
     }
-    async function setUserReadState(){
+    async function setUserReadState() {
       // On chat open we have 'read' the message so set userDoc.friends.unread to false
-      const newUserData = {...props.userData , friends: [...props.userData.friends]};
+      const newUserData = {
+        ...props.userData,
+        friends: [...props.userData.friends],
+      };
       newUserData.friends[props.friend].unread = false;
       props.setStateOfUserData(newUserData);
     }
-// !!! useRef workaround is ill-advised, look into other solutions
+    // !!! useRef workaround is ill-advised, look into other solutions
     if (mountRef.current) {
       mountRef.current = false;
       //console.log(messageChainID);
@@ -208,33 +212,35 @@ export default function Chat(props) {
           timestamp: serverTimestamp(),
         }
       );
-      await setDoc(docRef, {docId: docRef.id}, {merge: true});
+      await setDoc(docRef, { docId: docRef.id }, { merge: true });
 
       //console.log("Creating New Messages");
       //console.log(docRef.id);
       return docRef;
     }
     // Subscribes to firebase events to update messages
-    async function subscribeToFirestoreMessaging () {
-      const q = query(collection(db, `message_chains/${messageChainID}/messages`))
+    async function subscribeToFirestoreMessaging() {
+      const q = query(
+        collection(db, `message_chains/${messageChainID}/messages`)
+      );
       const unsubscribe = onSnapshot(q, (querySnapshot) => {
         const m = [];
         const sources = [];
         let serverFlag = false;
         querySnapshot.forEach((doc) => {
           const source = doc.metadata.hasPendingWrites ? "Local" : "Server";
-          if(source === "Server"){
+          if (source === "Server") {
             serverFlag = true;
           }
           sources.push(source);
           m.push(doc.data());
         });
-        if(serverFlag){
+        if (serverFlag) {
           setMessages([...m]);
         }
-      })
+      });
     }
-    
+
     async function getAndCreateMessageCollection() {
       //console.log("Started Message Collection...");
       const messageArray = await getMessageCollection();
@@ -261,7 +267,7 @@ export default function Chat(props) {
   }, [messageChainID]);
   // This useEffect handles sending messages to DB and refreshing the messages state
   useEffect(() => {
-    async function getUser (userid) {
+    async function getUser(userid) {
       try {
         const q = query(usersRef, where("__name__", "==", userid));
         const querySnapshot = await getDocs(q);
@@ -297,20 +303,19 @@ export default function Chat(props) {
     }
     async function setFriendReadState() {
       const friendDoc = await getUser(props.userData.friends[props.friend].id);
-      if(!friendDoc){
+      if (!friendDoc) {
         console.error("Error: Could not retrive friend");
-      }else{
+      } else {
         const friendRef = doc(db, "users", friendDoc.id);
-          let userIndex = null;
-          friendDoc.data().friends.forEach((el,index) => {
-            if(el.id === props.userID){
-              userIndex = index;
-            }
-          })
-          const newReadState = {friends: [...friendDoc.data().friends]};
-          newReadState.friends[userIndex].unread = true;
-          await setDoc( friendRef, newReadState , {merge: true});
-        
+        let userIndex = null;
+        friendDoc.data().friends.forEach((el, index) => {
+          if (el.id === props.userID) {
+            userIndex = index;
+          }
+        });
+        const newReadState = { friends: [...friendDoc.data().friends] };
+        newReadState.friends[userIndex].unread = true;
+        await setDoc(friendRef, newReadState, { merge: true });
       }
     }
     async function sendMessage(messageText) {
@@ -323,7 +328,7 @@ export default function Chat(props) {
             timestamp: serverTimestamp(),
           }
         );
-        await setDoc(docRef, {docId: docRef.id}, {merge: true});
+        await setDoc(docRef, { docId: docRef.id }, { merge: true });
         //console.log("Sending message");
         //console.log(docRef.id);
         // Set unread to true in friendDoc
@@ -351,20 +356,23 @@ export default function Chat(props) {
     };
   }, [messageToSend]);
   useEffect(() => {
-    async function updateMessageStatus(){
+    async function updateMessageStatus() {
       //console.log('Update Message');
       //console.log(messageToUpdate);
-      const docRef = doc(db, `message_chains/${messageChainID}/messages`, messageToUpdate.docId);
-      await setDoc(docRef, { viewed: true}, {merge: true});
+      const docRef = doc(
+        db,
+        `message_chains/${messageChainID}/messages`,
+        messageToUpdate.docId
+      );
+      await setDoc(docRef, { viewed: true }, { merge: true });
     }
-    if(messageToUpdate !== null){
+    if (messageToUpdate !== null) {
       updateMessageStatus();
     }
     return () => {
       setMessageToUpdate(null);
-    }
-  }, [messageToUpdate])
-
+    };
+  }, [messageToUpdate]);
 
   //Debugging state
   useEffect(() => {
@@ -372,7 +380,7 @@ export default function Chat(props) {
   }, [messages]);
 
   //Desktop View
-  if(!props.mobileView){
+  if (!props.mobileView) {
     return (
       <ThemeProvider theme={props.theme}>
         <Box
@@ -382,112 +390,121 @@ export default function Chat(props) {
             flexDirection: "column",
           }}
         >
-        <Typography
-          variant="h4"
-          sx={{ paddingTop: "10px", paddingBottom: "8px" }}
-        >
-          Chat
-        </Typography>
-        <ButtonBase onClick={() => props.setStateOfAppPage('camera')} sx={backDesktop}>
-          <ArrowBackIcon />
-        </ButtonBase>
-        <Divider variant="fullWidth" />
-        <Box
-          sx={{
-            display: "flex",
-            height: "100%",
-            maxHeight: "100%",
-            flexDirection: "column-reverse",
-            overflowY: "scroll",
-          }}
-        >
-          {loading ? (
-            <Box
-              sx={{
-                display: "flex",
-                justifyContent: "center",
-                alignItems: "center",
-                padding: "1rem",
-              }}
-            >
-              <CircularProgress />
-            </Box>
-          ) : (
-            messages.sort(compareTimestamp).map((el, index) => {
-              if(el.imageURL){
-                return(
-                  <StyledImageMessage
-                  theme={props.theme}
-                  key={index}
-                  userID={props.userID}
-                  message={el}
-                  id={index} />
-                )
-              }
-              else{
-                return (
-                  <StyledMessage
-                    theme={props.theme}
-                    key={index}
-                    userID={props.userID}
-                    message={el}
-                    id={index}
-                  />
-                );
-              }
-            })
-          )}
-        </Box>
-        <Box
-          sx={{
-            bgcolor: "#0060c1",
-            padding: "8px",
-            display: "flex",
-            flexDirection: "row",
-            gap: "8px",
-          }}
-        >
-          <InputBase
-            value={tempMessage}
+          <Typography
+            variant="h4"
+            sx={{ paddingTop: "10px", paddingBottom: "8px" }}
+          >
+            Chat
+          </Typography>
+          <ButtonBase
+            onClick={() => props.setStateOfAppPage("camera")}
+            sx={backDesktop}
+          >
+            <ArrowBackIcon />
+          </ButtonBase>
+          <Divider variant="fullWidth" />
+          <Box
             sx={{
-              bgcolor: props.theme.palette.background.default,
-              borderRadius: ".5rem",
-              paddingLeft: "8px",
-              height: "2.7rem",
-              width: "100%",
               display: "flex",
-              alignItems: "center",
+              height: "100%",
+              maxHeight: "100%",
+              flexDirection: "column-reverse",
+              overflowY: "scroll",
             }}
-            placeholder="Send Message..."
-            variant="outlined"
-            size="small"
-            onChange={handleInputChangeEvent}
-            onKeyDown={(e) => {
-              if (e.key === "Enter") {
-                handleSendEvent();
-              }
+          >
+            {loading ? (
+              <Box
+                sx={{
+                  display: "flex",
+                  justifyContent: "center",
+                  alignItems: "center",
+                  padding: "1rem",
+                }}
+              >
+                <CircularProgress />
+              </Box>
+            ) : (
+              messages.sort(compareTimestamp).map((el, index) => {
+                if (el.imageURL) {
+                  return (
+                    <StyledImageMessage
+                      theme={props.theme}
+                      key={index}
+                      userID={props.userID}
+                      message={el}
+                      id={index}
+                    />
+                  );
+                } else {
+                  return (
+                    <StyledMessage
+                      theme={props.theme}
+                      key={index}
+                      userID={props.userID}
+                      message={el}
+                      id={index}
+                    />
+                  );
+                }
+              })
+            )}
+          </Box>
+          <Box
+            sx={{
+              bgcolor: "#0060c1",
+              padding: "8px",
+              display: "flex",
+              flexDirection: "row",
+              gap: "8px",
             }}
-          />
-          <Button variant="contained" color="success" onClick={handleSendEvent}>
-            <SendIcon />
-          </Button>
-        </Box>
+          >
+            <InputBase
+              value={tempMessage}
+              sx={{
+                bgcolor: props.theme.palette.background.default,
+                borderRadius: ".5rem",
+                paddingLeft: "8px",
+                height: "2.7rem",
+                width: "100%",
+                display: "flex",
+                alignItems: "center",
+              }}
+              placeholder="Send Message..."
+              variant="outlined"
+              size="small"
+              onChange={handleInputChangeEvent}
+              onKeyDown={(e) => {
+                if (e.key === "Enter") {
+                  handleSendEvent();
+                }
+              }}
+            />
+            <Button
+              variant="contained"
+              color="success"
+              onClick={handleSendEvent}
+            >
+              <SendIcon />
+            </Button>
+          </Box>
         </Box>
       </ThemeProvider>
     );
   }
   //Mobile view
-  else{
+  else {
     return (
       <ThemeProvider theme={props.theme}>
-        
         <Typography
           variant="h4"
           sx={{ paddingTop: "10px", paddingBottom: "8px" }}
         >
           Chat
         </Typography>
-        <ButtonBase onClick={() => props.setStateOfAppPage('friends')} sx={backMobile}>
+        <ButtonBase
+          onClick={() => props.setStateOfAppPage("friends")}
+          sx={backMobile}
+        >
           <ArrowBackIcon />
         </ButtonBase>
         <Divider variant="fullWidth" />
@@ -513,19 +530,19 @@ export default function Chat(props) {
             </Box>
           ) : (
             messages.sort(compareTimestamp).map((el, index) => {
-              if(el.imageURL){
-                return(
+              if (el.imageURL) {
+                return (
                   <StyledImageMessage
-                  setStateOfMessageToUpdate={setStateOfMessageToUpdate}
-                  mobileView={props.mobileView}
-                  theme={props.theme}
-                  key={index}
-                  userID={props.userID}
-                  message={el}
-                  id={index} />
-                )
-              }
-              else{
+                    setStateOfMessageToUpdate={setStateOfMessageToUpdate}
+                    mobileView={props.mobileView}
+                    theme={props.theme}
+                    key={index}
+                    userID={props.userID}
+                    message={el}
+                    id={index}
+                  />
+                );
+              } else {
                 return (
                   <StyledMessage
                     theme={props.theme}
