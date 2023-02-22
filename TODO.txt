@@ -10,8 +10,9 @@ ________________________________________________
 ________________________________________________
     Current Tasks
     ¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯
-    🟠 Caption bar doesnt keep same placement & style
-    
+    🟠 Image when viewed doesnt have same position as when it is taken
+    🟠 Caption bar display has different style than input
+    🟠 Fix snackbar themes
     🟠 Add functions for deleting images once viewed - set imageURL to an image-deleted URL & delete cloud storage
     🟡 Fix not being able to quick end viewing
     🟡 Fix QRScan page - improve integration into friend component or move to its own page - make it fill page
