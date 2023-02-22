@@ -315,7 +315,7 @@ function App() {
     signInWithGoogle();
   };
   const logoutEvent = (e) => {
-    console.log("Logged out");
+    //console.log("Logged out");
     setAppPage('camera');
     signOut(auth);
     setHideLogin(false);
