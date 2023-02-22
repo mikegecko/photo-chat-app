@@ -7,9 +7,8 @@ import ArrowForwardIcon from "@mui/icons-material/ArrowForward";
 import FlipCameraAndroidIcon from "@mui/icons-material/FlipCameraAndroid";
 import PhotoLibraryIcon from "@mui/icons-material/PhotoLibrary";
 import "./App.css";
-import { Alert, Avatar, Button, ButtonBase, CircularProgress, CssBaseline, Divider, IconButton, Snackbar, ThemeProvider, Typography } from "@mui/material";
-import { useCallback, useEffect, useReducer, useRef, useState } from "react";
-import Webcam from "react-webcam";
+import { Alert, Avatar, ButtonBase, CssBaseline, Divider, IconButton, Snackbar, ThemeProvider, Typography } from "@mui/material";
+import {  useEffect, useRef, useState } from "react";
 import WebcamComponent from "./components/WebcamComponent";
 import Capture from "./components/Capture";
 import { initializeApp } from "firebase/app";
@@ -17,9 +16,6 @@ import { firebaseConfig } from "./helpers/apiKeys";
 import CloseIcon from "@mui/icons-material/Close";
 import {
   getAuth,
-  onAuthStateChanged,
-  GoogleAuthProvider,
-  signInWithPopup,
   signOut,
 } from "firebase/auth";
 import {
@@ -27,8 +23,6 @@ import {
   collection,
   addDoc,
   query,
-  orderBy,
-  limit,
   onSnapshot,
   setDoc,
   updateDoc,
@@ -44,8 +38,7 @@ import {
   uploadBytesResumable,
   getDownloadURL,
 } from "firebase/storage";
-import { getMessaging, getToken, onMessage } from "firebase/messaging";
-import { getPerformance } from "firebase/performance";
+
 import Login from "./components/Login";
 import { useSignInWithGoogle } from "react-firebase-hooks/auth";
 import Profile from "./components/Profile";

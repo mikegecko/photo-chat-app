@@ -1,6 +1,5 @@
 import { ButtonBase, Divider, IconButton, List, ListItem, ListItemButton, ListItemText, ThemeProvider, Typography } from "@mui/material";
 import { Box } from "@mui/system";
-import CheckIcon from '@mui/icons-material/Check';
 import CloseIcon from '@mui/icons-material/Close';
 import ArrowBackIcon from '@mui/icons-material/ArrowBack';
 

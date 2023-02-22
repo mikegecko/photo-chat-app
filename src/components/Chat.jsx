@@ -3,9 +3,7 @@ import {
   ButtonBase,
   CircularProgress,
   Divider,
-  Input,
   InputBase,
-  TextField,
   ThemeProvider,
   Typography,
 } from "@mui/material";
@@ -22,7 +20,7 @@ import {
   setDoc,
   where,
 } from "firebase/firestore";
-import { useEffect, useReducer, useRef, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import { db, messageChainsRef, usersRef } from "../App";
 import SendIcon from "@mui/icons-material/Send";
 import StyledMessage from "./StyledMessage";

@@ -100,11 +100,11 @@ export default function StyledImageMessage(props) {
   };
   // Fix not being able to quick end viewing
   const viewEvent = (e) => {
-    //⚠️⚠️⚠️ UNDO THIS ⚠️⚠️⚠️
-    // if(props.userID === props.message.sender ){
-    //   // Ignore viewEvents if user is clicking own message 
-    //   return;
-    // }
+    
+    if(props.userID === props.message.sender ){
+      // Ignore viewEvents if user is clicking own message 
+      return;
+    }
     if(!show){
       //Message has already been viewed
       return;
