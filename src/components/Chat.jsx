@@ -27,6 +27,8 @@ import { db, messageChainsRef, usersRef } from "../App";
 import SendIcon from "@mui/icons-material/Send";
 import StyledMessage from "./StyledMessage";
 import StyledImageMessage from "./StyledImageMessage";
+import ArrowBackIcon from '@mui/icons-material/ArrowBack';
+
 
 export default function Chat(props) {
   const [chain, setChain] = useState();
@@ -40,6 +42,13 @@ export default function Chat(props) {
   let mountRef = useRef(true);
   let idMountRef = useRef(true);
 
+
+  const backMobile = {
+    position: 'absolute', top: '102px', left: '25px', zIndex: 1,
+  }
+  const backDesktop = {
+    position: 'absolute', top: '102px', left: 'calc(30% + 25px)', zIndex: 1,
+  }
 
   // Sorts messages based on timestamp -> firebase has a built in system for returning documents ordered by timestamp
   const compareTimestamp = (a, b) => {
@@ -333,6 +342,9 @@ export default function Chat(props) {
         >
           Chat
         </Typography>
+        <ButtonBase onClick={() => props.setStateOfAppPage('camera')} sx={backDesktop}>
+          <ArrowBackIcon />
+        </ButtonBase>
         <Divider variant="fullWidth" />
         <Box
           sx={{
@@ -429,6 +441,9 @@ export default function Chat(props) {
         >
           Chat
         </Typography>
+        <ButtonBase onClick={() => props.setStateOfAppPage('friends')} sx={backMobile}>
+          <ArrowBackIcon />
+        </ButtonBase>
         <Divider variant="fullWidth" />
         <Box
           sx={{

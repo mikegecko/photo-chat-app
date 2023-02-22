@@ -124,7 +124,7 @@ function App() {
       case "friends-sending":
         return <Friends  isSending={true} setStateOfSendList={setStateOfSendList} sending={sending} friend={friend} capture={capture} userData={userData} userID={userID} theme={theme} setStateOfUserData={setStateOfUserData} />;
       case "chat":
-        return <Chat key={friend} mobileView={mobileView} friend={friend} userData={userData} userID={userID} theme={theme} setStateOfUserData={setStateOfUserData} />
+        return <Chat setStateOfAppPage={setStateOfAppPage} key={friend} mobileView={mobileView} friend={friend} userData={userData} userID={userID} theme={theme} setStateOfUserData={setStateOfUserData} />
       case "notifications":
         return(<Notifications setStateOfAppPage={setStateOfAppPage} mobileView={mobileView} userData={userData} theme={theme} />)
       case "settings":
@@ -173,7 +173,10 @@ function App() {
   }
   const setStateOfAppPage = (pageStr) => {
     setAppPage(pageStr);
-    setCameraControls(true);
+    if(pageStr === 'camera')
+    {
+      setCameraControls(true);
+    }
   }
   const iconStyle = (iconName) => {
     const activeStyle = {
