@@ -10,7 +10,8 @@ ________________________________________________
 ________________________________________________
     Current Tasks
     ¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯
-    🟠 Sending an image needs to update unread status
+    🟠 Caption bar doesnt keep same placement & style
+    
     🟠 Add functions for deleting images once viewed - set imageURL to an image-deleted URL & delete cloud storage
     🟡 Fix not being able to quick end viewing
     🟡 Fix QRScan page - improve integration into friend component or move to its own page - make it fill page
@@ -40,13 +41,8 @@ ________________________________________________
     ⚫ add drag up to refresh in chat/friends/etc. -> not needed now that i have realtime updates set up?
     🔵 Add swipe animation between friend and chat pages
     🔵 Add water wave transition between pages
-    🔵 Add ability to add text bar to image
     🔵 Redesign App UI bars
     🔵 Add custom icons
-    🔵 Complete Notification pane design
-    🔵 Complete Friends Pane design
-    🔵 Complete Settings Pane design
-    🔵 Complete Avatar/Profile pane design
     🔵 Error message for failed sign-in
     ____________________________________________
     BACKEND/Firebase
@@ -148,6 +144,8 @@ ________________________________________________
     ✅  Fix snackbar theme colors
     ✅  Fix add friend dialog theme colors
     ✅  Add light mode theme for chat messages
+    ✅  Add ability to add text bar to image
+    ✅  Sending an image needs to update unread status
 
 
 
