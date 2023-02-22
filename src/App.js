@@ -429,7 +429,6 @@ function App() {
       });
       return(i);
     }
-    // Figure out how to avoid infinite loop
     async function subscribeToFirestore (userDoc) {
       const unsubscribe = onSnapshot(doc(usersRef, userDoc.id), (doc) => {
         const source = doc.metadata.hasPendingWrites ? "Local" : "Server";
