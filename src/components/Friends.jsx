@@ -1,3 +1,6 @@
+/* eslint-disable array-callback-return */
+/* eslint-disable react-hooks/exhaustive-deps */
+/* eslint-disable no-unused-vars */
 import {
   Alert,
   Button,
@@ -37,7 +40,6 @@ import ArrowBackIcon from '@mui/icons-material/ArrowBack';
 
 
 export default function Friends(props) {
-  const [checked, setChecked] = useState(false);
   const [addFriendDialog, setAddFriendDialog] = useState(false);
   const [removeFriendDialog, setRemoveFriendDialog] = useState(false);
   const [friendCode, setFriendCode] = useState('');

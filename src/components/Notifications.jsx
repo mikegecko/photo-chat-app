@@ -1,3 +1,4 @@
+/* eslint-disable array-callback-return */
 import { ButtonBase, Divider, IconButton, List, ListItem, ListItemButton, ListItemText, ThemeProvider, Typography } from "@mui/material";
 import { Box } from "@mui/system";
 import CloseIcon from '@mui/icons-material/Close';

@@ -1,4 +1,4 @@
-import { ButtonBase, InputBase, TextField } from "@mui/material";
+import { ButtonBase, InputBase } from "@mui/material";
 import CloseIcon from "@mui/icons-material/Close";
 import { Box } from "@mui/system";
 import { useEffect, useState } from "react";
@@ -69,13 +69,11 @@ export default function Capture({window_width, window_height, capture, closeEven
   const handleMouseUp = (e) => {
     setIsDragging(false);
   }
-  const handleTextFieldBlur = (e) => {
-    setShowTextField(false);
-  }
 
   useEffect(() => {
     const data = {content: textFieldValue, x: textFieldPos.x , y: textFieldPos.y}
     setStateOfCaptureData(data);
+  // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [textFieldPos, textFieldValue])
 
   return (
