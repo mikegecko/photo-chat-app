@@ -12,8 +12,8 @@ ________________________________________________
     ¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯
     🟠 Image when viewed doesnt have same position as when it is taken
     🟠 Caption bar display has different style than input
-    🟠 Fix snackbar themes
     🟠 Add functions for deleting images once viewed - set imageURL to an image-deleted URL & delete cloud storage
+    🟡 Fix snackbar themes
     🟡 Fix not being able to quick end viewing
     🟡 Fix QRScan page - improve integration into friend component or move to its own page - make it fill page
     🟡 Fix camera not filling up whole area
@@ -53,7 +53,7 @@ ________________________________________________
 ________________________________________________
                      BUGS
 ________________________________________________
-
+    ⚠️ Image message doesnt display at right height on mobile???
     ⚠️ Chat messages jumps from top to bottom
     ⚠️ Login page loading button flickers when going from loading to onLoadDelay prop
     ⚠️ Camera loading sometimes hangs really badly in both webcam and qr components
