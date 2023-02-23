@@ -24,8 +24,8 @@ This project was created with [Create React App](https://github.com/facebook/cre
 - [qr-scanner](https://github.com/nimiq/qr-scanner)
 - [qrcode.react](https://github.com/zpao/qrcode.react)
 
-## Live [Demo]()
-    [![Netlify Status](https://api.netlify.com/api/v1/badges/91cb4c46-5404-4003-96ed-f241add3b987/deploy-status)](https://app.netlify.com/sites/helpful-cendol-c468f7/deploys)
+## Live [Demo](https://helpful-cendol-c468f7.netlify.app/)
+    ![Netlify Status](https://api.netlify.com/api/v1/badges/91cb4c46-5404-4003-96ed-f241add3b987/deploy-status)](https://app.netlify.com/sites/helpful-cendol-c468f7/deploys)
 
 ## License
 PicFlo is released under the MIT license. See [LICENSE](https://mit-license.org/) for more information.
